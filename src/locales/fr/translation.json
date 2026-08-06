@@ -63,5 +63,17 @@
     "submit": "Envoyer",
     "submitSuccess": "Votre inscription a bien été envoyée.",
     "submitError": "Une erreur est survenue lors de l'envoi de votre inscription. Veuillez réessayer."
+  },
+  "guide": {
+    "title": "Les guides",
+    "label": "Guide",
+    "picture": "Photo de profile",
+    "firstName": "Prénom",
+    "lastName": "Nom de famille",
+    "phone": "Téléphone",
+    "email": "Email"
+  },
+  "errors": {
+    "notFound": "Any data found."
   }
 }

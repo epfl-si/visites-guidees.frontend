@@ -9,8 +9,8 @@ import {
   TableCell,
 } from "@/components/ui/table";
 
-export const LastReservationsTable = ({ lastReservations }: { lastReservations: LastReservation[] }) => {
-  if (!lastReservations || lastReservations.length === 0) {
+export const Reservations = ({ reservations }: { reservations: LastReservation[] }) => {
+  if (!reservations || reservations.length === 0) {
     return <p className="text-center text-muted-foreground p-4">Aucune réservation trouvée.</p>;
   }
 
@@ -33,7 +33,7 @@ export const LastReservationsTable = ({ lastReservations }: { lastReservations: 
               </TableRow>
             </TableHeader>
             <TableBody>
-              {lastReservations.map((reservation) => (
+              {reservations.map((reservation) => (
                 <TableRow key={reservation.id}>
                   <TableCell>
                     {reservation.company}
