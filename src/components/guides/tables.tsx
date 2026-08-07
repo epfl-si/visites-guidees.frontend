@@ -10,6 +10,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useTranslation } from "react-i18next"
 import { Loader2 } from "lucide-react"
+import { AddGuideDialog } from "./addGuideDialog"
 
 export const GuideInfoTable = ({
   guideInfo,
@@ -22,8 +23,9 @@ export const GuideInfoTable = ({
 
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="flex items-center justify-between">
         <CardTitle>{t("guide.title")}</CardTitle>
+        <AddGuideDialog />
       </CardHeader>
       <CardContent>
         {isLoading ? (
