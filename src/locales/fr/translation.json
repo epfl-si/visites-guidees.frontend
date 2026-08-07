@@ -71,7 +71,10 @@
     "firstName": "Prénom",
     "lastName": "Nom de famille",
     "phone": "Téléphone",
-    "email": "Email"
+    "email": "Email",
+    "add": "Ajouter un guide",
+    "searching": "Searching...",
+    "noResult": "Aucun résultat"
   },
   "errors": {
     "notFound": "Any data found."

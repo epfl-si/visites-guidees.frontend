@@ -5,3 +5,9 @@ export type UserType = {
   roles: string[],
   image?: string,
 }
+
+export type ResponseUserAPI = {
+  sciper: string
+  firstName: string,
+  lastName: string,
+}

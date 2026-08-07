@@ -70,7 +70,10 @@
     "firstName": "First name",
     "lastName": "Last name",
     "phone": "Phone",
-    "email": "Email"
+    "email": "Email",
+    "add": "Add un guide",
+    "searching": "Searching...",
+    "noResult": "No results found"
   },
   "errors": {
     "notFound": "Any data found."

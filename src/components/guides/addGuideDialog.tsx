@@ -91,6 +91,7 @@ export const AddGuideDialog = () => {
                   </span>
                 </div>
                 <div className="flex">
+                <div>
                   <span className="m-1 text-muted-foreground">
                     {user.sciper}
                   </span>
@@ -98,6 +99,7 @@ export const AddGuideDialog = () => {
                     {t("actions.add")}
                   </Button>
                 </div>
+              </div>
               </div>
             ))}
         </div>
