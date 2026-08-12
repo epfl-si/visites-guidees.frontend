@@ -57,10 +57,10 @@ jobs:
           TAG=${{ inputs.tag }}
           echo "Push image $IMAGE_ID:$TAG"
 
-          docker tag backend $IMAGE_ID:$TAG
+          docker tag frontend $IMAGE_ID:$TAG
           docker push $IMAGE_ID:$TAG
 
-          docker tag backend $IMAGE_ID:latest
+          docker tag frontend $IMAGE_ID:latest
           docker push $IMAGE_ID:latest
 
       - name: Build success
