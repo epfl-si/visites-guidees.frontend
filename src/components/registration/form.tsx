@@ -156,7 +156,6 @@ export default function RegistrationForm({
     setIsSubmitting(true);
     try {
       await postRegistration(
-        import.meta.env.GUIDED_TOURS_REACT_APP_BACKEND_ENDPOINT_URL,
         formDataToSubmit
       );
       alert(t("registration.submitSuccess"));

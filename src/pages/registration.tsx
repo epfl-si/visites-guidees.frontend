@@ -5,6 +5,7 @@ import type { PlaceInformationType } from "@/types/register"
 import type {State} from "@epfl-si/react-appauth";
 import { useState,useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { env } from '@/lib/env';
 
 
 export default function Registration({ user: _user, oidc:_oidc }: { user: UserType, oidc: State }) {
@@ -20,7 +21,7 @@ export default function Registration({ user: _user, oidc:_oidc }: { user: UserTy
     const fetchVisit = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.GUIDED_TOURS_REACT_APP_BACKEND_ENDPOINT_URL}/api/place/${placeIdString}`
+          `${env().VITE_GUIDED_TOURS_BACKEND_URL}place/${placeIdString}`
         );
 
         if (!response.ok) {
