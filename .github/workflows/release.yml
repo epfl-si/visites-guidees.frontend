@@ -39,3 +39,21 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       tag: ${{ needs.detect-version.outputs.version }}
+
+  create-release:
+    needs: [detect-version, build]
+    if: needs.build.outputs.build_success == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Create release
+        uses: dwesh163/actions/release@main
+        with:
+          version: ${{ needs.detect-version.outputs.version }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
