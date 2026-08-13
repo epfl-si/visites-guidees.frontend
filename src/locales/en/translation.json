@@ -62,5 +62,14 @@
     "submit": "Send",
     "submitSuccess": "Your registration has been sent successfully.",
     "submitError": "An error occurred while sending your registration. Please try again."
+  },
+  "reservation": {
+    "status": {
+      "WAITINGGUIDE": "Waiting for Guide",
+      "WAITINGVALIDATION": "Waiting for Validation",
+      "WAITINGPAYMENT": "Waiting for Payment",
+      "READY": "Ready",
+      "CANCELLED": "Cancelled"
+    }
   }
 }

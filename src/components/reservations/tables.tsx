@@ -8,8 +8,12 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
+import { RESERVATION_STATUS } from "@/constants/status";
+import { useTranslation } from 'react-i18next';
 
 export const LastReservationsTable = ({ lastReservations }: { lastReservations: LastReservation[] }) => {
+  const { t } = useTranslation();
+
   if (!lastReservations || lastReservations.length === 0) {
     return <p className="text-center text-muted-foreground p-4">Aucune réservation trouvée.</p>;
   }
@@ -33,18 +37,30 @@ export const LastReservationsTable = ({ lastReservations }: { lastReservations: 
               </TableRow>
             </TableHeader>
             <TableBody>
-              {lastReservations.map((reservation) => (
-                <TableRow key={reservation.id}>
-                  <TableCell>
-                    {reservation.company}
-                  </TableCell>
-                  <TableCell>{reservation.email}</TableCell>
-                  <TableCell>{new Date(reservation.visitDate).toLocaleDateString ()}</TableCell>
-                  <TableCell>
-                    {reservation.status.status}
-                  </TableCell>
-                </TableRow>
-              ))}
+              {lastReservations.map((reservation) => {
+                const statusConfig = RESERVATION_STATUS[reservation.status];
+                if (!statusConfig) return null;
+                const StatusIcon = statusConfig.icon;
+
+                return (
+                  <TableRow key={reservation.id}>
+                    <TableCell>{reservation.company ?? "-"}</TableCell>
+                    <TableCell>{reservation.email}</TableCell>
+                    <TableCell>{new Date(reservation.date).toLocaleDateString()}</TableCell>
+
+                    <TableCell>
+                      <div className={`flex items-center gap-2 ${statusConfig.colorClass}`}>
+                        <StatusIcon className="w-4 h-4" />
+
+                        <span className="text-sm font-medium">
+                          {t(statusConfig.labelKey)}
+                        </span>
+
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </div>
