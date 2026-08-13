@@ -12,7 +12,7 @@ interface ApiCallOptions {
   body?: unknown;
 }
 
-const BASE_URL = env().VITE_GUIDED_TOURS_BACKEND_URL || 'http://localhost:3000/api/';
+const BASE_URL = env().GUIDED_TOURS_BACKEND_URL || 'http://localhost:3000/v1/';
 
 export async function apiCall<T>(
   endpoint: string,
