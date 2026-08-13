@@ -1,12 +1,13 @@
 import { apiCall } from "@/lib/api";
 import type { LastReservation } from "@/types/reservation";
 
-const VERSION = "v1"
+const VERSION = "v1";
+const ENDPOINT = "reservations";
 
 export async function postRegistration(
   data: Record<string, any>
 ) {
-  const url = `${VERSION}/reservation/register`;
+  const url = `${VERSION}/${ENDPOINT}/register`;
   if (!data) {
     throw new Error('Data is required to post registration');
   }
@@ -17,7 +18,7 @@ export async function postRegistration(
 }
 
 export async function getLastReservations() {
-  return await apiCall<LastReservation[]>(`${VERSION}/reservation/last`, {
+  return await apiCall<LastReservation[]>(`${VERSION}/${ENDPOINT}/?order=asc&limit=10`, {
     method: 'GET',
-  })
+  });
 }

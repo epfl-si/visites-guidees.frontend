@@ -1,4 +1,5 @@
 import { env } from "./env";
+import type { ApiResponse } from "@/types/api";
 
 let globalAccessToken: string | null = null;
 
@@ -44,7 +45,8 @@ export async function apiCall<T>(
 
   const response = await fetch(url, fetchOptions);
   if (response.ok) {
-    return await response.json();
+    const json = (await response.json()) as ApiResponse<T>;
+    return json.data as T;
   } else {
     throw new Error(`Failed to fetch backend API: ${url} (${response.status})`);
   }
