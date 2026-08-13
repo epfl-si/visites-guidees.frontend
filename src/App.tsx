@@ -36,12 +36,12 @@ export default function App() {
     try {
       const data = await fetchConnectedUser();
       setConnectedUser({
-        firstName: data.firstName,
-        lastName: data.lastName,
-        groups: data.groups,
-        username: data.gaspar,
-        isAdmin: data.isAdmin,
-        isGuide: data.isGuide,
+        firstName: data.data.firstName,
+        lastName: data.data.lastName,
+        groups: data.data.groups,
+        username: data.data.gaspar,
+        isAdmin: data.data.isAdmin,
+        isGuide: data.data.isGuide,
       });
     } catch (error) {
       console.log('ConnectedUser Error', error);
