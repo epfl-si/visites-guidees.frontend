@@ -17,7 +17,8 @@ export default function App() {
     firstName: '',
     lastName: '',
     groups: [],
-    username: '',
+    roles: [],
+    username: "",
     isAdmin: false,
     isGuide: false,
   });
@@ -38,8 +39,8 @@ export default function App() {
       setConnectedUser({
         firstName: data.data.firstName,
         lastName: data.data.lastName,
-        groups: data.data.groups,
         username: data.data.gaspar,
+        roles: data.data.roles,
         isAdmin: data.data.isAdmin,
         isGuide: data.data.isGuide,
       });
@@ -57,7 +58,7 @@ export default function App() {
             <Route path="/" element={<Page />} />
             <Route path="/:placeId/register" element={<Registration user={connectedUser} oidc={oidc} />} />
             <Route path="/:placeId/inscription" element={<Registration user={connectedUser} oidc={oidc} />} />
-            <Route element={<RequireAdmin user={connectedUser} />}>
+            <Route element={<RequireRole role="admin" user={connectedUser} />}>
               <Route element={<AdminLayout />}>
                 {/* All routes that here require admin permission */}
                 <Route path="/admin" element={<Admin />} />

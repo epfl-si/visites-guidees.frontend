@@ -1,10 +1,8 @@
 export type UserType = {
   firstName: string,
   lastName: string,
-  groups: string[],
   username: string,
-  isAdmin: boolean,
-  isGuide: boolean,
+  roles: string[],
   image?: string,
-  [key: string]: any,
+  [key: string]: unknown,
 }
