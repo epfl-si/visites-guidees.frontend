@@ -11,7 +11,7 @@ export const RESERVATION_STATUS: Record<ReservationStatus, StatusConfig> = {
   WAITINGGUIDE: {
     icon: UserSearch,
     labelKey: "reservation.status.WAITINGGUIDE",
-    colorClass: "text-blue-600",
+    colorClass: "text-indigo-600",
   },
   WAITINGVALIDATION: {
     icon: FileClock,
