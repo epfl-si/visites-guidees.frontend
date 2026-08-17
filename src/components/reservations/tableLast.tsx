@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/table";
 import { RESERVATION_STATUS } from "@/constants/status";
 import { useTranslation } from 'react-i18next';
+import { Link } from "react-router";
 
 export const LastReservationsTable = ({ lastReservations }: { lastReservations: LastReservation[] }) => {
   const { t } = useTranslation();
@@ -22,7 +23,9 @@ export const LastReservationsTable = ({ lastReservations }: { lastReservations: 
     <Card className="">
       <CardHeader>
         <CardTitle>
-          {t("reservation.lastReservations")}
+          <Link to="/admin/reservation" className="hover:text-destructive hover:underline">
+            {t("reservation.lastReservations")}
+          </Link>
         </CardTitle>
       </CardHeader>
       <CardContent>
