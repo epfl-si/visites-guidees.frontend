@@ -95,5 +95,11 @@
     "name": "Name",
     "phoneNumber": "Phone number",
     "language": "Language(s)"
+  },
+  "admin": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "reservations": "Reservations"
+    }
   }
 }

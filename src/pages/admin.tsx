@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LastReservationsTable } from "@/components/reservations/tables";
+import { LastReservationsTable } from "@/components/reservations/tableLast";
 import { getLastReservations } from "@/services/reservation";
 import type { LastReservation } from "@/types/reservation";
 import { LoadingPage } from "./Loading";

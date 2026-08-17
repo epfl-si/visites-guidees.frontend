@@ -10,6 +10,7 @@ import Registration from '@/pages/registration';
 import Admin from '@/pages/admin';
 import { RequireAdmin } from '@/auth/RequireAdmin';
 import { setGlobalAccessToken } from '@/lib/api';
+import Reservation from './pages/reservation';
 
 export default function App() {
   const oidc = useOpenIDConnectContext();
@@ -61,6 +62,7 @@ export default function App() {
               <Route element={<AdminLayout />}>
                 {/* All routes that here require admin permission */}
                 <Route path="/admin" element={<Admin />} />
+                <Route path="/admin/reservation" element={<Reservation />} />
               </Route>
 
             </Route>

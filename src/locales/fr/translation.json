@@ -96,5 +96,11 @@
     "name": "Nom",
     "phoneNumber": "Numéro de téléphone",
     "language": "Langue(s)"
+  },
+  "admin": {
+    "nav": {
+      "dashboard": "Tableau de bord",
+      "reservations": "Reservations"
+    }
   }
 }
