@@ -1,5 +1,5 @@
 import { apiCall } from "@/lib/api";
-import type { LastReservation } from "@/types/reservation";
+import type { Reservation, LastReservation } from "@/types/reservation";
 
 const VERSION = "v1";
 const ENDPOINT = "reservations";
@@ -19,6 +19,12 @@ export async function postRegistration(
 
 export async function getLastReservations() {
   return await apiCall<LastReservation[]>(`${VERSION}/${ENDPOINT}/?order=asc&limit=10`, {
+    method: 'GET',
+  });
+}
+
+export async function getReservations() {
+  return await apiCall<Reservation[]>(`${VERSION}/${ENDPOINT}/`, {
     method: 'GET',
   });
 }

@@ -7,8 +7,8 @@ export function AdminNav() {
   const { t } = useTranslation();
 
   const NAV_ITEMS = [
-    { href: "/admin", label: t("admin.nav.dashboard"), Icon: LayoutPanelLeft },
-    { href: "/admin/reservation", label: t("admin.nav.reservations"), Icon: Calendar },
+    { href: "/admin/", label: t("admin.nav.dashboard"), Icon: LayoutPanelLeft },
+    { href: "/admin/reservation/", label: t("admin.nav.reservations"), Icon: Calendar },
   ];
 
   return (

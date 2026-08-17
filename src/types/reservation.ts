@@ -4,7 +4,7 @@ export type Reservation = {
   id: number;
   firstName: string;
   lastName: string;
-  entreprise: string;
+  company: string;
   email: string;
   phone: string;
   address: string;
@@ -17,7 +17,7 @@ export type Reservation = {
   createdAt: Date;
   payment: string;
   numberOfParticipant: number;
-  statusId: number;
+  status: ReservationStatus;
   languageId: number;
   placeId: number;
 }
