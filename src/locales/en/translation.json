@@ -64,7 +64,11 @@
     "submitError": "An error occurred while sending your registration. Please try again."
   },
   "reservation": {
+    "title": "Reservation",
     "lastReservations": "Last 10 reservations",
+    "noResults": "No result for this search.",
+    "allStatus": "All",
+    "notFoundDescription": "Currently nobody have reserve a guided tour.",
     "status": {
       "WAITINGGUIDE": "Waiting for Guide",
       "WAITINGVALIDATION": "Waiting for Validation",

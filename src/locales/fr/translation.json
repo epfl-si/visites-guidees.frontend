@@ -65,7 +65,12 @@
     "submitError": "Une erreur est survenue lors de l'envoi de votre inscription. Veuillez réessayer."
   },
   "reservation": {
+    "title": "Réservation",
     "lastReservations": "10 dernières reservations",
+    "noResults": "Aucun résultat pour cette recherche.",
+    "allStatus": "Tous",
+    "notFound": "Aucune reservation trouvée.",
+    "notFoundDescription": "Actuellement Il n'y a aucune reservation.",
     "status": {
       "WAITINGGUIDE": "Attente Guide",
       "WAITINGVALIDATION": "Attente Validation",

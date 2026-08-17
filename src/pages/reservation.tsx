@@ -1,7 +1,7 @@
 import type { Reservation } from "@/types/reservation"
 import { useEffect, useState } from "react";
 import { Empty, EmptyHeader, EmptyDescription, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
-import { Calendar, Search } from "lucide-react";
+import { ArrowLeft, Calendar, Search } from "lucide-react";
 import { getReservations } from "@/services/reservation";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useTranslation } from "react-i18next";
@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Link } from "react-router";
 
 export default function Reservation() {
   const [reservations, setReservations] = useState<Reservation[]>([]);
@@ -34,11 +35,20 @@ export default function Reservation() {
 
     const query = searchQuery.toLowerCase().trim();
 
-    return Object.values(reservation).some((value) => {
+    const matchInValues = Object.values(reservation).some((value) => {
       if (value === null || value === undefined) return false;
-
       return String(value).toLowerCase().includes(query);
     });
+
+    let matchInTranslatedStatus = false;
+    const statusConfig = RESERVATION_STATUS[reservation.status as keyof typeof RESERVATION_STATUS];
+
+    if (statusConfig) {
+      const translatedStatus = t(statusConfig.labelKey).toLowerCase();
+      matchInTranslatedStatus = translatedStatus.includes(query);
+    }
+
+    return matchInValues || matchInTranslatedStatus;
   };
 
   const filteredReservations = reservations.filter((reservation) => {
@@ -50,7 +60,7 @@ export default function Reservation() {
     });
 
   const getSelectedLabel = () => {
-      if (statusFilter === "ALL") return t("table.allStatuses", "Tous les statuts");
+      if (statusFilter === "ALL") return t("reservation.allStatus");
 
       const config = RESERVATION_STATUS[statusFilter as keyof typeof RESERVATION_STATUS];
       return config ? t(config.labelKey) : statusFilter;
@@ -63,9 +73,9 @@ export default function Reservation() {
           <EmptyMedia variant="icon">
             <Calendar />
           </EmptyMedia>
-          <EmptyTitle>No reservation found</EmptyTitle>
+          <EmptyTitle>{t("reservation.notFound")}</EmptyTitle>
           <EmptyDescription>
-            Currently nobody have reserve a guided tour.
+            {t("reservation.notFoundDescription")}
           </EmptyDescription>
         </EmptyHeader>
       </Empty >
@@ -75,6 +85,12 @@ export default function Reservation() {
   return (
     <>
       <div className="flex-1 p-8 overflow-auto w-full mr-10">
+        <div className="flex items-center gap-3 h-10 mb-8">
+          <Link to="/admin" className="text-muted-foreground hover:text-foreground transition-colors">
+            <ArrowLeft className="h-5 w-5"/>
+          </Link>
+          <h2 className="text-2xl font-bold">{t("reservation.title")}</h2>
+        </div>
         <div className="flex flex-col gap-6">
           <div className="flex gap-4">
             <div className="relative flex-1 flex items-center">
@@ -99,7 +115,7 @@ export default function Reservation() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="ALL">
-                  {t("table.allStatuses", "Tous les statuts")}
+                  {t("reservation.allStatus")}
                 </SelectItem>
                 {Object.entries(RESERVATION_STATUS).map(([key, config]) => (
                   <SelectItem key={key} value={key}>
@@ -123,7 +139,7 @@ export default function Reservation() {
           {filteredReservations.length === 0 ? (
             <TableRow>
               <TableCell colSpan={4} className="h-24 text-center text-muted-foreground">
-                {t("table.noResults", "Aucun résultat pour cette recherche.")}
+                {t("reservation.noResults")}
               </TableCell>
             </TableRow>
           ) : (
