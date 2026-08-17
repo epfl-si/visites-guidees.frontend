@@ -12,3 +12,9 @@ export type StatusConfig = {
   labelKey: string;
   colorClass: string;
 };
+
+export type GuideStatus =
+  | "ACTIVE"
+  | "INACTIVE"
+  | "SUSPENDED"
+  | "RETIRED";

@@ -64,6 +64,7 @@
     "submitError": "An error occurred while sending your registration. Please try again."
   },
   "reservation": {
+    "lastReservations": "Last 10 reservations",
     "status": {
       "WAITINGGUIDE": "Waiting for Guide",
       "WAITINGVALIDATION": "Waiting for Validation",
@@ -71,5 +72,28 @@
       "READY": "Ready",
       "CANCELLED": "Cancelled"
     }
+  },
+  "guide": {
+    "status": {
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive",
+      "RETIRED": "Retired",
+      "SUSPENDED": "Suspended"
+    }
+  },
+  "place": {
+    "title": "Places"
+  },
+  "table": {
+    "title": "Title",
+    "capacity": "Capacity",
+    "price": "Price",
+    "company": "Company",
+    "email": "Email",
+    "date": "Date",
+    "status": "Status",
+    "name": "Name",
+    "phoneNumber": "Phone number",
+    "language": "Language(s)"
   }
 }

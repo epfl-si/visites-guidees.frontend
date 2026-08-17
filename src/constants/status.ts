@@ -1,10 +1,14 @@
-import type { ReservationStatus, StatusConfig } from "@/types/status";
+import type { GuideStatus, ReservationStatus, StatusConfig } from "@/types/status";
 import {
   UserSearch,
   FileClock,
   CreditCard,
   CheckCircle2,
-  XCircle
+  XCircle,
+  CircleCheck,
+  CircleDashed,
+  CircleSlash2,
+  Hourglass
 } from "lucide-react";
 
 export const RESERVATION_STATUS: Record<ReservationStatus, StatusConfig> = {
@@ -34,3 +38,26 @@ export const RESERVATION_STATUS: Record<ReservationStatus, StatusConfig> = {
     colorClass: "text-red-600",
   },
 };
+
+export const GUIDE_STATUS: Record<GuideStatus, StatusConfig> = {
+  ACTIVE: {
+    icon: CircleCheck,
+    labelKey: "guide.status.ACTIVE",
+    colorClass: "text-emerald-600",
+  },
+  INACTIVE: {
+    icon: CircleDashed,
+    labelKey: "guide.status.INACTIVE",
+    colorClass: "text-gray-600",
+  },
+  RETIRED: {
+    icon: CircleSlash2,
+    labelKey: "guide.status.RETIRED",
+    colorClass: "text-red-600"
+  },
+  SUSPENDED: {
+    icon: Hourglass,
+    labelKey: "guide.status.SUSPENDED",
+    colorClass: "text-amber-600"
+  }
+}

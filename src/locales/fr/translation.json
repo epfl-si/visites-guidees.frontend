@@ -65,6 +65,7 @@
     "submitError": "Une erreur est survenue lors de l'envoi de votre inscription. Veuillez réessayer."
   },
   "reservation": {
+    "lastReservations": "10 dernières reservations",
     "status": {
       "WAITINGGUIDE": "Attente Guide",
       "WAITINGVALIDATION": "Attente Validation",
@@ -72,5 +73,28 @@
       "READY": "Prêt",
       "CANCELLED": "Annulé"
     }
+  },
+  "guide": {
+    "status": {
+      "ACTIVE": "Actif",
+      "INACTIVE": "Inactif",
+      "RETIRED": "Retiré",
+      "SUSPENDED": "Suspendu"
+    }
+  },
+  "place": {
+    "title": "Lieux"
+  },
+  "table": {
+    "title": "Titre",
+    "capacity": "Capacité",
+    "price": "Prix",
+    "company": "Entreprise",
+    "email": "Email",
+    "date": "Date",
+    "status": "Statut",
+    "name": "Nom",
+    "phoneNumber": "Numéro de téléphone",
+    "language": "Langue(s)"
   }
 }

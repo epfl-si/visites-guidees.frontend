@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import type { Place } from "@/types/place";
 
 export const PlacesTable = ({ places }: { places: Place[] }) => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   if (!places || places.length === 0) {
     return <p className="text-center text-muted-foreground p-4">Aucune place trouvée.</p>;
@@ -23,7 +23,7 @@ export const PlacesTable = ({ places }: { places: Place[] }) => {
     <Card className="">
       <CardHeader>
         <CardTitle>
-          Places
+          {t("place.title")}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -31,10 +31,9 @@ export const PlacesTable = ({ places }: { places: Place[] }) => {
           <Table className="">
             <TableHeader>
               <TableRow>
-                <TableHead>Title</TableHead>
-                <TableHead>Capacity</TableHead>
-                <TableHead>Price</TableHead>
-                <TableHead>Reservations</TableHead>
+                <TableHead>{t("table.title")}</TableHead>
+                <TableHead>{t("table.capacity")}</TableHead>
+                <TableHead>{t("table.price")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -43,7 +42,6 @@ export const PlacesTable = ({ places }: { places: Place[] }) => {
                   <TableCell>{place.title?.[currentLang] ?? "-"}</TableCell>
                   <TableCell>{place.capacity}</TableCell>
                   <TableCell>{place.price}</TableCell>
-                  <TableCell>1</TableCell>
                 </TableRow>
               ))}
             </TableBody>

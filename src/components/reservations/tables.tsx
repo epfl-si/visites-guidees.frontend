@@ -22,7 +22,7 @@ export const LastReservationsTable = ({ lastReservations }: { lastReservations: 
     <Card className="">
       <CardHeader>
         <CardTitle>
-          Last reservations
+          {t("reservation.lastReservations")}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -30,10 +30,10 @@ export const LastReservationsTable = ({ lastReservations }: { lastReservations: 
           <Table className="">
             <TableHeader>
               <TableRow>
-                <TableHead>Company</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Status</TableHead>
+                <TableHead>{t("table.company")}</TableHead>
+                <TableHead>{t("table.email")}</TableHead>
+                <TableHead>{t("table.date")}</TableHead>
+                <TableHead>{t("table.status")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
