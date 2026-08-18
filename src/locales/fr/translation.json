@@ -9,7 +9,13 @@
     "contact": "Contact"
   },
   "app": {
-    "title": "Visites guidées"
+    "title": "Visites guidées",
+    "description": "Découvrez l’EPFL à travers nos visites guidées! Explorez le campus et son atmosphère unique, promenez-vous dans nos expositions ou informez-vous sur nos systèmes de production d’énergie.",
+    "tours": {
+      "loading": "Chargement des visites…",
+      "empty": "Aucune visite guidée n’est proposée pour le moment.",
+      "error": "Les visites guidées n’ont pas pu être chargées. Veuillez réessayer plus tard."
+    }
   },
   "registration": {
     "condition": {

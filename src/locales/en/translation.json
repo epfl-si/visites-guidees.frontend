@@ -9,7 +9,13 @@
     "contact": "Contact"
   },
   "app": {
-    "title": "Guided Tours"
+    "title": "Guided Tours",
+    "description": "Discover EPFL through our guided tours! Explore the campus and its unique atmosphere, stroll through our exhibitions, or learn about our energy production systems.",
+    "tours": {
+      "loading": "Loading tours…",
+      "empty": "No guided tour is available at the moment.",
+      "error": "The guided tours could not be loaded. Please try again later."
+    }
   },
   "registration": {
     "condition": {
