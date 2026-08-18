@@ -28,3 +28,9 @@ export async function getReservations() {
     method: 'GET',
   });
 }
+
+export async function getReservation(id: number) {
+  return await apiCall<Reservation>(`${VERSION}/${ENDPOINT}/${id}`, {
+    method: 'GET',
+  });
+}
