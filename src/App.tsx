@@ -11,7 +11,6 @@ import Admin from '@/pages/admin';
 import { setGlobalAccessToken } from '@/lib/api';
 import { RequireRole } from './auth/RequireRole';
 import NotFound from "@/pages/not-found"
-import { RequireRole } from './auth/RequireRole';
 
 export default function App() {
   const oidc = useOpenIDConnectContext();
@@ -20,6 +19,7 @@ export default function App() {
     lastName: '',
     roles: [],
     username: "",
+    email:""
   });
 
   useEffect(() => {
@@ -59,7 +59,6 @@ export default function App() {
                 {/* All routes that here require admin permission */}
                 <Route path="/admin" element={<Admin />} />
               </Route>
-
             </Route>
           </Route>
         </Routes>

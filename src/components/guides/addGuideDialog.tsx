@@ -91,15 +91,15 @@ export const AddGuideDialog = () => {
                   </span>
                 </div>
                 <div className="flex">
-                <div>
-                  <span className="m-1 text-muted-foreground">
-                    {user.sciper}
-                  </span>
-                  <Button onClick={() => handleGuideClick(Number(user.sciper))}>
-                    {t("actions.add")}
-                  </Button>
+                  <div>
+                    <span className="m-1 text-muted-foreground">
+                      {user.sciper}
+                    </span>
+                    <Button onClick={() => handleGuideClick(Number(user.sciper))}>
+                      {t("actions.add")}
+                    </Button>
+                  </div>
                 </div>
-              </div>
               </div>
             ))}
         </div>

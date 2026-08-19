@@ -1,6 +1,6 @@
 import { callBackend } from "@/lib/api";
 import type { RegistrationFormType } from "@/types/register";
-import type { LastReservation } from "@/types/reservation";
+import type { reservations } from "@/types/reservation";
 
 const VERSION = "v1"
 
@@ -24,7 +24,5 @@ export async function getReservations(limit: number | undefined = undefined, ord
 
   const parameter = params.size ? `?${params.toString()}` : '';
 
-  return await callBackend<LastReservation[]>(`${VERSION}/reservations${parameter}`, {
-    method: 'GET',
-  })
+  return await callBackend<reservations[]>(`${VERSION}/reservations${parameter}`)
 }
