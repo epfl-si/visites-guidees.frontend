@@ -5,9 +5,9 @@ import type { PlaceInformationType } from "@/types/register"
 import type {State} from "@epfl-si/react-appauth";
 import { useState,useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { env } from '@/lib/env';
+import { callBackend } from '@/lib/api';
 
-
+const VERSION = "v1"
 export default function Registration({ user: _user, oidc:_oidc }: { user: UserType, oidc: State }) {
   const { placeId: placeIdString } = useParams<{ placeId: string }>();
   const [visitInformation, setVisitInformation] = useState<PlaceInformationType|null>(null);
@@ -20,16 +20,13 @@ export default function Registration({ user: _user, oidc:_oidc }: { user: UserTy
 
     const fetchVisit = async () => {
       try {
-        const response = await fetch(
-          `${env().VITE_GUIDED_TOURS_BACKEND_URL}place/${placeIdString}`
-        );
+        const response = await callBackend<PlaceInformationType>(`${VERSION}/places/${placeIdString}`)
 
-        if (!response.ok) {
+        if ( !response.success) {
           throw new Error("Failed to fetch visit details");
         }
 
-        const data: PlaceInformationType = await response.json();
-        setVisitInformation(data);
+        setVisitInformation(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -41,6 +38,7 @@ export default function Registration({ user: _user, oidc:_oidc }: { user: UserTy
   if (!placeIdString || !visitInformation) {
     return null;
   }
+
   const lengthOfCondition:number = visitInformation.conditions[currentLanguage].length
   const pluralHandlingCondition = lengthOfCondition == 1 ? "registration.condition.label":"registration.condition.plural"
 

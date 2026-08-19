@@ -5,16 +5,16 @@ export type RegistrationFormType = {
   email: string,
   phone: string,
   address: string,
-  additionnalAddress: string,
+  additionalAddress: string,
   city: string,
   region: string,
   zip: string,
   country: string,
   visitDate: string,
   visitTime: string,
-  numberOfParticipant: number,
+  participantNumber: number,
   languageId: number,
-  comments: string,
+  comment: string,
   gdprConsent: boolean,
 }
 
@@ -34,7 +34,7 @@ export type PlaceInformationType = {
   maxPerGroup: number;
   price: number;
   conditions: Conditions;
-  Languages: {
+  languages: {
     id: number;
     name: string;
   }[];

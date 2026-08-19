@@ -4,5 +4,4 @@ export type UserType = {
   username: string,
   roles: string[],
   image?: string,
-  [key: string]: unknown,
 }
