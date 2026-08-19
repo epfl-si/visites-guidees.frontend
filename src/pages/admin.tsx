@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { LastReservationsTable } from "@/components/reservations/tables";
-import { getLastReservations } from "@/services/reservation";
+import { getReservations } from "@/services/reservation";
 import type { LastReservation } from "@/types/reservation";
 import { LoadingPage } from "./Loading";
 
@@ -10,9 +10,11 @@ export default function Admin() {
 
   useEffect(() => {
     const fetchReservations = async () => {
-      const data = await getLastReservations();
-      setReservations(data);
-      setIsLoading(false);
+      const response = await getReservations(5,'desc')
+      if (response.success) {
+        setReservations(response.data)
+        setIsLoading(false)
+      } 
     }
     fetchReservations();
   }, []);
