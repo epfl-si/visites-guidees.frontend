@@ -8,19 +8,16 @@ import Page from "@/pages/Page.tsx";
 import { fetchConnectedUser } from '@/services/auth';
 import Registration from '@/pages/registration';
 import Admin from '@/pages/admin';
-import { RequireAdmin } from '@/auth/RequireAdmin';
 import { setGlobalAccessToken } from '@/lib/api';
+import { RequireRole } from './auth/RequireRole';
 
 export default function App() {
   const oidc = useOpenIDConnectContext();
   const [connectedUser, setConnectedUser] = useState<UserType>({
     firstName: '',
     lastName: '',
-    groups: [],
     roles: [],
     username: "",
-    isAdmin: false,
-    isGuide: false,
   });
 
   useEffect(() => {
@@ -35,15 +32,11 @@ export default function App() {
 
   const loadFetch = async () => {
     try {
-      const data = await fetchConnectedUser();
-      setConnectedUser({
-        firstName: data.data.firstName,
-        lastName: data.data.lastName,
-        username: data.data.gaspar,
-        roles: data.data.roles,
-        isAdmin: data.data.isAdmin,
-        isGuide: data.data.isGuide,
-      });
+      const response = await fetchConnectedUser()
+      if (response.success) {
+        setConnectedUser(response.data)
+      }
+
     } catch (error) {
       console.log('ConnectedUser Error', error);
       oidc.logout();
