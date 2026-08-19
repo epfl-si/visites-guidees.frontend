@@ -11,6 +11,7 @@ import Admin from '@/pages/admin';
 import { setGlobalAccessToken } from '@/lib/api';
 import { RequireRole } from './auth/RequireRole';
 import NotFound from "@/pages/not-found"
+import { RequireRole } from './auth/RequireRole';
 
 export default function App() {
   const oidc = useOpenIDConnectContext();
