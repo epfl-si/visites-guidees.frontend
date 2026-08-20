@@ -34,7 +34,7 @@ export const GuideInfoTable = ({
           </div>
         ) : guideInfo.length === 0 ? (
           <p className="p-4 text-center text-muted-foreground">
-            {t("errors.notFound")}
+            {t("errors.dataloading.defaultMessage")}
           </p>
         ) : (
           <div className="rounded-md border">
