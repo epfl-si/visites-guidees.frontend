@@ -13,12 +13,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
-export default function Reservation() {
+export default function Reservations() {
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [inputSearch, setInputSearch] = useState<string>("");
   const [statusFilter, setStatusFilter] = useState<string>("ALL");
+
+  const navigate = useNavigate();
 
   const { t } = useTranslation();
 
@@ -52,19 +54,20 @@ export default function Reservation() {
   };
 
   const filteredReservations = reservations.filter((reservation) => {
-      const matchSearch = searchReservations(reservation, inputSearch);
+    const matchSearch = searchReservations(reservation, inputSearch);
 
-      const matchStatus = statusFilter === "ALL" || reservation.status === statusFilter;
+    const matchStatus = statusFilter === "ALL" || reservation.status === statusFilter;
 
-      return matchSearch && matchStatus;
-    });
+    return matchSearch && matchStatus;
+  });
 
   const getSelectedLabel = () => {
-      if (statusFilter === "ALL") return t("reservation.allStatus");
+    if (statusFilter === "ALL") return t("reservation.allStatus");
 
-      const config = RESERVATION_STATUS[statusFilter as keyof typeof RESERVATION_STATUS];
-      return config ? t(config.labelKey) : statusFilter;
-    };
+    const config = RESERVATION_STATUS[statusFilter as keyof typeof RESERVATION_STATUS];
+    return config ? t(config.labelKey) : statusFilter;
+  };
+
 
   if (reservations.length === 0) {
     return (
@@ -149,18 +152,22 @@ export default function Reservation() {
               if (!statusConfig) return null;
               const StatusIcon = statusConfig.icon;
               return (
-                <TableRow key={reservation.id}>
+                <TableRow
+                  key={reservation.id}
+                  onClick={() => navigate(reservation.id.toString())}
+                  className="hover:cursor-pointer"
+                >
                   <TableCell className="font-medium">{reservation.company ?? "-"}</TableCell>
-                  <TableCell>{reservation.email}</TableCell>
-                  <TableCell>{new Date(reservation.date).toLocaleDateString()}</TableCell>
-                  <TableCell>
-                    <div className={`flex items-center gap-2 ${statusConfig.colorClass}`}>
-                      <StatusIcon className="w-4 h-4" />
-                      <span className="text-sm font-medium">
-                        {t(statusConfig.labelKey)}
-                      </span>
-                    </div>
-                  </TableCell>
+                    <TableCell>{reservation.email}</TableCell>
+                    <TableCell>{new Date(reservation.date).toLocaleDateString()}</TableCell>
+                    <TableCell>
+                      <div className={`flex items-center gap-2 ${statusConfig.colorClass}`}>
+                        <StatusIcon className="w-4 h-4" />
+                        <span className="text-sm font-medium">
+                          {t(statusConfig.labelKey)}
+                        </span>
+                      </div>
+                    </TableCell>
                 </TableRow>
               );
             })
