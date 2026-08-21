@@ -1,7 +1,7 @@
 import type { Reservation } from "@/types/reservation"
 import { useEffect, useState } from "react";
 import { Empty, EmptyHeader, EmptyDescription, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
-import { ArrowLeft, Calendar, Search } from "lucide-react";
+import { Calendar, Search } from "lucide-react";
 import { getReservations } from "@/services/reservation";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useTranslation } from "react-i18next";
@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 export default function Reservations() {
   const [reservations, setReservations] = useState<Reservation[]>([]);
@@ -90,10 +90,7 @@ export default function Reservations() {
     <>
       <div className="flex-1 p-8 overflow-auto w-full mr-10">
         <div className="flex items-center gap-3 h-10 mb-8">
-          <Link to="/admin" className="text-muted-foreground hover:text-foreground transition-colors">
-            <ArrowLeft className="h-5 w-5"/>
-          </Link>
-          <h2 className="text-2xl font-bold">{t("reservation.title")}</h2>
+          <h1 className="text-4xl font-semibold">{t("reservation.title")}</h1>
         </div>
         <div className="flex flex-col gap-6">
           <div className="flex gap-4">

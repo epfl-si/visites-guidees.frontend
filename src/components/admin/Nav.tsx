@@ -7,8 +7,8 @@ export function AdminNav() {
   const { t } = useTranslation();
 
   const NAV_ITEMS = [
-    { href: "/admin/", label: t("admin.nav.dashboard"), Icon: LayoutPanelLeft },
-    { href: "/admin/reservation/", label: t("admin.nav.reservations"), Icon: Calendar },
+    { href: "/admin", label: t("admin.nav.dashboard"), Icon: LayoutPanelLeft },
+    { href: "/admin/reservation", label: t("admin.nav.reservations"), Icon: Calendar },
   ];
 
   return (
@@ -17,7 +17,7 @@ export function AdminNav() {
         <NavLink
           key={href}
           to={href}
-          end
+          end={href === "/admin"}
           className={({ isActive }) => cn(
             "flex items-center gap-2 px-3 py-2 text-sm rounded-sm transition-colors",
             isActive
