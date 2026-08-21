@@ -78,19 +78,19 @@
   },
   "errors": {
     "generic": {
-      "title": "Oops! An error occurred",
-      "description": "Something went wrong. We apologize for the inconvenience.",
-      "errorCode": "Error code"
+      "title": "Oups ! Une erreur est survenue",
+      "description": "Un problème est survenu. Nous nous excusons pour la gêne occasionnée.",
+      "errorCode": "Code d'erreur"
     },
     "dataLoading": {
-      "title": "Data loading error",
-      "defaultMessage": "Unable to retrieve your data. Please try again later.",
-      "userDataError": "Unable to load this user's data. Check your connection and try again."
+      "title": "Erreur de chargement des données",
+      "defaultMessage": "Impossible de récupérer vos données. Veuillez réessayer plus tard.",
+      "userDataError": "Impossible de charger les données de cet utilisateur ou cette utilisatrice. Vérifiez votre connexion et réessayez."
     },
     "notFound": {
       "generic": {
-        "title": "Oops! It looks like this page doesn't exist",
-        "contact": "If you think this is an error, contact"
+        "title": "Oups ! Il semble que cette page n'existe pas",
+        "contact": "Si vous pensez qu'il s'agit d'une erreur, contactez"
       }
     }
   },
