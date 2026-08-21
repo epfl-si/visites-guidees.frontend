@@ -332,7 +332,7 @@ export default function RegistrationForm({
           onValueChange={(value) => updateField("languageId", Number(value))}
           className="grid-flow-col justify-start gap-8"
         >
-          {information.languages.map((l: { id: number; name: string }) => (
+          {information.languages.map((l) => (
             <Label className="font-normal" key={l.id}>
               <RadioGroupItem value={String(l.id)} /> {l.name}
             </Label>
