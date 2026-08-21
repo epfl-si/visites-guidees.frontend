@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { LastReservationsTable } from "@/components/reservations/tableLast";
-import { getLastReservations } from "@/services/reservation";
-import type { LastReservation } from "@/types/reservation";
+import { getReservations } from "@/services/reservation";
+import type { Reservation } from "@/types/reservation";
 import { LoadingPage } from "./Loading";
 import { PlacesTable } from "@/components/place/table";
 import type { Place } from "@/types/place";
@@ -11,20 +11,22 @@ import type { Guide } from "@/types/guide";
 import { getGuides } from "@/services/guide";
 
 export default function Admin() {
-  const [reservations, setReservations] = useState<LastReservation[]>([]);
+  const [reservations, setReservations] = useState<Reservation[]>([]);
   const [places, setPlaces] = useState<Place[]>([]);
   const [guides, setGuides] = useState<Guide[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const reservations = await getLastReservations();
-      const places = await getPlaces();
-      const guides = await getGuides();
+      const dataReservations = await getReservations(10, "desc");
+      const dataPlaces = await getPlaces();
+      const dataGuides = await getGuides();
+      console.log("guides : ", dataGuides)
 
-      setGuides(guides);
-      setPlaces(places);
-      setReservations(reservations);
+      if (dataReservations.success) setReservations(dataReservations.data);
+      if (dataPlaces.success) setPlaces(dataPlaces.data);
+      if (dataGuides.success) setGuides(dataGuides.data);
+
       setIsLoading(false);
     }
     fetchData();

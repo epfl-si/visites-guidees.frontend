@@ -1,4 +1,4 @@
-import type { LastReservation } from "@/types/reservation";
+import type { Reservation } from "@/types/reservation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -12,7 +12,7 @@ import { RESERVATION_STATUS } from "@/constants/status";
 import { useTranslation } from 'react-i18next';
 import { Link } from "react-router";
 
-export const LastReservationsTable = ({ lastReservations }: { lastReservations: LastReservation[] }) => {
+export const LastReservationsTable = ({ lastReservations }: { lastReservations: Reservation[] }) => {
   const { t } = useTranslation();
 
   if (!lastReservations || lastReservations.length === 0) {

@@ -66,7 +66,7 @@ export default function Reservation() {
       setLoading(true);
       try {
         const data = await getReservation(reservationId);
-        setReservation(data);
+        if (data.success) setReservation(data.data);
 
         const lang = await getLanguage(data.languageId);
       } catch (error) {

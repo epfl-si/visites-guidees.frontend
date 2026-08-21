@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { Badge } from "@/components/ui/badge";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { GUIDE_STATUS } from "@/constants/status";
+import { AddGuideDialog } from "@/components/guide/addGuideDialog";
 
 export const GuidesTable = ({ guides }: { guides: Guide[] }) => {
   const { t } = useTranslation();
@@ -22,10 +23,11 @@ export const GuidesTable = ({ guides }: { guides: Guide[] }) => {
 
   return (
     <Card className="">
-      <CardHeader>
+      <CardHeader className="flex items-center justify-between">
         <CardTitle>
           Guide
         </CardTitle>
+        <AddGuideDialog />
       </CardHeader>
       <CardContent>
         <div className="rounded-md border">

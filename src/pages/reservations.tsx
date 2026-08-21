@@ -27,7 +27,8 @@ export default function Reservations() {
   useEffect(() => {
     const fetchReservations = async () => {
       const data = await getReservations();
-      setReservations(data);
+      if (data.success) setReservations(data.data);
+
     }
     fetchReservations();
   }, []);

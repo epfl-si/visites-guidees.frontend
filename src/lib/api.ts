@@ -33,7 +33,7 @@ export async function call<T>(url: string, options: ApiCallOptions = {}): Promis
     fetchOptions.body = JSON.stringify(options.body);
   }
 
-  const response = await fetch(url, fetchOptions);gaspar
+  const response = await fetch(url, fetchOptions);
 
   if (!response.ok) {
     throw new Error(`Failed to fetch API: ${url} (${response.status})`);
