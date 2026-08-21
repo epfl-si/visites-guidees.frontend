@@ -48,16 +48,16 @@ const initialFormData: RegistrationFormType = {
   email: "",
   phone: "",
   address: "",
-  additionnalAddress: "",
+  additionalAddress: "",
   city: "",
   region: "",
   zip: "",
   country: "CH",
   visitDate: "",
   visitTime: "",
-  numberOfParticipant: 1,
+  participantNumber: 1,
   languageId: 0,
-  comments: "",
+  comment: "",
   gdprConsent: false,
 };
 
@@ -122,7 +122,7 @@ export default function RegistrationForm({
       "phone",
       "visitDate",
       "visitTime",
-      "numberOfParticipant",
+      "participantNumber",
       "country",
       "city",
       "region",
@@ -140,17 +140,16 @@ export default function RegistrationForm({
       return;
     }
 
-    const timeStampDate = new Date(`${formData.visitDate}T${formData.visitTime}`).getTime();
+    const isoDate = new Date(`${formData.visitDate}T${formData.visitTime}`).toISOString();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { visitTime, numberOfParticipant, ...rest } = formData;
+    const { visitTime,visitDate, ...rest } = formData;
     // Backend expects `numberOfParticipant` (singular) — see reservations schema.
     // Mapped here rather than renaming the front-end type.
     const formDataToSubmit = {
       ...rest,
-      visitDate: timeStampDate,
+      date: isoDate,
       placeId: information.id,
-      zip: Number(formData.zip),
-      numberOfParticipant: Number(formData.numberOfParticipant),
+      participantNumber: Number(rest.participantNumber)
     };
 
     setIsSubmitting(true);
@@ -236,8 +235,8 @@ export default function RegistrationForm({
         />
         <Input
           placeholder={t("registration.address.complementPlaceholder")}
-          value={formData.additionnalAddress}
-          onChange={(e) => updateField("additionnalAddress", e.target.value)}
+          value={formData.additionalAddress}
+          onChange={(e) => updateField("additionalAddress", e.target.value)}
         />
         <div className="grid grid-cols-2 gap-3">
           <Input
@@ -306,9 +305,9 @@ export default function RegistrationForm({
           {t("registration.participants.label")} <span className="text-destructive">*</span>
         </Label>
         <Select
-          value={formData.numberOfParticipant}
+          value={formData.participantNumber}
           onValueChange={(value) => {
-            if (value !== null) updateField("numberOfParticipant", value);
+            if (value !== null) updateField("participantNumber", value);
           }}
         >
           <SelectTrigger className="w-full">
@@ -333,7 +332,7 @@ export default function RegistrationForm({
           onValueChange={(value) => updateField("languageId", Number(value))}
           className="grid-flow-col justify-start gap-8"
         >
-          {information.Languages.map((l: { id: number; name: string }) => (
+          {information.languages.map((l: { id: number; name: string }) => (
             <Label className="font-normal" key={l.id}>
               <RadioGroupItem value={String(l.id)} /> {l.name}
             </Label>
@@ -344,8 +343,8 @@ export default function RegistrationForm({
       <div className="flex flex-col gap-1.5">
         <Label>{t("registration.comments.label")}</Label>
         <Textarea
-          value={formData.comments}
-          onChange={(e) => updateField("comments", e.target.value)}
+          value={formData.comment}
+          onChange={(e) => updateField("comment", e.target.value)}
         />
       </div>
 

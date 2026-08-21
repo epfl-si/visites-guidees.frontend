@@ -1,11 +1,9 @@
-import type { GuideStatus } from "@/types/status";
-import type { Language } from "@/types/language";
-import type { User } from "@/types/user";
+import type { language } from "./language";
+import type { UserType } from "./user";
 
-export type Guide = {
-  id: number;
-  status: GuideStatus;
-  phone: string[];
-  user: User;
-  languages: Language[];
-}
+export type guideInfo = {
+  id: number
+  user: UserType & { email: string },
+  phone: string,
+  languages: language[]
+};

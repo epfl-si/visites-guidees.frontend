@@ -50,9 +50,9 @@ export const GuideInfoTable = ({
               <TableBody>
                 {guideInfo.map((guide) => (
                   <TableRow key={guide.id}>
-                    <TableCell>{guide.firstName}</TableCell>
-                    <TableCell>{guide.lastName}</TableCell>
-                    <TableCell>{guide.email}</TableCell>
+                    <TableCell>{guide.user.firstName}</TableCell>
+                    <TableCell>{guide.user.lastName}</TableCell>
+                    <TableCell>{guide.user.email}</TableCell>
                     <TableCell>{guide.phone}</TableCell>
                   </TableRow>
                 ))}

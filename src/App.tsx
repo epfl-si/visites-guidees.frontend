@@ -8,10 +8,10 @@ import Page from "@/pages/Page.tsx";
 import { fetchConnectedUser } from '@/services/auth';
 import Registration from '@/pages/registration';
 import Admin from '@/pages/admin';
-import { RequireAdmin } from '@/auth/RequireAdmin';
 import { setGlobalAccessToken } from '@/lib/api';
 import Reservations from './pages/reservations';
 import Reservation from './pages/reservation';
+import { RequireRole } from './auth/RequireRole';
 import NotFound from "@/pages/not-found"
 
 export default function App() {
@@ -19,10 +19,9 @@ export default function App() {
   const [connectedUser, setConnectedUser] = useState<UserType>({
     firstName: '',
     lastName: '',
-    groups: [],
-    username: '',
-    isAdmin: false,
-    isGuide: false,
+    roles: [],
+    username: "",
+    email:""
   });
 
   useEffect(() => {
@@ -37,15 +36,11 @@ export default function App() {
 
   const loadFetch = async () => {
     try {
-      const data = await fetchConnectedUser();
-      setConnectedUser({
-        firstName: data.firstName,
-        lastName: data.lastName,
-        groups: data.groups,
-        username: data.gaspar,
-        isAdmin: data.isAdmin,
-        isGuide: data.isGuide,
-      });
+      const response = await fetchConnectedUser()
+      if (response.success) {
+        setConnectedUser(response.data)
+      }
+
     } catch (error) {
       console.log('ConnectedUser Error', error);
       oidc.logout();
@@ -61,14 +56,13 @@ export default function App() {
             <Route path="/" element={<Page />} />
             <Route path="/:placeId/register" element={<Registration user={connectedUser} oidc={oidc} />} />
             <Route path="/:placeId/inscription" element={<Registration user={connectedUser} oidc={oidc} />} />
-            <Route element={<RequireAdmin user={connectedUser} />}>
+            <Route element={<RequireRole role="admin" user={connectedUser} />}>
               <Route element={<AdminLayout />}>
                 {/* All routes that here require admin permission */}
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/admin/reservation" element={<Reservations />} />
                 <Route path="/admin/reservation/:id" element={<Reservation />} />
               </Route>
-
             </Route>
           </Route>
         </Routes>

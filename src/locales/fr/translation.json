@@ -138,6 +138,7 @@
   },
   "actions": {
     "backToHome": "Back to home",
-    "previousPage": "Previous page"
+    "previousPage": "Previous page",
+    "add": "ajouter"
   }
 }

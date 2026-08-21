@@ -22,7 +22,7 @@ export type Reservation = {
   placeId: number;
 }
 
-export type LastReservation = {
+export type reservations = {
   id: number;
   company: string;
   email: string;

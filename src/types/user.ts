@@ -2,10 +2,9 @@ export type UserType = {
   firstName: string,
   lastName: string,
   username: string,
-  isAdmin: boolean,
-  isGuide: boolean,
+  email: string,
+  roles: string[],
   image?: string,
-  [key: string]: any,
 }
 
 export type User = {

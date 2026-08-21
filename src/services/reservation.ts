@@ -1,5 +1,6 @@
-import { apiCall } from "@/lib/api";
-import type { Reservation, LastReservation } from "@/types/reservation";
+import { callBackend } from "@/lib/api";
+import type { RegistrationFormType } from "@/types/register";
+import type { reservations } from "@/types/reservation";
 
 const VERSION = "v1";
 const ENDPOINT = "reservations";
@@ -7,30 +8,22 @@ const ENDPOINT = "reservations";
 export async function postRegistration(
   data: Record<string, any>
 ) {
-  const url = `${VERSION}/${ENDPOINT}/register`;
+  const url = `${VERSION}/reservations/`;
   if (!data) {
     throw new Error('Data is required to post registration');
   }
-  return await apiCall(url, {
+  return await callBackend<RegistrationFormType>(url, {
     method: 'POST',
     body: data
   });
 }
 
-export async function getLastReservations() {
-  return await apiCall<LastReservation[]>(`${VERSION}/${ENDPOINT}/?order=asc&limit=10`, {
-    method: 'GET',
-  });
-}
+export async function getReservations(limit: number | undefined = undefined, order: "asc" | "desc" | undefined = undefined) {
+  const params = new URLSearchParams();
+  if (limit) params.set('limit', String(limit));
+  if (order) params.set('order', order);
 
-export async function getReservations() {
-  return await apiCall<Reservation[]>(`${VERSION}/${ENDPOINT}/`, {
-    method: 'GET',
-  });
-}
+  const parameter = params.size ? `?${params.toString()}` : '';
 
-export async function getReservation(id: number) {
-  return await apiCall<Reservation>(`${VERSION}/${ENDPOINT}/${id}`, {
-    method: 'GET',
-  });
+  return await callBackend<reservations[]>(`${VERSION}/reservations${parameter}`)
 }

@@ -1,5 +1,5 @@
 import { env } from "./env";
-import type { ApiResponse } from "@/types/api";
+import type { BackendResponse } from "@/types/api";
 
 let globalAccessToken: string | null = null;
 
@@ -13,15 +13,9 @@ interface ApiCallOptions {
   body?: unknown;
 }
 
-const BASE_URL = env().GUIDED_TOURS_BACKEND_URL || 'http://localhost:3000/v1/';
-
-export async function apiCall<T>(
-  endpoint: string,
-  options: ApiCallOptions = {}
-): Promise<T> {
-  const method = options.method || 'GET';
+export async function call<T>(url: string, options: ApiCallOptions = {}): Promise<T> {
+  const method = options.method ?? 'GET';
   const headers = new Headers(options.headers);
-  const url = `${BASE_URL}${endpoint}`
 
   if (!headers.has('Content-Type')) {
     headers.set('Content-Type', 'application/json');
@@ -29,25 +23,30 @@ export async function apiCall<T>(
   if (!headers.has('Accept')) {
     headers.set('Accept', 'application/json');
   }
-
-  if (globalAccessToken && !headers.has('Authorization')) {
+  if (!headers.has('Authorization') && globalAccessToken) {
     headers.set('Authorization', `Bearer ${globalAccessToken}`);
   }
 
-  const fetchOptions: RequestInit = {
-    method,
-    headers,
-  };
+  const fetchOptions: RequestInit = { method, headers };
 
   if (options.body && ['POST', 'PUT'].includes(method.toUpperCase())) {
     fetchOptions.body = JSON.stringify(options.body);
   }
 
-  const response = await fetch(url, fetchOptions);
-  if (response.ok) {
-    const json = (await response.json()) as ApiResponse<T>;
-    return json.data as T;
-  } else {
-    throw new Error(`Failed to fetch backend API: ${url} (${response.status})`);
+  const response = await fetch(url, fetchOptions);gaspar
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch API: ${url} (${response.status})`);
   }
+
+  return (await response.json()) as T;
+}
+
+const BACKEND_URL = env().GUIDED_TOURS_BACKEND_URL || 'http://localhost:3000/';
+
+export async function callBackend<T>(
+  endpoint: string,
+  options: ApiCallOptions = {},
+): Promise<BackendResponse<T>> {
+  return call<BackendResponse<T>>(`${BACKEND_URL}${endpoint}`, options);
 }
