@@ -1,3 +1,4 @@
+import ErrorPage from "@/pages/Error";
 import {type State, StateEnum} from "@epfl-si/react-appauth";
 import { Outlet } from "react-router";
 
@@ -7,12 +8,7 @@ export const RequireAuth = ({ oidc }: { oidc: State }) => {
   }
 
   if (oidc.state !== StateEnum.LoggedIn) {
-    return (
-      <div className="flex flex-col items-center justify-center py-20 text-center">
-        <h2 className="text-2xl font-bold mb-4">Accès restreint</h2>
-        <p className="text-gray-600 mb-6">Vous devez être connecté pour voir cette page.</p>
-      </div>
-    );
+    return <ErrorPage errorCode={401} message="errors.unauthenticated.title"/>
   }
 
   return <Outlet />;
