@@ -1,4 +1,4 @@
-import type { LastReservation } from "@/types/reservation";
+import type { reservations } from "@/types/reservation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -8,11 +8,11 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
+import { Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
-export const LastReservationsTable = ({ lastReservations }: { lastReservations: LastReservation[] }) => {
-  if (!lastReservations || lastReservations.length === 0) {
-    return <p className="text-center text-muted-foreground p-4">Aucune réservation trouvée.</p>;
-  }
+export const Reservations = ({ reservations, isLoading }: { reservations: reservations[], isLoading : boolean }) => {
+  const { t } = useTranslation()
 
   return (
     <Card className="">
@@ -22,6 +22,15 @@ export const LastReservationsTable = ({ lastReservations }: { lastReservations: 
         </CardTitle>
       </CardHeader>
       <CardContent>
+        {isLoading ? (
+          <div className="flex items-center justify-center p-8">
+            <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+          </div>
+        ) : reservations.length === 0 ? (
+          <p className="p-4 text-center text-muted-foreground">
+            {t("errors.dataloading.defaultMessage")}
+          </p>
+        ) : (
         <div className="rounded-md border">
           <Table className="">
             <TableHeader>
@@ -33,7 +42,7 @@ export const LastReservationsTable = ({ lastReservations }: { lastReservations: 
               </TableRow>
             </TableHeader>
             <TableBody>
-              {lastReservations.map((reservation) => (
+              {reservations.map((reservation) => (
                 <TableRow key={reservation.id}>
                   <TableCell>
                     {reservation.company}
@@ -48,6 +57,7 @@ export const LastReservationsTable = ({ lastReservations }: { lastReservations: 
             </TableBody>
           </Table>
         </div>
+        )}
       </CardContent>
     </Card>
   );

@@ -30,8 +30,11 @@ export const AddGuideDialog = () => {
   async function handleSearch() {
     if (search) {
       setIsWaiting(true)
-      setUsers(await searchUser(search))
-      setIsWaiting(false)
+      const usersResponse = await searchUser(search)
+      if(usersResponse.success){
+        setUsers(usersResponse.data)
+        setIsWaiting(false)
+      }
     }
   }
 
@@ -87,13 +90,15 @@ export const AddGuideDialog = () => {
                     {user.firstName} {user.lastName}
                   </span>
                 </div>
-                <div>
-                  <span className="m-1 text-muted-foreground">
-                    {user.sciper}
-                  </span>
-                  <Button onClick={() => handleGuideClick(Number(user.sciper))}>
-                    ADD
-                  </Button>
+                <div className="flex">
+                  <div>
+                    <span className="m-1 text-muted-foreground">
+                      {user.sciper}
+                    </span>
+                    <Button onClick={() => handleGuideClick(Number(user.sciper))}>
+                      {t("actions.add")}
+                    </Button>
+                  </div>
                 </div>
               </div>
             ))}
