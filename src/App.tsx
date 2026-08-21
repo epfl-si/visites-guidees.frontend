@@ -12,11 +12,11 @@ import { setGlobalAccessToken } from "@/lib/api"
 import Reservations from "./pages/reservations"
 import Reservation from "./pages/reservation"
 import { RequireRole } from "./auth/RequireRole"
-import NotFound from "@/pages/not-found"
 import { registrationSegments } from "@/lib/routes"
 import { useTranslation } from "react-i18next"
 import { toast } from "sonner"
 import { RequireAuth } from "./auth/RequireAuth"
+import ErrorPage from "./pages/Error"
 
 export default function App() {
   const oidc = useOpenIDConnectContext()
@@ -63,7 +63,17 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<AppLayout user={connectedUser} oidc={oidc} />}>
-            <Route path="*" element={<NotFound />} />
+            <Route
+              path="*"
+              element={
+                <ErrorPage
+                  errorCode={400}
+                  message="errors.notFound.generic.title"
+                />
+              }
+            />
+            {"errors.generic"}
+            // Set the message
             <Route path="/" element={<Page />} />
             {registrationSegments.map((segment) => (
               <Route

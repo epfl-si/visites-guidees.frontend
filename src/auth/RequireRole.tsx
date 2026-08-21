@@ -1,6 +1,6 @@
 import { Outlet } from "react-router"
 import type { UserType } from "@/types/user"
-import NotFound from "@/pages/not-found"
+import ErrorPage from "@/pages/Error"
 
 export const RequireRole = ({
   user,
@@ -11,7 +11,7 @@ export const RequireRole = ({
 }) => {
 
   if (!user.roles.includes(role)) {
-    return <NotFound/>
+    return <ErrorPage errorCode={403} message="errors.forbidden.title"/>
   }
 
   return <Outlet />
