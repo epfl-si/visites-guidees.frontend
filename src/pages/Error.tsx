@@ -2,8 +2,9 @@ import { ArrowLeft, Home } from "lucide-react";
 import { useTranslation } from 'react-i18next';
 import { Button } from "@/components/ui/button";
 
-export default function NotFound() {
+export default function ErrorPage({ errorCode, message  }: { errorCode: number, message: string}) {
   const { t } = useTranslation();
+  const contactKey = message.replace(/\.title$/, ".contact");
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-8">
@@ -17,9 +18,9 @@ export default function NotFound() {
         </div>
         <div className="mb-8 sm:mb-12">
           <h2 className="text-[8rem] sm:text-[12rem] lg:text-[16rem] font-bold text-gray-800 mb-4 sm:mb-6 leading-none">
-            4<span className="text-gray-800 ml-1 sm:ml-1.5">0</span>4
+            {Math.trunc(errorCode / 100)}<span className="text-gray-800 ml-1 sm:ml-1.5">{Math.trunc(errorCode / 10) % 10}</span>{errorCode % 10}
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8 max-w-md mx-auto px-4">{t("error.title")}</p>
+          <p className="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8 max-w-md mx-auto px-4">{t(message)}</p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-6 sm:mb-8 px-4">
             <Button variant="default" size="lg"  className="w-full sm:w-auto ">
               <a href="/" className="inline-flex items-center gap-1.5">
@@ -33,7 +34,7 @@ export default function NotFound() {
             </Button>
           </div>
           <p className="text-sm text-gray-500 px-4">
-            {t("error.contact")}{" "}
+            {t(contactKey)}{" "}
             <a
               href="mailto:1234@epfl.ch"
               type="mail"

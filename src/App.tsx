@@ -10,7 +10,7 @@ import Registration from '@/pages/registration';
 import Admin from '@/pages/admin';
 import { setGlobalAccessToken } from '@/lib/api';
 import { RequireRole } from './auth/RequireRole';
-import NotFound from "@/pages/not-found"
+import ErrorPage from "@/pages/Error"
 import { RequireAuth } from './auth/RequireAuth';
 
 export default function App() {
@@ -51,7 +51,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<AppLayout user={connectedUser} oidc={oidc} />}>
-            <Route path='*' element={<NotFound/>}/>
+            <Route path='*' element={<ErrorPage errorCode={404} message='errors.notFound.generic.title'/>}/>
             <Route path="/" element={<Page />} />
             <Route path="/:placeId/register" element={<Registration user={connectedUser} oidc={oidc} />} />
             <Route path="/:placeId/inscription" element={<Registration user={connectedUser} oidc={oidc} />} />
