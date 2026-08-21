@@ -22,20 +22,24 @@ type Translated = {
   [langCode: string]: string;
 };
 
-type Conditions = {
-  [langCode: string]: [string];
+export type LanguageType = {
+  id: number;
+  code: string;
+  name: string;
 };
-export type PlaceInformationType = {
+
+export type PlaceListItemType = {
   id: number;
   title: Translated;
-  picture: string;
   description: Translated;
-  createdAt: Date;
-  maxPerGroup: number;
+  picture: string;
+  capacity: number;
   price: number;
-  conditions: Conditions;
-  languages: {
-    id: number;
-    name: string;
-  }[];
+  conditions: Translated;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type PlaceInformationType = PlaceListItemType & {
+  languages: LanguageType[];
 };

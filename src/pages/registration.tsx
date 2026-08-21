@@ -5,54 +5,36 @@ import type { PlaceInformationType } from "@/types/register"
 import type {State} from "@epfl-si/react-appauth";
 import { useState,useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { callBackend } from '@/lib/api';
+import { getPlaceById } from '@/services/visit';
 
-const VERSION = "v1"
 export default function Registration({ user: _user, oidc:_oidc }: { user: UserType, oidc: State }) {
   const { placeId: placeIdString } = useParams<{ placeId: string }>();
   const [visitInformation, setVisitInformation] = useState<PlaceInformationType|null>(null);
 
-  const {t,  i18n } = useTranslation();
-  const currentLanguage:any = i18n.language;
-  // TODO: to retrieve the title of the visite from the backend with the idVisit
+  const { t, i18n } = useTranslation();
+  const currentLanguage = i18n.resolvedLanguage ?? 'en';
+  const placeId = Number(placeIdString);
+
   useEffect(() => {
-    if (!placeIdString) return;
+    if (!Number.isInteger(placeId)) return;
 
-    const fetchVisit = async () => {
-      try {
-        const response = await callBackend<PlaceInformationType>(`${VERSION}/places/${placeIdString}`)
+    getPlaceById(placeId)
+      .then(setVisitInformation)
+      .catch((error) => console.error('getPlaceById Error', error));
+  }, [placeId]);
 
-        if ( !response.success) {
-          throw new Error("Failed to fetch visit details");
-        }
-
-        setVisitInformation(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchVisit();
-  }, [placeIdString]);
-
-  if (!placeIdString || !visitInformation) {
+  if (!Number.isInteger(placeId) || !visitInformation) {
     return null;
   }
-
-  const lengthOfCondition:number = visitInformation.conditions[currentLanguage].length
-  const pluralHandlingCondition = lengthOfCondition == 1 ? "registration.condition.label":"registration.condition.plural"
+  const condition = visitInformation.conditions[currentLanguage] ?? visitInformation.conditions.en
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold">{visitInformation?.title[currentLanguage]}</h1>
-      {lengthOfCondition > 0 && (
+      <h1 className="text-4xl font-bold">{visitInformation.title[currentLanguage] ?? visitInformation.title.en}</h1>
+      {condition && (
         <>
-        <h2 className='text-2xl font-bold'>{t(pluralHandlingCondition)}</h2>
-        <ul className='list-inside w-full max-w-md m-2'>
-          {visitInformation.conditions[currentLanguage].map((condition,index) => (
-            <li className="list-disc" key={index}>{condition}</li>
-          ))}
-        </ul>
+        <h2 className='text-2xl font-bold'>{t("registration.condition.label")}</h2>
+        <p className='w-full max-w-md m-2'>{condition}</p>
         </>
       )}
       <RegistrationForm  information={visitInformation} />
