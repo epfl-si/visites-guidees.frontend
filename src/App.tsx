@@ -11,6 +11,7 @@ import Admin from '@/pages/admin';
 import { setGlobalAccessToken } from '@/lib/api';
 import { RequireRole } from './auth/RequireRole';
 import NotFound from "@/pages/not-found"
+import { RequireAuth } from './auth/RequireAuth';
 
 export default function App() {
   const oidc = useOpenIDConnectContext();
@@ -54,10 +55,12 @@ export default function App() {
             <Route path="/" element={<Page />} />
             <Route path="/:placeId/register" element={<Registration user={connectedUser} oidc={oidc} />} />
             <Route path="/:placeId/inscription" element={<Registration user={connectedUser} oidc={oidc} />} />
-            <Route element={<RequireRole role="admin" user={connectedUser} />}>
-              <Route element={<AdminLayout />}>
-                {/* All routes that here require admin permission */}
-                <Route path="/admin" element={<Admin />} />
+            <Route element={<RequireAuth oidc={oidc}/>}>
+              <Route element={<RequireRole role="admin" user={connectedUser} />}>
+                <Route element={<AdminLayout />}>
+                  {/* All routes that here require admin permission */}
+                  <Route path="/admin" element={<Admin />} />
+                </Route>
               </Route>
             </Route>
           </Route>
