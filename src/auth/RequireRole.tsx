@@ -1,6 +1,6 @@
-import { Navigate, Outlet } from "react-router"
+import { Outlet } from "react-router"
 import type { UserType } from "@/types/user"
-import { LoadingPage } from "@/pages/Loading"
+import NotFound from "@/pages/not-found"
 
 export const RequireRole = ({
   user,
@@ -10,12 +10,8 @@ export const RequireRole = ({
   role: string
 }) => {
 
-  if (!user.username) {
-    return <LoadingPage />
-  }
-
   if (!user.roles.includes(role)) {
-    return <Navigate to="/" replace />
+    return <NotFound/>
   }
 
   return <Outlet />
