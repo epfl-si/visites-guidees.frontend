@@ -63,6 +63,36 @@
     "submitSuccess": "Your registration has been sent successfully.",
     "submitError": "An error occurred while sending your registration. Please try again."
   },
+  "reservation": {
+    "title": "Reservations",
+    "lastReservations": "Last 10 reservations",
+    "noResults": "No result for this search.",
+    "allStatus": "All",
+    "notFoundDescription": "Currently nobody have reserve a guided tour.",
+    "orderNumber": "Reservation",
+    "createdAt": "Created at",
+    "visitDetails": "Visit details",
+    "dateLabel": "Date",
+    "participantNbr": "Number of participants",
+    "people": "people",
+    "languageLabel": "Language",
+    "customer": "Customer",
+    "name": "Name",
+    "company": "Company",
+    "email": "Email",
+    "phone": "Phone",
+    "paymentInfo": "Payment",
+    "paymentMethod": "Payment method",
+    "place": "Place",
+    "guideInfo": "Guide",
+    "status": {
+      "WAITINGGUIDE": "Waiting for Guide",
+      "WAITINGVALIDATION": "Waiting for Validation",
+      "WAITINGPAYMENT": "Waiting for Payment",
+      "READY": "Ready",
+      "CANCELLED": "Cancelled"
+    }
+  },
   "guide": {
     "title": "The guides",
     "label": "Guide",
@@ -73,7 +103,34 @@
     "email": "Email",
     "add": "Add un guide",
     "searching": "Searching...",
-    "noResult": "No results found"
+    "noResult": "No results found",
+    "status": {
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive",
+      "RETIRED": "Retired",
+      "SUSPENDED": "Suspended"
+    }
+  },
+  "place": {
+    "title": "Places"
+  },
+  "table": {
+    "title": "Title",
+    "capacity": "Capacity",
+    "price": "Price",
+    "company": "Company",
+    "email": "Email",
+    "date": "Date",
+    "status": "Status",
+    "name": "Name",
+    "phoneNumber": "Phone number",
+    "language": "Language(s)"
+  },
+  "admin": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "reservations": "Reservations"
+    }
   },
   "errors": {
     "generic": {

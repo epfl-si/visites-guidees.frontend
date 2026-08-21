@@ -1,18 +1,14 @@
 import { callBackend } from "@/lib/api";
-import type { guideInfo } from "@/types/guide";
+import type { Guide } from "@/types/guide";
 import type { BackendResponse } from "@/types/api";
-import type { ResponseUserAPI } from "@/types/user";
 
-const VERSION = "v1"
+const VERSION = "v1";
+const ENDPOINT = "guides";
 
-export async function getGuideInfo(): Promise<BackendResponse<guideInfo[]>> {
-  return await callBackend<guideInfo[]>(`${VERSION}/guides`);
-}
-
-export async function searchUser(query: string): Promise<BackendResponse<ResponseUserAPI[]>> {
-  return await callBackend<[]>(`${VERSION}/users/search?query=${query}`);
+export async function getGuides(): Promise<BackendResponse<Guide[]>> {
+  return await callBackend<Guide[]>(`${VERSION}/${ENDPOINT}`);
 }
 
 export async function addGuide(sciper: number) {
-  return await callBackend(`${VERSION}/guides`, { "method": 'POST', "body": { "sciper": sciper } });
+  return await callBackend(`${VERSION}/${ENDPOINT}`, { "method": 'POST', "body": { "sciper": sciper } });
 }

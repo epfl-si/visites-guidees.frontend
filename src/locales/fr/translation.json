@@ -64,6 +64,37 @@
     "submitSuccess": "Votre inscription a bien été envoyée.",
     "submitError": "Une erreur est survenue lors de l'envoi de votre inscription. Veuillez réessayer."
   },
+  "reservation": {
+    "title": "Réservations",
+    "lastReservations": "10 dernières reservations",
+    "noResults": "Aucun résultat pour cette recherche.",
+    "allStatus": "Tous",
+    "notFound": "Aucune reservation trouvée.",
+    "notFoundDescription": "Actuellement Il n'y a aucune reservation.",
+    "orderNumber": "Réservation",
+    "createdAt": "Créé le",
+    "visitDetails": "Détails de la visite",
+    "dateLabel": "Date",
+    "participantNbr": "Nombres de participants",
+    "people": "personnes",
+    "languageLabel": "langue",
+    "customer": "Client",
+    "name": "Nom",
+    "company": "Entreprise",
+    "email": "Email",
+    "phone": "Téléphone",
+    "paymentInfo": "Payment",
+    "paymentMethod": "Moyen de payment",
+    "place": "Lieu",
+    "guideInfo": "Guide",
+    "status": {
+      "WAITINGGUIDE": "Attente Guide",
+      "WAITINGVALIDATION": "Attente Validation",
+      "WAITINGPAYMENT": "Attente Paiement",
+      "READY": "Prêt",
+      "CANCELLED": "Annulé"
+    }
+  },
   "guide": {
     "title": "Les guides",
     "label": "Guide",
@@ -74,7 +105,34 @@
     "email": "Email",
     "add": "Ajouter un guide",
     "searching": "Searching...",
-    "noResult": "Aucun résultat"
+    "noResult": "Aucun résultat",
+    "status": {
+      "ACTIVE": "Actif",
+      "INACTIVE": "Inactif",
+      "RETIRED": "Retiré",
+      "SUSPENDED": "Suspendu"
+    }
+  },
+  "place": {
+    "title": "Lieux"
+  },
+  "table": {
+    "title": "Titre",
+    "capacity": "Capacité",
+    "price": "Prix",
+    "company": "Entreprise",
+    "email": "Email",
+    "date": "Date",
+    "status": "Statut",
+    "name": "Nom",
+    "phoneNumber": "Numéro de téléphone",
+    "language": "Langue(s)"
+  },
+  "admin": {
+    "nav": {
+      "dashboard": "Tableau de bord",
+      "reservations": "Reservations"
+    }
   },
   "errors": {
     "generic": {

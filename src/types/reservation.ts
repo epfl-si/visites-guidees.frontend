@@ -1,10 +1,13 @@
-import type { Status } from "@/types/status";
+import type { ReservationStatus } from "@/types/status";
+import type { Language } from "@/types/language";
+import type { Guide } from "@/types/guide";
+import type { Place } from "@/types/place";
 
 export type Reservation = {
   id: number;
   firstName: string;
   lastName: string;
-  entreprise: string;
+  company: string;
   email: string;
   phone: string;
   address: string;
@@ -16,16 +19,17 @@ export type Reservation = {
   date: string;
   createdAt: Date;
   payment: string;
-  numberOfParticipant: number;
-  statusId: number;
-  languageId: number;
-  placeId: number;
+  participantNumber: number;
+  status: ReservationStatus;
+  language: Language;
+  place: Place
+  reservationGuides: { guide: Guide }[];
 }
 
-export type reservations = {
+export type Reservations = {
   id: number;
   company: string;
   email: string;
-  visitDate: Date;
-  status: Status
+  date: Date;
+  status: ReservationStatus;
 }

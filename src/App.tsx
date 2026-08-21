@@ -9,6 +9,8 @@ import { fetchConnectedUser } from '@/services/auth';
 import Registration from '@/pages/registration';
 import Admin from '@/pages/admin';
 import { setGlobalAccessToken } from '@/lib/api';
+import Reservations from './pages/reservations';
+import Reservation from './pages/reservation';
 import { RequireRole } from './auth/RequireRole';
 import NotFound from "@/pages/not-found"
 
@@ -58,6 +60,8 @@ export default function App() {
               <Route element={<AdminLayout />}>
                 {/* All routes that here require admin permission */}
                 <Route path="/admin" element={<Admin />} />
+                <Route path="/admin/reservation" element={<Reservations />} />
+                <Route path="/admin/reservation/:id" element={<Reservation />} />
               </Route>
             </Route>
           </Route>
