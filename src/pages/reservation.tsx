@@ -32,7 +32,7 @@ import {
 
 import { RESERVATION_STATUS } from "@/constants/status";
 import { cn } from "@/lib/utils";
-import { Language } from "@/types/language";
+import type { Language } from "@/types/language";
 
 function formatDateTime(d: Date | string) {
   return new Date(d).toLocaleDateString("fr-CH", {

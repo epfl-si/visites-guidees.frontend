@@ -12,6 +12,7 @@ import { RequireAdmin } from '@/auth/RequireAdmin';
 import { setGlobalAccessToken } from '@/lib/api';
 import Reservations from './pages/reservations';
 import Reservation from './pages/reservation';
+import NotFound from "@/pages/not-found"
 
 export default function App() {
   const oidc = useOpenIDConnectContext();
@@ -56,6 +57,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<AppLayout user={connectedUser} oidc={oidc} />}>
+            <Route path='*' element={<NotFound/>}/>
             <Route path="/" element={<Page />} />
             <Route path="/:placeId/register" element={<Registration user={connectedUser} oidc={oidc} />} />
             <Route path="/:placeId/inscription" element={<Registration user={connectedUser} oidc={oidc} />} />

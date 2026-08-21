@@ -78,6 +78,16 @@
     }
   },
   "guide": {
+    "title": "The guides",
+    "label": "Guide",
+    "picture": "Profile picture",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "phone": "Phone",
+    "email": "Email",
+    "add": "Add un guide",
+    "searching": "Searching...",
+    "noResult": "No results found",
     "status": {
       "ACTIVE": "Active",
       "INACTIVE": "Inactive",
@@ -105,5 +115,27 @@
       "dashboard": "Dashboard",
       "reservations": "Reservations"
     }
+  },
+  "errors": {
+    "generic": {
+      "title": "Oops! An error occurred",
+      "description": "Something went wrong. We apologize for the inconvenience.",
+      "errorCode": "Error code"
+    },
+    "dataLoading": {
+      "title": "Data loading error",
+      "defaultMessage": "Unable to retrieve your data. Please try again later.",
+      "userDataError": "Unable to load this user's data. Check your connection and try again."
+    },
+    "notFound": {
+      "generic": {
+        "title": "Oops! It looks like this page doesn't exist",
+        "contact": "If you think this is an error, contact"
+      }
+    }
+  },
+  "actions": {
+    "backToHome": "Back to home",
+    "previousPage": "Previous page"
   }
 }

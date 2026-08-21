@@ -1,7 +1,6 @@
 export type UserType = {
   firstName: string,
   lastName: string,
-  groups: string[],
   username: string,
   isAdmin: boolean,
   isGuide: boolean,
@@ -15,4 +14,9 @@ export type User = {
   firstName: string;
   email: string;
   username: string;
+}
+export type ResponseUserAPI = {
+  sciper: string
+  firstName: string,
+  lastName: string,
 }
