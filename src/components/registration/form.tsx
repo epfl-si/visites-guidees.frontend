@@ -10,6 +10,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  NumberField,
+  NumberFieldDecrement,
+  NumberFieldGroup,
+  NumberFieldIncrement,
+  NumberFieldInput,
+  NumberFieldScrubArea,
+} from "@/components/reui/number-field"
+import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect, useMemo, type FormEvent } from "react";
@@ -304,23 +313,24 @@ export default function RegistrationForm({
         <Label>
           {t("registration.participants.label")} <span className="text-destructive">*</span>
         </Label>
-        <Select
+        <NumberField
+          min={0} max={100}
           value={formData.participantNumber}
-          onValueChange={(value) => {
-            if (value !== null) updateField("participantNumber", value);
-          }}
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {Array.from({ length: 20 }, (_, i) => i + 1).map((n) => (
-              <SelectItem key={n} value={String(n)}>
-                {n}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          onValueChange={(value) =>{
+            if (value !== null) updateField("participantNumber", value)
+          }}>
+          <NumberFieldGroup>
+            <NumberFieldInput className="text-start" />
+            <div className="border-input bg-muted/30 rounded-lg m-px flex shrink-0 flex-col overflow-hidden border">
+              <NumberFieldIncrement className="border-input hover:bg-accent focus-visible:bg-accent flex h-3.5 w-full flex-1 shrink-0 items-center rounded-none! border-b px-1.5 leading-none">
+                <ChevronUpIcon  className="size-3.5" />
+              </NumberFieldIncrement>
+              <NumberFieldDecrement className="hover:bg-accent focus-visible:bg-accent flex h-3.5 w-full flex-1 shrink-0 items-center rounded-none! px-1.5 leading-none">
+                <ChevronDownIcon  className="size-3.5" />
+              </NumberFieldDecrement>
+            </div>
+          </NumberFieldGroup>
+        </NumberField>
       </div>
 
       <div className="flex flex-col gap-2">
