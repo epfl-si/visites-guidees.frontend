@@ -9,10 +9,6 @@ export const RequireRole = ({
   user: UserType
   role: string
 }) => {
-  // require to be authenticated
-  if (role == "") {
-    return <Navigate to="/" replace />
-  }
 
   if (!user.username) {
     return <LoadingPage />
