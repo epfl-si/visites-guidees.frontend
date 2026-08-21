@@ -11,6 +11,7 @@ import Admin from '@/pages/admin';
 import { setGlobalAccessToken } from '@/lib/api';
 import { RequireRole } from './auth/RequireRole';
 import NotFound from "@/pages/not-found"
+import { registrationSegments } from '@/lib/routes';
 
 export default function App() {
   const oidc = useOpenIDConnectContext();
@@ -52,8 +53,13 @@ export default function App() {
           <Route element={<AppLayout user={connectedUser} oidc={oidc} />}>
             <Route path='*' element={<NotFound/>}/>
             <Route path="/" element={<Page />} />
-            <Route path="/:placeId/register" element={<Registration user={connectedUser} oidc={oidc} />} />
-            <Route path="/:placeId/inscription" element={<Registration user={connectedUser} oidc={oidc} />} />
+            {registrationSegments.map((segment) => (
+              <Route
+                key={segment}
+                path={`/:placeId/${segment}`}
+                element={<Registration user={connectedUser} oidc={oidc} />}
+              />
+            ))}
             <Route element={<RequireRole role="admin" user={connectedUser} />}>
               <Route element={<AdminLayout />}>
                 {/* All routes that here require admin permission */}
