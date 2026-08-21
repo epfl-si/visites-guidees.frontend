@@ -117,7 +117,7 @@
     "add": "Ajouter un guide",
     "searching": "Searching...",
     "noResult": "Aucun résultat",
-    "notFound":"Aucun guide trouvé.",
+    "notFound": "Aucun guide trouvé.",
     "searchError": "La recherche d'utilisateurs et d'utilisatrices a échoué. Veuillez réessayer.",
     "addSuccess": "Le guide a été ajouté.",
     "addError": "Le guide n'a pas pu être ajouté. Veuillez réessayer.",
@@ -160,6 +160,14 @@
         "title": "Oups ! Il semble que cette page n'existe pas",
         "contact": "Si vous pensez qu'il s'agit d'une erreur, contactez"
       }
+    },
+    "unauthenticated": {
+      "title": "Vous devez être connecté(e) pour accéder à cette page",
+      "contact": "Si vous pensez qu'il s'agit d'une erreur, contactez ssss"
+    },
+    "forbidden": {
+      "title": "Vous n'avez pas la permission d'accéder à cette page",
+      "contact": "Si vous pensez qu'il s'agit d'une erreur, contactez"
     }
   },
   "actions": {

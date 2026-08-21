@@ -116,7 +116,7 @@
     "add": "Add un guide",
     "searching": "Searching...",
     "noResult": "No results found",
-    "notFound":"No guide found.",
+    "notFound": "No guide found.",
     "searchError": "The user search failed. Please try again.",
     "addSuccess": "The guide has been added.",
     "addError": "The guide could not be added. Please try again.",
@@ -159,6 +159,14 @@
         "title": "Oops! It looks like this page doesn't exist",
         "contact": "If you think this is an error, contact"
       }
+    },
+    "unauthenticated": {
+      "title": "You must be signed in to view this page",
+      "contact": "If you think this is an error, contact"
+    },
+    "forbidden": {
+      "title": "You don't have permission to access this page",
+      "contact": "If you think this is an error, contact"
     }
   },
   "actions": {
