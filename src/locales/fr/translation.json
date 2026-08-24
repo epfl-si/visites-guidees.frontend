@@ -48,7 +48,8 @@
     "date": {
       "label": "Date souhaitée de la visite guidée",
       "hint": "Réservation obligatoire minimum 7 jours ouvrables avant la visite",
-      "tooSoon": "La date choisie doit être au moins {{maxTime}} jours ouvrables à partir de maintenant."
+      "tooSoon": "La date choisie doit être au moins {{maxTime}} jours ouvrables à partir de maintenant.",
+      "invalid": "La date ou l'heure sélectionnée est invalide."
     },
     "participants": {
       "label": "Nombre de participantes et de participants"
@@ -64,11 +65,15 @@
     "gdpr": {
       "label": "Accord GDPR",
       "consent": "Je consens à ce que ce site Web stocke les informations que j'ai fournies afin de pouvoir répondre à ma demande.",
-      "hint": "Pour plus d'informations, visitez https://go.epfl.ch/gpdr/."
+      "hint": "Pour plus d'informations, visitez https://go.epfl.ch/gpdr/.",
+      "consentRequired": "Vous devez accepter le consentement RGPD pour continuer."
     },
     "submit": "Envoyer",
     "submitSuccess": "Votre inscription a bien été envoyée.",
-    "submitError": "Une erreur est survenue lors de l'envoi de votre inscription. Veuillez réessayer."
+    "submitError": "Une erreur est survenue lors de l'envoi de votre inscription. Veuillez réessayer.",
+    "requiredFieldsMissing": "Veuillez remplir tous les champs obligatoires.",
+    "submitting": "Envoi en cours…",
+    "loadError": "Cette visite guidée n'a pas pu être chargée. Veuillez réessayer plus tard."
   },
   "guide": {
     "title": "Les guides",
@@ -80,7 +85,10 @@
     "email": "Email",
     "add": "Ajouter un guide",
     "searching": "Searching...",
-    "noResult": "Aucun résultat"
+    "noResult": "Aucun résultat",
+    "searchError": "La recherche d'utilisateurs et d'utilisatrices a échoué. Veuillez réessayer.",
+    "addSuccess": "Le guide a été ajouté.",
+    "addError": "Le guide n'a pas pu être ajouté. Veuillez réessayer."
   },
   "errors": {
     "generic": {
@@ -104,5 +112,13 @@
     "backToHome": "Back to home",
     "previousPage": "Previous page",
     "add": "ajouter"
+  },
+  "admin": {
+    "reservations": {
+      "loadError": "Les réservations n'ont pas pu être chargées. Veuillez réessayer plus tard."
+    },
+    "guides": {
+      "loadError": "Les guides n'ont pas pu être chargés. Veuillez réessayer plus tard."
+    }
   }
 }

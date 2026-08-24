@@ -12,9 +12,12 @@ import { setGlobalAccessToken } from '@/lib/api';
 import { RequireRole } from './auth/RequireRole';
 import NotFound from "@/pages/not-found"
 import { registrationSegments } from '@/lib/routes';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 
 export default function App() {
   const oidc = useOpenIDConnectContext();
+  const { t } = useTranslation();
   const [connectedUser, setConnectedUser] = useState<UserType>({
     firstName: '',
     lastName: '',
@@ -36,9 +39,12 @@ export default function App() {
   const loadFetch = async () => {
     try {
       const response = await fetchConnectedUser()
-      if (response.success) {
-        setConnectedUser(response.data)
+      if (!response.success) {
+        console.error('ConnectedUser Error', response.error)
+        toast.error(t('errors.dataLoading.userDataError'))
+        return
       }
+      setConnectedUser(response.data)
 
     } catch (error) {
       console.log('ConnectedUser Error', error);

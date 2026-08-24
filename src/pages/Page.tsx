@@ -5,6 +5,7 @@ import { Spinner } from '@/components/ui/spinner';
 import { getPlaces } from '@/services/visit';
 import type { ContentCardType } from '@/types/content-card';
 import type { PlaceListItemType } from '@/types/register';
+import { toast } from "sonner"
 
 function toCardContent(
   place: PlaceListItemType,
@@ -29,9 +30,10 @@ export default function Page() {
       .then(setPlaces)
       .catch((error) => {
         console.error('getPlaces Error', error);
+        toast.error(t('app.tours.error'));
         setFailed(true);
       });
-  }, []);
+  }, [t]);
 
   return (
     <article id="guided-tours" className="mx-auto w-full max-w-5xl px-4 py-10">
