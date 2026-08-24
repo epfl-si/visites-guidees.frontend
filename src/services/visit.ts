@@ -8,7 +8,7 @@ export async function getPlaces() {
     method: 'GET',
   });
   if (!response.success) {
-    throw new Error(`Failed to fetch visit details`);
+    throw new Error(`Failed to fetch places`);
   }
   return response.data;
 }

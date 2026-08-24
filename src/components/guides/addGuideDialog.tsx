@@ -19,6 +19,7 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group"
 import { useTranslation } from "react-i18next"
+import { toast } from "sonner"
 
 export const AddGuideDialog = () => {
   const { t } = useTranslation()
@@ -28,18 +29,35 @@ export const AddGuideDialog = () => {
   const [search, setSearch] = useState<string>("")
 
   async function handleSearch() {
-    if (search) {
-      setIsWaiting(true)
+    if (!search) return
+
+    setIsWaiting(true)
+    try {
       const usersResponse = await searchUser(search)
-      if(usersResponse.success){
-        setUsers(usersResponse.data)
-        setIsWaiting(false)
+      if (!usersResponse.success) {
+        throw new Error(usersResponse.error)
       }
+      setUsers(usersResponse.data)
+    } catch (error) {
+      console.error("searchUser Error", error)
+      toast.error(t("guide.searchError"))
+      setUsers([])
+    } finally {
+      setIsWaiting(false)
     }
   }
 
   async function handleGuideClick(sciper: number) {
-    await addGuide(sciper)
+    try {
+      const response = await addGuide(sciper)
+      if (!response.success) {
+        throw new Error(response.error)
+      }
+      toast.success(t("guide.addSuccess"))
+    } catch (error) {
+      console.error("addGuide Error", error)
+      toast.error(t("guide.addError"))
+    }
   }
   return (
     <Dialog>

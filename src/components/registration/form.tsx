@@ -25,6 +25,7 @@ import { useState, useEffect, useMemo, type FormEvent } from "react";
 import type { PlaceInformationType, RegistrationFormType } from "@/types/register";
 import countryList from "react-select-country-list";
 import { postRegistration } from "@/services/reservation";
+import { toast } from "sonner";
 
 const LOCAL_STORAGE_KEY = "registrationFormData";
 
@@ -90,12 +91,12 @@ export default function RegistrationForm({
   const checkDate = (date: string, time: string, minBusinessDays: number) => {
     const selectedDateTime = new Date(`${date}T${time}`);
     if (Number.isNaN(selectedDateTime.getTime())) {
-      alert(t("registration.date.invalid"));
+      toast.error(t("registration.date.invalid"));
       return false;
     }
     const businessDays = countBusinessDaysBetween(new Date(), selectedDateTime);
     if (businessDays < minBusinessDays) {
-      alert(t("registration.date.tooSoon", { maxTime: minBusinessDays }));
+      toast.error(t("registration.date.tooSoon", { maxTime: minBusinessDays }));
       return false;
     }
     return true;
@@ -120,7 +121,7 @@ export default function RegistrationForm({
     e.preventDefault();
 
     if (!formData.gdprConsent) {
-      alert(t("registration.gdpr.consentRequired"));
+      toast.error(t("registration.gdpr.consentRequired"));
       return;
     }
 
@@ -141,7 +142,7 @@ export default function RegistrationForm({
     const hasMissingField =
       requiredStringFields.some((field) => !formData[field]) || formData.languageId === 0;
     if (hasMissingField) {
-      alert(t("registration.requiredFieldsMissing"));
+      toast.error(t("registration.requiredFieldsMissing"));
       return;
     }
 
@@ -163,15 +164,16 @@ export default function RegistrationForm({
 
     setIsSubmitting(true);
     try {
-      await postRegistration(
-        formDataToSubmit
-      );
-      alert(t("registration.submitSuccess"));
+      const response = await postRegistration(formDataToSubmit);
+      if (!response.success) {
+        throw new Error(response.error);
+      }
+      toast.success(t("registration.submitSuccess"));
       setFormData(initialFormData);
       localStorage.removeItem(LOCAL_STORAGE_KEY);
     } catch (error) {
       console.error("Registration submission failed: ", error);
-      alert(t("registration.submitError"));
+      toast.error(t("registration.submitError"));
     } finally {
       setIsSubmitting(false);
     }

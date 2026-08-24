@@ -5,8 +5,11 @@ import { getGuideInfo } from "@/services/guide"
 import { GuideInfoTable } from "@/components/guides/tables"
 import type { guideInfo } from "@/types/guide"
 import type { reservations } from "@/types/reservation";
+import { useTranslation } from "react-i18next"
+import { toast } from "sonner"
 
 export default function Admin() {
+  const { t } = useTranslation()
   const [reservations, setReservations] = useState<reservations[]>([])
   const [guides, setGuides] = useState<guideInfo[]>([])
   const [isLoadingGuides, setIsLoadingGuides] = useState(true)
@@ -14,19 +17,34 @@ export default function Admin() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const reservationsResponse = await getReservations(5,'desc')
-      if (reservationsResponse.success) {
+      try {
+        const reservationsResponse = await getReservations(5, 'desc')
+        if (!reservationsResponse.success) {
+          throw new Error('Failed to fetch reservations')
+        }
         setReservations(reservationsResponse.data)
+      } catch (error) {
+        console.error('getReservations Error', error)
+        toast.error(t("admin.reservations.loadError"))
+      } finally {
         setIsLoadingReservations(false)
-      } 
-      const guideResponse = await getGuideInfo()
-      if (guideResponse.success){
+      }
+
+      try {
+        const guideResponse = await getGuideInfo()
+        if (!guideResponse.success) {
+          throw new Error('Failed to fetch guides')
+        }
         setGuides(guideResponse.data)
+      } catch (error) {
+        console.error('getGuideInfo Error', error)
+        toast.error(t("admin.guides.loadError"))
+      } finally {
         setIsLoadingGuides(false)
       }
     }
     fetchData();
-  }, []);
+  }, [t]);
 
 
   return (

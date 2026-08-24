@@ -6,6 +6,7 @@ import type {State} from "@epfl-si/react-appauth";
 import { useState,useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getPlaceById } from '@/services/visit';
+import { toast } from "sonner";
 
 export default function Registration({ user: _user, oidc:_oidc }: { user: UserType, oidc: State }) {
   const { placeId: placeIdString } = useParams<{ placeId: string }>();
@@ -20,8 +21,11 @@ export default function Registration({ user: _user, oidc:_oidc }: { user: UserTy
 
     getPlaceById(placeId)
       .then(setVisitInformation)
-      .catch((error) => console.error('getPlaceById Error', error));
-  }, [placeId]);
+      .catch((error) => {
+        console.error('getPlaceById Error', error);
+        toast.error(t("registration.loadError"));
+      });
+  }, [placeId, t]);
 
   if (!Number.isInteger(placeId) || !visitInformation) {
     return null;
