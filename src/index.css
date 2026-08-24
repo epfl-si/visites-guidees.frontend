@@ -2,6 +2,14 @@
 @import "tw-animate-css";
 
 @theme inline {
+  --color-epfl-red: var(--epfl-red);
+  --color-epfl-groseille: var(--epfl-groseille);
+  --color-epfl-turquoise: var(--epfl-turquoise);
+  --color-epfl-canard: var(--epfl-canard);
+  --color-epfl-soufre: var(--epfl-soufre);
+  --color-epfl-carotte: var(--epfl-carotte);
+  --color-epfl-taupe: var(--epfl-taupe);
+  --color-epfl-accent: var(--epfl-accent);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-suisse), var(--font-inter), sans-serif;
@@ -43,6 +51,23 @@
 }
 
 :root {
+  --epfl-red: #FF0000;
+  --epfl-groseille: #B51F1F;
+  --epfl-turquoise: #00A79F;
+  --epfl-canard: #007480;
+  --epfl-soufre: #FBEE66;
+  --epfl-carotte: #EC6608;
+  --epfl-taupe: #413D3A;
+  --epfl-accent: var(--epfl-groseille);
+
+  /* EPFL Elements - alert (https://epfl-si.github.io/elements/#/atoms/alert) */
+  --epfl-alert-bg: #FFFFFF;
+  --epfl-alert-text: #212121;
+  --epfl-alert-success: #7ED321;
+  --epfl-alert-info: #4A90E2;
+  --epfl-alert-warning: #F5A623;
+  --epfl-alert-danger: #FF0000;
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -90,4 +115,33 @@
 
 [aria-roledescription="sortable"] {
   height: 200px;
+}
+
+/* EPFL Elements alert geometry, applied to Sonner toasts. */
+[data-sonner-toast].cn-toast {
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.96rem;
+  padding: 0.64rem 0.6rem;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 0;
+  box-shadow: none;
+  font-family: var(--font-sans);
+}
+
+[data-sonner-toast].cn-toast [data-icon] {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0;
+}
+
+[data-sonner-toast].cn-toast [data-icon] > svg {
+  width: 100%;
+  height: 100%;
+}
+
+[data-sonner-toast].cn-toast [data-title] {
+  font-weight: 400;
 }
