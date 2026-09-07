@@ -13,9 +13,13 @@ import Reservations from './pages/reservations';
 import Reservation from './pages/reservation';
 import { RequireRole } from './auth/RequireRole';
 import NotFound from "@/pages/not-found"
+import { registrationSegments } from '@/lib/routes';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 
 export default function App() {
   const oidc = useOpenIDConnectContext();
+  const { t } = useTranslation();
   const [connectedUser, setConnectedUser] = useState<UserType>({
     firstName: '',
     lastName: '',
@@ -37,9 +41,12 @@ export default function App() {
   const loadFetch = async () => {
     try {
       const response = await fetchConnectedUser()
-      if (response.success) {
-        setConnectedUser(response.data)
+      if (!response.success) {
+        console.error('ConnectedUser Error', response.error)
+        toast.error(t('errors.dataLoading.userDataError'))
+        return
       }
+      setConnectedUser(response.data)
 
     } catch (error) {
       console.log('ConnectedUser Error', error);
@@ -54,8 +61,13 @@ export default function App() {
           <Route element={<AppLayout user={connectedUser} oidc={oidc} />}>
             <Route path='*' element={<NotFound/>}/>
             <Route path="/" element={<Page />} />
-            <Route path="/:placeId/register" element={<Registration user={connectedUser} oidc={oidc} />} />
-            <Route path="/:placeId/inscription" element={<Registration user={connectedUser} oidc={oidc} />} />
+            {registrationSegments.map((segment) => (
+              <Route
+                key={segment}
+                path={`/:placeId/${segment}`}
+                element={<Registration user={connectedUser} oidc={oidc} />}
+              />
+            ))}
             <Route element={<RequireRole role="admin" user={connectedUser} />}>
               <Route element={<AdminLayout />}>
                 {/* All routes that here require admin permission */}

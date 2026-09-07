@@ -12,7 +12,11 @@ export async function fetchVisitTitle(
     throw new Error('placeId is required to fetch visit title');
   }
 
-  return await callBackend<Place>(url, {
+  const response = await callBackend<Place>(url, {
     method: 'GET',
   });
+  if (!response.success) {
+    throw new Error(`Failed to fetch places`);
+  }
+  return response;
 }

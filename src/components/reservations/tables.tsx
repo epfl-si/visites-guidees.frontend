@@ -30,7 +30,7 @@ export const Reservations = ({ reservations, loading }: { reservations: Reservat
           </div>
         ) : reservations.length === 0 ? (
           <p className="p-4 text-center text-muted-foreground">
-            {t("errors.dataloading.defaultMessage")}
+            {t("errors.dataLoading.defaultMessage")}
           </p>
         ) : (
         <div className="rounded-md border">

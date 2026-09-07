@@ -9,7 +9,13 @@
     "contact": "Contact"
   },
   "app": {
-    "title": "Guided Tours"
+    "title": "Guided Tours",
+    "description": "Discover EPFL through our guided tours! Explore the campus and its unique atmosphere, stroll through our exhibitions, or learn about our energy production systems.",
+    "tours": {
+      "loading": "Loading tours…",
+      "empty": "No guided tour is available at the moment.",
+      "error": "The guided tours could not be loaded. Please try again later."
+    }
   },
   "registration": {
     "condition": {
@@ -41,7 +47,8 @@
     "date": {
       "label": "Desired date of the guided tour",
       "hint": "Booking required at least 7 business days before the visit",
-      "tooSoon": "The selected date need to be at least {{maxTime}} business days from now."
+      "tooSoon": "The selected date need to be at least {{maxTime}} business days from now.",
+      "invalid": "The selected date or time is invalid."
     },
     "participants": {
       "label": "Number of participants"
@@ -57,11 +64,15 @@
     "gdpr": {
       "label": "GDPR consent",
       "consent": "I consent to this website storing the information I have provided in order to respond to my request.",
-      "hint": "For more information, visit https://go.epfl.ch/gpdr/."
+      "hint": "For more information, visit https://go.epfl.ch/gpdr/.",
+      "consentRequired": "You must accept the GDPR consent to continue."
     },
     "submit": "Send",
     "submitSuccess": "Your registration has been sent successfully.",
-    "submitError": "An error occurred while sending your registration. Please try again."
+    "submitError": "An error occurred while sending your registration. Please try again.",
+    "requiredFieldsMissing": "Please fill in all the required fields.",
+    "submitting": "Sending…",
+    "loadError": "This guided tour could not be loaded. Please try again later."
   },
   "reservation": {
     "title": "Reservations",
@@ -106,6 +117,9 @@
     "searching": "Searching...",
     "noResult": "No results found",
     "notFound":"No guide found.",
+    "searchError": "The user search failed. Please try again.",
+    "addSuccess": "The guide has been added.",
+    "addError": "The guide could not be added. Please try again.",
     "status": {
       "ACTIVE": "Active",
       "INACTIVE": "Inactive",
@@ -129,12 +143,6 @@
     "phoneNumber": "Phone number",
     "language": "Language(s)"
   },
-  "admin": {
-    "nav": {
-      "dashboard": "Dashboard",
-      "reservations": "Reservations"
-    }
-  },
   "errors": {
     "generic": {
       "title": "Oops! An error occurred",
@@ -157,5 +165,17 @@
     "backToHome": "Back to home",
     "previousPage": "Previous page",
     "add": "ajouter"
+  },
+  "admin": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "reservations": "Reservations"
+    },
+    "reservations": {
+      "loadError": "The reservations could not be loaded. Please try again later."
+    },
+    "guides": {
+      "loadError": "The guides could not be loaded. Please try again later."
+    }
   }
 }

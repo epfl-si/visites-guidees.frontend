@@ -9,7 +9,13 @@
     "contact": "Contact"
   },
   "app": {
-    "title": "Visites guidées"
+    "title": "Visites guidées",
+    "description": "Découvrez l’EPFL à travers nos visites guidées! Explorez le campus et son atmosphère unique, promenez-vous dans nos expositions ou informez-vous sur nos systèmes de production d’énergie.",
+    "tours": {
+      "loading": "Chargement des visites…",
+      "empty": "Aucune visite guidée n’est proposée pour le moment.",
+      "error": "Les visites guidées n’ont pas pu être chargées. Veuillez réessayer plus tard."
+    }
   },
   "registration": {
     "condition": {
@@ -42,7 +48,8 @@
     "date": {
       "label": "Date souhaitée de la visite guidée",
       "hint": "Réservation obligatoire minimum 7 jours ouvrables avant la visite",
-      "tooSoon": "La date choisie doit être au moins {{maxTime}} jours ouvrables à partir de maintenant."
+      "tooSoon": "La date choisie doit être au moins {{maxTime}} jours ouvrables à partir de maintenant.",
+      "invalid": "La date ou l'heure sélectionnée est invalide."
     },
     "participants": {
       "label": "Nombre de participantes et de participants"
@@ -58,11 +65,15 @@
     "gdpr": {
       "label": "Accord GDPR",
       "consent": "Je consens à ce que ce site Web stocke les informations que j'ai fournies afin de pouvoir répondre à ma demande.",
-      "hint": "Pour plus d'informations, visitez https://go.epfl.ch/gpdr/."
+      "hint": "Pour plus d'informations, visitez https://go.epfl.ch/gpdr/.",
+      "consentRequired": "Vous devez accepter le consentement RGPD pour continuer."
     },
     "submit": "Envoyer",
     "submitSuccess": "Votre inscription a bien été envoyée.",
-    "submitError": "Une erreur est survenue lors de l'envoi de votre inscription. Veuillez réessayer."
+    "submitError": "Une erreur est survenue lors de l'envoi de votre inscription. Veuillez réessayer.",
+    "requiredFieldsMissing": "Veuillez remplir tous les champs obligatoires.",
+    "submitting": "Envoi en cours…",
+    "loadError": "Cette visite guidée n'a pas pu être chargée. Veuillez réessayer plus tard."
   },
   "reservation": {
     "title": "Réservations",
@@ -107,6 +118,9 @@
     "searching": "Searching...",
     "noResult": "Aucun résultat",
     "notFound":"Aucun guide trouvé.",
+    "searchError": "La recherche d'utilisateurs et d'utilisatrices a échoué. Veuillez réessayer.",
+    "addSuccess": "Le guide a été ajouté.",
+    "addError": "Le guide n'a pas pu être ajouté. Veuillez réessayer.",
     "status": {
       "ACTIVE": "Actif",
       "INACTIVE": "Inactif",
@@ -130,12 +144,6 @@
     "phoneNumber": "Numéro de téléphone",
     "language": "Langue(s)"
   },
-  "admin": {
-    "nav": {
-      "dashboard": "Tableau de bord",
-      "reservations": "Reservations"
-    }
-  },
   "errors": {
     "generic": {
       "title": "Oops! An error occurred",
@@ -158,5 +166,17 @@
     "backToHome": "Back to home",
     "previousPage": "Previous page",
     "add": "ajouter"
+  },
+  "admin": {
+    "nav": {
+      "dashboard": "Tableau de bord",
+      "reservations": "Reservations"
+    },
+    "reservations": {
+      "loadError": "Les réservations n'ont pas pu être chargées. Veuillez réessayer plus tard."
+    },
+    "guides": {
+      "loadError": "Les guides n'ont pas pu être chargés. Veuillez réessayer plus tard."
+    }
   }
 }

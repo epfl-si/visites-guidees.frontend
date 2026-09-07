@@ -10,12 +10,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  NumberField,
+  NumberFieldDecrement,
+  NumberFieldGroup,
+  NumberFieldIncrement,
+  NumberFieldInput,
+  NumberFieldScrubArea,
+} from "@/components/reui/number-field"
+import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect, useMemo, type FormEvent } from "react";
 import type { PlaceInformationType, RegistrationFormType } from "@/types/register";
 import countryList from "react-select-country-list";
 import { postRegistration } from "@/services/reservation";
+import { toast } from "sonner";
 
 const LOCAL_STORAGE_KEY = "registrationFormData";
 
@@ -81,12 +91,12 @@ export default function RegistrationForm({
   const checkDate = (date: string, time: string, minBusinessDays: number) => {
     const selectedDateTime = new Date(`${date}T${time}`);
     if (Number.isNaN(selectedDateTime.getTime())) {
-      alert(t("registration.date.invalid"));
+      toast.error(t("registration.date.invalid"));
       return false;
     }
     const businessDays = countBusinessDaysBetween(new Date(), selectedDateTime);
     if (businessDays < minBusinessDays) {
-      alert(t("registration.date.tooSoon", { maxTime: minBusinessDays }));
+      toast.error(t("registration.date.tooSoon", { maxTime: minBusinessDays }));
       return false;
     }
     return true;
@@ -111,7 +121,7 @@ export default function RegistrationForm({
     e.preventDefault();
 
     if (!formData.gdprConsent) {
-      alert(t("registration.gdpr.consentRequired"));
+      toast.error(t("registration.gdpr.consentRequired"));
       return;
     }
 
@@ -132,7 +142,7 @@ export default function RegistrationForm({
     const hasMissingField =
       requiredStringFields.some((field) => !formData[field]) || formData.languageId === 0;
     if (hasMissingField) {
-      alert(t("registration.requiredFieldsMissing"));
+      toast.error(t("registration.requiredFieldsMissing"));
       return;
     }
 
@@ -154,15 +164,16 @@ export default function RegistrationForm({
 
     setIsSubmitting(true);
     try {
-      await postRegistration(
-        formDataToSubmit
-      );
-      alert(t("registration.submitSuccess"));
+      const response = await postRegistration(formDataToSubmit);
+      if (!response.success) {
+        throw new Error(response.error);
+      }
+      toast.success(t("registration.submitSuccess"));
       setFormData(initialFormData);
       localStorage.removeItem(LOCAL_STORAGE_KEY);
     } catch (error) {
       console.error("Registration submission failed: ", error);
-      alert(t("registration.submitError"));
+      toast.error(t("registration.submitError"));
     } finally {
       setIsSubmitting(false);
     }
@@ -304,23 +315,24 @@ export default function RegistrationForm({
         <Label>
           {t("registration.participants.label")} <span className="text-destructive">*</span>
         </Label>
-        <Select
+        <NumberField
+          min={0} max={100}
           value={formData.participantNumber}
-          onValueChange={(value) => {
-            if (value !== null) updateField("participantNumber", value);
-          }}
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {Array.from({ length: 20 }, (_, i) => i + 1).map((n) => (
-              <SelectItem key={n} value={String(n)}>
-                {n}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          onValueChange={(value) =>{
+            if (value !== null) updateField("participantNumber", value)
+          }}>
+          <NumberFieldGroup>
+            <NumberFieldInput className="text-start" />
+            <div className="border-input bg-muted/30 rounded-lg m-px flex shrink-0 flex-col overflow-hidden border">
+              <NumberFieldIncrement className="border-input hover:bg-accent focus-visible:bg-accent flex h-3.5 w-full flex-1 shrink-0 items-center rounded-none! border-b px-1.5 leading-none">
+                <ChevronUpIcon  className="size-3.5" />
+              </NumberFieldIncrement>
+              <NumberFieldDecrement className="hover:bg-accent focus-visible:bg-accent flex h-3.5 w-full flex-1 shrink-0 items-center rounded-none! px-1.5 leading-none">
+                <ChevronDownIcon  className="size-3.5" />
+              </NumberFieldDecrement>
+            </div>
+          </NumberFieldGroup>
+        </NumberField>
       </div>
 
       <div className="flex flex-col gap-2">
@@ -332,7 +344,7 @@ export default function RegistrationForm({
           onValueChange={(value) => updateField("languageId", Number(value))}
           className="grid-flow-col justify-start gap-8"
         >
-          {information.languages.map((l: { id: number; name: string }) => (
+          {information.languages.map((l) => (
             <Label className="font-normal" key={l.id}>
               <RadioGroupItem value={String(l.id)} /> {l.name}
             </Label>
