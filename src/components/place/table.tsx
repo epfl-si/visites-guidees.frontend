@@ -9,11 +9,12 @@ import {
 } from "@/components/ui/table";
 import { useTranslation } from 'react-i18next';
 import type { Place } from "@/types/place";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export const PlacesTable = ({ places }: { places: Place[] }) => {
+export const PlacesTable = ({ places, loading }: { places: Place[], loading: boolean }) => {
   const { t, i18n } = useTranslation();
 
-  if (!places || places.length === 0) {
+  if (!loading && (!places || places.length === 0)) {
     return <p className="text-center text-muted-foreground p-4">{t("place.notFound")}</p>;
   }
 
@@ -37,7 +38,15 @@ export const PlacesTable = ({ places }: { places: Place[] }) => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {places.map((place) => (
+              {loading ? (
+                Array.from({ length: 5 }).map((_, index) => (
+                  <TableRow key={index}>
+                    <TableCell><Skeleton className="h-4 w-45" /></TableCell>
+                    <TableCell><Skeleton className="h-4 w-30" /></TableCell>
+                    <TableCell><Skeleton className="h-4 w-30" /></TableCell>
+                  </TableRow>
+                ))
+              ) : places.map((place) => (
                 <TableRow key={place.id}>
                   <TableCell>{place.title?.[currentLang] ?? "-"}</TableCell>
                   <TableCell>{place.capacity}</TableCell>

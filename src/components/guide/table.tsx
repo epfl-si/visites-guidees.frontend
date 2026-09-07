@@ -13,8 +13,9 @@ import { Badge } from "@/components/ui/badge";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { GUIDE_STATUS } from "@/constants/status";
 import { AddGuideDialog } from "@/components/guide/addGuideDialog";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export const GuidesTable = ({ guides }: { guides: Guide[] }) => {
+export const GuidesTable = ({ guides, loading }: { guides: Guide[], loading: boolean }) => {
   const { t } = useTranslation();
 
   if (!guides || guides.length === 0) {
@@ -42,7 +43,17 @@ export const GuidesTable = ({ guides }: { guides: Guide[] }) => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {guides.map((guide) => {
+              {loading ? (
+                Array.from({ length: 5 }).map((_, index) => (
+                  <TableRow key={index}>
+                    <TableCell><Skeleton className="h-4 w-30" /></TableCell>
+                    <TableCell><Skeleton className="h-4 w-45" /></TableCell>
+                    <TableCell><Skeleton className="h-4 w-25" /></TableCell>
+                    <TableCell><Skeleton className="h-6 w-27.5"/></TableCell>
+                    <TableCell><Skeleton className="h-6 w-27.5"/></TableCell>
+                  </TableRow>
+                ))
+              ) : guides.map((guide) => {
                 const statusConfig = GUIDE_STATUS[guide.status];
                 if (!statusConfig) return null;
                 const StatusIcon = statusConfig.icon;
