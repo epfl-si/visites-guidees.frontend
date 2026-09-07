@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LastReservationsTable } from "@/components/reservations/tableLast";
+import { Reservations } from "@/components/reservations/tables";
 import { getReservations } from "@/services/reservation";
 import type { Reservation } from "@/types/reservation";
 import { PlacesTable } from "@/components/place/table";
@@ -42,7 +42,7 @@ export default function Admin() {
       <div className="flex flex-col gap-10">
         <div className="grid grid-cols-1 xl:grid-cols-10 gap-10">
           <div className="w-full xl:col-span-6">
-            <LastReservationsTable lastReservations={reservations} loading={loadingRes}/>
+          <Reservations reservations={reservations} loading={loadingRes}/>
           </div>
           <div className="w-full xl:col-span-4">
             <PlacesTable places={places} loading={loadingPlaces} />
