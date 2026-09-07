@@ -14,7 +14,7 @@ export const PlacesTable = ({ places }: { places: Place[] }) => {
   const { t, i18n } = useTranslation();
 
   if (!places || places.length === 0) {
-    return <p className="text-center text-muted-foreground p-4">Aucune place trouvée.</p>;
+    return <p className="text-center text-muted-foreground p-4">{t("place.notFound")}</p>;
   }
 
   const currentLang = (i18n.resolvedLanguage || 'en') as 'en' | 'fr';

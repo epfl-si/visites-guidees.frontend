@@ -16,7 +16,7 @@ export const LastReservationsTable = ({ lastReservations }: { lastReservations: 
   const { t } = useTranslation();
 
   if (!lastReservations || lastReservations.length === 0) {
-    return <p className="text-center text-muted-foreground p-4">Aucune réservation trouvée.</p>;
+    return <p className="text-center text-muted-foreground p-4">{t("reservation.notFound")}</p>;
   }
 
   return (

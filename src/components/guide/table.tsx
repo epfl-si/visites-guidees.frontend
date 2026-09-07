@@ -18,14 +18,14 @@ export const GuidesTable = ({ guides }: { guides: Guide[] }) => {
   const { t } = useTranslation();
 
   if (!guides || guides.length === 0) {
-    return <p className="text-center text-muted-foreground p-4">Aucun guide trouvé.</p>;
+    return <p className="text-center text-muted-foreground p-4">{t("guide.notFound")}</p>;
   }
 
   return (
     <Card className="">
       <CardHeader className="flex items-center justify-between">
         <CardTitle>
-          Guide
+          {t("guide.label")}
         </CardTitle>
         <AddGuideDialog />
       </CardHeader>

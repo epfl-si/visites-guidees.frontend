@@ -106,6 +106,7 @@
     "add": "Ajouter un guide",
     "searching": "Searching...",
     "noResult": "Aucun résultat",
+    "notFound":"Aucun guide trouvé.",
     "status": {
       "ACTIVE": "Actif",
       "INACTIVE": "Inactif",
@@ -114,7 +115,8 @@
     }
   },
   "place": {
-    "title": "Lieux"
+    "title": "Lieux",
+    "notFound": "Aucune place trouvée."
   },
   "table": {
     "title": "Titre",

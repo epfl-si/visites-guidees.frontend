@@ -68,6 +68,7 @@
     "lastReservations": "Last 10 reservations",
     "noResults": "No result for this search.",
     "allStatus": "All",
+    "notFound": "No reservation find.",
     "notFoundDescription": "Currently nobody have reserve a guided tour.",
     "orderNumber": "Reservation",
     "createdAt": "Created at",
@@ -104,6 +105,7 @@
     "add": "Add un guide",
     "searching": "Searching...",
     "noResult": "No results found",
+    "notFound":"No guide found.",
     "status": {
       "ACTIVE": "Active",
       "INACTIVE": "Inactive",
@@ -112,7 +114,8 @@
     }
   },
   "place": {
-    "title": "Places"
+    "title": "Places",
+    "notFound": "No place found."
   },
   "table": {
     "title": "Title",
