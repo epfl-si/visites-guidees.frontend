@@ -1,3 +1,5 @@
+import type { Language } from "@/types/language";
+
 export type Place = {
   id: number;
   title: placeJson;
@@ -12,3 +14,7 @@ type placeJson = {
   en: string;
   fr: string;
 }
+
+export type PlaceInformationType = Place & {
+  languages: Language[];
+};

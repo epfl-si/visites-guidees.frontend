@@ -2,34 +2,22 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ContentCard } from '@/components/cards/ContentCard';
 import { Spinner } from '@/components/ui/spinner';
-import { getPlaces } from '@/services/visit';
-import type { ContentCardType } from '@/types/content-card';
-import type { PlaceListItemType } from '@/types/register';
+import { getPlaces } from '@/services/place';
+import type { Place } from '@/types/place';
 import { toast } from "sonner"
-
-function toCardContent(
-  place: PlaceListItemType,
-  language: string,
-): ContentCardType {
-  return {
-    id: place.id,
-    picture: place.picture,
-    title: place.title[language] ?? place.title.en,
-    description: place.description[language] ?? place.description.en,
-  };
-}
 
 export default function Page() {
   const { t, i18n } = useTranslation();
-  const language = i18n.resolvedLanguage ?? 'en';
-  const [places, setPlaces] = useState<PlaceListItemType[] | null>(null);
+  const lang = i18n.resolvedLanguage === 'fr' ? 'fr' : 'en';
+  const [places, setPlaces] = useState<Place[] | null>(null);
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     getPlaces()
-      .then(setPlaces)
-      .catch((error) => {
-        console.error('getPlaces Error', error);
+      .then((res) => {
+        if (res.success) setPlaces(res.data);
+      })
+      .catch(() => {
         toast.error(t('app.tours.error'));
         setFailed(true);
       });
@@ -68,9 +56,14 @@ export default function Page() {
           {places.map((place) => (
             <li key={place.id}>
               <ContentCard
-                content={toCardContent(place, language)}
                 className="h-full max-w-none"
-              />
+                content={{
+                  id: place.id,
+                  picture: place.picture,
+                  title: place.title[lang] || place.title.en,
+                  description: place.description[lang] || place.description.en,
+                }}
+                />
             </li>
           ))}
         </ul>

@@ -1,11 +1,11 @@
 import RegistrationForm from '@/components/registration/form';
 import { useParams } from 'react-router';
 import type { UserType } from "@/types/user";
-import type { PlaceInformationType } from "@/types/register"
+import type { PlaceInformationType } from "@/types/place"
 import type {State} from "@epfl-si/react-appauth";
 import { useState,useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { getPlaceById } from '@/services/visit';
+import { getPlaceById } from '@/services/place';
 import { toast } from "sonner";
 
 export default function Registration({ user: _user, oidc:_oidc }: { user: UserType, oidc: State }) {
