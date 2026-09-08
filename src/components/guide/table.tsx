@@ -15,12 +15,8 @@ import { GUIDE_STATUS } from "@/constants/status";
 import { AddGuideDialog } from "@/components/guide/addGuideDialog";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const GuidesTable = ({ guides, loading }: { guides: Guide[], loading: boolean }) => {
+export const GuidesTable = ({ guides, loading, error }: { guides: Guide[], loading: boolean, error: boolean }) => {
   const { t } = useTranslation();
-
-  if (!guides || guides.length === 0) {
-    return <p className="text-center text-muted-foreground p-4">{t("guide.notFound")}</p>;
-  }
 
   return (
     <Card className="">
@@ -53,6 +49,15 @@ export const GuidesTable = ({ guides, loading }: { guides: Guide[], loading: boo
                     <TableCell><Skeleton className="h-6 w-27.5"/></TableCell>
                   </TableRow>
                 ))
+              ) : error ? (
+                <TableRow>
+                  <TableCell
+                    colSpan={4}
+                    className="h-66.25 text-center text-muted-foreground"
+                  >
+                    {t("admin.guides.loadError")}
+                  </TableCell>
+                </TableRow>
               ) : guides.map((guide) => {
                 const statusConfig = GUIDE_STATUS[guide.status];
                 if (!statusConfig) return null;

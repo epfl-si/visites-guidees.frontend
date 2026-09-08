@@ -172,10 +172,16 @@
       "reservations": "Reservations"
     },
     "reservations": {
+      "notFound": "No reservation found.",
       "loadError": "The reservations could not be loaded. Please try again later."
     },
     "guides": {
+      "notFound": "No guide found.",
       "loadError": "The guides could not be loaded. Please try again later."
+    },
+    "places": {
+      "notFound": "No place found.",
+      "loadError": "The places could not be loaded. Please try again later."
     }
   }
 }

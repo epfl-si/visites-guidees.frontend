@@ -18,28 +18,8 @@ export type RegistrationFormType = {
   gdprConsent: boolean,
 }
 
-type Translated = {
-  [langCode: string]: string;
-};
-
 export type LanguageType = {
   id: number;
   code: string;
   name: string;
-};
-
-export type PlaceListItemType = {
-  id: number;
-  title: Translated;
-  description: Translated;
-  picture: string;
-  capacity: number;
-  price: number;
-  conditions: Translated;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type PlaceInformationType = PlaceListItemType & {
-  languages: LanguageType[];
 };

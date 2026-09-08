@@ -18,18 +18,35 @@ export default function Admin() {
   const [loadingPlaces, setLoadingPlaces] = useState<boolean>(true);
   const [loadingGuides, setLoadingGuides] = useState<boolean>(true);
 
+  const [errorRes, setErrorRes] = useState<boolean>(false);
+  const [errorPlaces, setErrorPlaces] = useState<boolean>(false);
+  const [errorGuides, setErrorGuides] = useState<boolean>(false);
+
+
   useEffect(() => {
     const fetchData = async () => {
       getReservations(10, "desc").then((res) => {
-        if (res.success) setReservations(res.data);
+        if (res.success) {
+          setReservations(res.data);
+        } else {
+          setErrorRes(true);
+        }
         setLoadingRes(false);
       })
       getPlaces().then((res) => {
-        if (res.success) setPlaces(res.data);
+        if (res.success) {
+          setPlaces(res.data);
+        } else {
+          setErrorPlaces(true);
+        }
         setLoadingPlaces(false);
       })
       getGuides().then((res) => {
-        if (res.success) setGuides(res.data);
+        if (res.success) {
+          setGuides(res.data);
+        } else {
+          setErrorGuides(true);
+        }
         setLoadingGuides(false);
       })
     }
@@ -42,13 +59,13 @@ export default function Admin() {
       <div className="flex flex-col gap-10">
         <div className="grid grid-cols-1 xl:grid-cols-10 gap-10">
           <div className="w-full xl:col-span-6">
-          <Reservations reservations={reservations} loading={loadingRes}/>
+            <Reservations reservations={reservations} loading={loadingRes} error={errorRes}/>
           </div>
           <div className="w-full xl:col-span-4">
-            <PlacesTable places={places} loading={loadingPlaces} />
+            <PlacesTable places={places} loading={loadingPlaces} error={errorPlaces}/>
           </div>
         </div>
-        <GuidesTable guides={guides} loading={loadingGuides}/>
+        <GuidesTable guides={guides} loading={loadingGuides} error={errorGuides}/>
       </div>
     </div>
   )

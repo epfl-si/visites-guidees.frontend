@@ -11,12 +11,8 @@ import { useTranslation } from 'react-i18next';
 import type { Place } from "@/types/place";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const PlacesTable = ({ places, loading }: { places: Place[], loading: boolean }) => {
+export const PlacesTable = ({ places, loading, error }: { places: Place[], loading: boolean, error: boolean }) => {
   const { t, i18n } = useTranslation();
-
-  if (!loading && (!places || places.length === 0)) {
-    return <p className="text-center text-muted-foreground p-4">{t("place.notFound")}</p>;
-  }
 
   const currentLang = (i18n.resolvedLanguage || 'en') as 'en' | 'fr';
 
@@ -46,6 +42,15 @@ export const PlacesTable = ({ places, loading }: { places: Place[], loading: boo
                     <TableCell><Skeleton className="h-4 w-30" /></TableCell>
                   </TableRow>
                 ))
+              ) : error ? (
+                <TableRow>
+                  <TableCell
+                    colSpan={4}
+                    className="h-66.25 text-center text-muted-foreground"
+                  >
+                    {t("admin.places.loadError")}
+                  </TableCell>
+                </TableRow>
               ) : places.map((place) => (
                 <TableRow key={place.id}>
                   <TableCell>{place.title?.[currentLang] ?? "-"}</TableCell>

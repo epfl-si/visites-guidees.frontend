@@ -173,10 +173,16 @@
       "reservations": "Reservations"
     },
     "reservations": {
+      "notFound": "Aucune reservation trouvée.",
       "loadError": "Les réservations n'ont pas pu être chargées. Veuillez réessayer plus tard."
     },
     "guides": {
+      "notFound": "Aucun guide trouvé.",
       "loadError": "Les guides n'ont pas pu être chargés. Veuillez réessayer plus tard."
+    },
+    "places": {
+      "notFound": "Aucune place trouvée.",
+      "loadError": "Les places n'ont pas pu être chargés. Veuillez réessayer plus tard."
     }
   }
 }
