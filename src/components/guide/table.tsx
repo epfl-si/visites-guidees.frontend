@@ -66,7 +66,31 @@ export const GuidesTable = ({ guides, loading, error }: { guides: Guide[], loadi
                   <TableRow key={guide.id}>
                     <TableCell>{guide.user.firstName} {guide.user.lastName}</TableCell>
                     <TableCell>{guide.user.email}</TableCell>
-                    <TableCell>{guide.phone}</TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <span className="whitespace-nowrap">{guide.phone[0]}</span>
+
+                        {guide.phone.length > 1 && (
+                          <HoverCard>
+                            <HoverCardTrigger delay={10} closeDelay={100} render={
+                              <Badge variant="secondary" className="cursor-pointer">
+                                +{guide.phone.length - 1}
+                              </Badge>
+                            } />
+                            <HoverCardContent className="w-auto p-3">
+                              <div className="flex flex-col gap-1.5">
+                                <span className="text-xs font-semibold text-muted-foreground uppercase">
+                                  {t("admin.guides.allPhones")}
+                                </span>
+                                {guide.phone.map((p, i) => (
+                                  <span key={i} className="text-sm font-medium">{p}</span>
+                                ))}
+                              </div>
+                            </HoverCardContent>
+                          </HoverCard>
+                        )}
+                      </div>
+                    </TableCell>
                     <TableCell className="flex gap-1">{guide.languages.map((lang) => (
                       <HoverCard>
                         <HoverCardTrigger delay={10} closeDelay={100} render={<Badge variant="outline" className="hover:bg-red-300 hover:text-red-500 ">{lang.code}</Badge>} />

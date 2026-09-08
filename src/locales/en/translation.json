@@ -177,7 +177,8 @@
     },
     "guides": {
       "notFound": "No guide found.",
-      "loadError": "The guides could not be loaded. Please try again later."
+      "loadError": "The guides could not be loaded. Please try again later.",
+      "allPhones": "Phones"
     },
     "places": {
       "notFound": "No place found.",

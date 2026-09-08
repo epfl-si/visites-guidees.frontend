@@ -178,7 +178,8 @@
     },
     "guides": {
       "notFound": "Aucun guide trouvé.",
-      "loadError": "Les guides n'ont pas pu être chargés. Veuillez réessayer plus tard."
+      "loadError": "Les guides n'ont pas pu être chargés. Veuillez réessayer plus tard.",
+      "allPhones": "Téléphones"
     },
     "places": {
       "notFound": "Aucune place trouvée.",
