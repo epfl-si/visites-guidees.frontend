@@ -122,7 +122,7 @@ export default function Reservation() {
               statusConfig?.colorClass
             )}>
               <StatusIcon className="h-4 w-4" />
-              {t(statusConfig.labelKey)}
+              {t(statusConfig?.labelKey)}
             </div>
             <DropdownMenu>
               <DropdownMenuTrigger>
