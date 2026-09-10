@@ -1,58 +1,71 @@
+import { useEffect, useState } from "react";
 import { Reservations } from "@/components/reservations/tables";
 import { getReservations } from "@/services/reservation";
-import { useEffect, useState } from "react"
-import { getGuideInfo } from "@/services/guide"
-import { GuideInfoTable } from "@/components/guides/tables"
-import type { guideInfo } from "@/types/guide"
-import type { reservations } from "@/types/reservation";
-import { useTranslation } from "react-i18next"
-import { toast } from "sonner"
+import type { Reservation } from "@/types/reservation";
+import { PlacesTable } from "@/components/place/table";
+import type { Place } from "@/types/place";
+import { getPlaces } from "@/services/place";
+import { GuidesTable } from "@/components/guide/table";
+import type { Guide } from "@/types/guide";
+import { getGuides } from "@/services/guide";
 
 export default function Admin() {
-  const { t } = useTranslation()
-  const [reservations, setReservations] = useState<reservations[]>([])
-  const [guides, setGuides] = useState<guideInfo[]>([])
-  const [isLoadingGuides, setIsLoadingGuides] = useState(true)
-  const [isLoadingReservations, setIsLoadingReservations] = useState(true)
+  const [reservations, setReservations] = useState<Reservation[]>([]);
+  const [places, setPlaces] = useState<Place[]>([]);
+  const [guides, setGuides] = useState<Guide[]>([]);
+
+  const [loadingRes, setLoadingRes] = useState<boolean>(true);
+  const [loadingPlaces, setLoadingPlaces] = useState<boolean>(true);
+  const [loadingGuides, setLoadingGuides] = useState<boolean>(true);
+
+  const [errorRes, setErrorRes] = useState<boolean>(false);
+  const [errorPlaces, setErrorPlaces] = useState<boolean>(false);
+  const [errorGuides, setErrorGuides] = useState<boolean>(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const reservationsResponse = await getReservations(5, 'desc')
-        if (!reservationsResponse.success) {
-          throw new Error('Failed to fetch reservations')
+      getReservations(10, "desc").then((res) => {
+        if (res.success) {
+          setReservations(res.data);
+        } else {
+          setErrorRes(true);
         }
-        setReservations(reservationsResponse.data)
-      } catch (error) {
-        console.error('getReservations Error', error)
-        toast.error(t("admin.reservations.loadError"))
-      } finally {
-        setIsLoadingReservations(false)
-      }
-
-      try {
-        const guideResponse = await getGuideInfo()
-        if (!guideResponse.success) {
-          throw new Error('Failed to fetch guides')
+        setLoadingRes(false);
+      })
+      getPlaces().then((res) => {
+        if (res.success) {
+          setPlaces(res.data);
+        } else {
+          setErrorPlaces(true);
         }
-        setGuides(guideResponse.data)
-      } catch (error) {
-        console.error('getGuideInfo Error', error)
-        toast.error(t("admin.guides.loadError"))
-      } finally {
-        setIsLoadingGuides(false)
-      }
+        setLoadingPlaces(false);
+      })
+      getGuides().then((res) => {
+        if (res.success) {
+          setGuides(res.data);
+        } else {
+          setErrorGuides(true);
+        }
+        setLoadingGuides(false);
+      })
     }
     fetchData();
-  }, [t]);
-
+  }, []);
 
   return (
     <div className="flex-1 overflow-y-auto p-16">
-      <h1 className="pb-8 text-4xl font-semibold">Admin dashboard</h1>
-      <Reservations reservations={reservations} isLoading={isLoadingReservations} />
-      <div className="w-3xl">
-        <GuideInfoTable guideInfo={guides} isLoading={isLoadingGuides} />
+      <h1 className="text-4xl pb-8 font-semibold">Admin dashboard</h1>
+      <div className="flex flex-col gap-10">
+        <div className="grid grid-cols-1 xl:grid-cols-10 gap-10">
+          <div className="w-full xl:col-span-6">
+            <Reservations reservations={reservations} loading={loadingRes} error={errorRes}/>
+          </div>
+          <div className="w-full xl:col-span-4">
+            <PlacesTable places={places} loading={loadingPlaces} error={errorPlaces}/>
+          </div>
+        </div>
+        <GuidesTable guides={guides} loading={loadingGuides} error={errorGuides}/>
       </div>
     </div>
   )

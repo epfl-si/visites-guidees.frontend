@@ -74,6 +74,37 @@
     "submitting": "Sending…",
     "loadError": "This guided tour could not be loaded. Please try again later."
   },
+  "reservation": {
+    "title": "Reservations",
+    "lastReservations": "Last 10 reservations",
+    "noResults": "No result for this search.",
+    "allStatus": "All",
+    "notFound": "No reservation find.",
+    "notFoundDescription": "Currently nobody have reserve a guided tour.",
+    "orderNumber": "Reservation",
+    "createdAt": "Created at",
+    "visitDetails": "Visit details",
+    "dateLabel": "Date",
+    "participantNbr": "Number of participants",
+    "people": "people",
+    "languageLabel": "Language",
+    "customer": "Customer",
+    "name": "Name",
+    "company": "Company",
+    "email": "Email",
+    "phone": "Phone",
+    "paymentInfo": "Payment",
+    "paymentMethod": "Payment method",
+    "place": "Place",
+    "guideInfo": "Guide",
+    "status": {
+      "WAITINGGUIDE": "Waiting for Guide",
+      "WAITINGVALIDATION": "Waiting for Validation",
+      "WAITINGPAYMENT": "Waiting for Payment",
+      "READY": "Ready",
+      "CANCELLED": "Cancelled"
+    }
+  },
   "guide": {
     "title": "The guides",
     "label": "Guide",
@@ -85,9 +116,32 @@
     "add": "Add un guide",
     "searching": "Searching...",
     "noResult": "No results found",
+    "notFound":"No guide found.",
     "searchError": "The user search failed. Please try again.",
     "addSuccess": "The guide has been added.",
-    "addError": "The guide could not be added. Please try again."
+    "addError": "The guide could not be added. Please try again.",
+    "status": {
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive",
+      "RETIRED": "Retired",
+      "SUSPENDED": "Suspended"
+    }
+  },
+  "place": {
+    "title": "Places",
+    "notFound": "No place found."
+  },
+  "table": {
+    "title": "Title",
+    "capacity": "Capacity",
+    "price": "Price",
+    "company": "Company",
+    "email": "Email",
+    "date": "Date",
+    "status": "Status",
+    "name": "Name",
+    "phoneNumber": "Phone number",
+    "language": "Language(s)"
   },
   "errors": {
     "generic": {
@@ -113,11 +167,22 @@
     "add": "ajouter"
   },
   "admin": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "reservations": "Reservations"
+    },
     "reservations": {
+      "notFound": "No reservation found.",
       "loadError": "The reservations could not be loaded. Please try again later."
     },
     "guides": {
-      "loadError": "The guides could not be loaded. Please try again later."
+      "notFound": "No guide found.",
+      "loadError": "The guides could not be loaded. Please try again later.",
+      "allPhones": "Phones"
+    },
+    "places": {
+      "notFound": "No place found.",
+      "loadError": "The places could not be loaded. Please try again later."
     }
   }
 }

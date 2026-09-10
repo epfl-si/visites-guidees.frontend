@@ -9,7 +9,8 @@ import {
 } from "@/components/ui/dialog"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { addGuide, searchUser } from "@/services/guide"
+import { addGuide } from "@/services/guide"
+import { searchUser } from "@/services/user"
 import type { ResponseUserAPI } from "@/types/user"
 import { Spinner } from "@/components/ui/spinner"
 

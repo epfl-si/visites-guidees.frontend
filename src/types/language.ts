@@ -1,4 +1,5 @@
-export type language = {
-  id: number,
-  name: string
+export type Language = {
+  id: number;
+  code: string;
+  name: string;
 }

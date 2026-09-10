@@ -75,6 +75,37 @@
     "submitting": "Envoi en cours…",
     "loadError": "Cette visite guidée n'a pas pu être chargée. Veuillez réessayer plus tard."
   },
+  "reservation": {
+    "title": "Réservations",
+    "lastReservations": "10 dernières reservations",
+    "noResults": "Aucun résultat pour cette recherche.",
+    "allStatus": "Tous",
+    "notFound": "Aucune reservation trouvée.",
+    "notFoundDescription": "Actuellement Il n'y a aucune reservation.",
+    "orderNumber": "Réservation",
+    "createdAt": "Créé le",
+    "visitDetails": "Détails de la visite",
+    "dateLabel": "Date",
+    "participantNbr": "Nombres de participants",
+    "people": "personnes",
+    "languageLabel": "langue",
+    "customer": "Client",
+    "name": "Nom",
+    "company": "Entreprise",
+    "email": "Email",
+    "phone": "Téléphone",
+    "paymentInfo": "Payment",
+    "paymentMethod": "Moyen de payment",
+    "place": "Lieu",
+    "guideInfo": "Guide",
+    "status": {
+      "WAITINGGUIDE": "Attente Guide",
+      "WAITINGVALIDATION": "Attente Validation",
+      "WAITINGPAYMENT": "Attente Paiement",
+      "READY": "Prêt",
+      "CANCELLED": "Annulé"
+    }
+  },
   "guide": {
     "title": "Les guides",
     "label": "Guide",
@@ -86,9 +117,32 @@
     "add": "Ajouter un guide",
     "searching": "Searching...",
     "noResult": "Aucun résultat",
+    "notFound":"Aucun guide trouvé.",
     "searchError": "La recherche d'utilisateurs et d'utilisatrices a échoué. Veuillez réessayer.",
     "addSuccess": "Le guide a été ajouté.",
-    "addError": "Le guide n'a pas pu être ajouté. Veuillez réessayer."
+    "addError": "Le guide n'a pas pu être ajouté. Veuillez réessayer.",
+    "status": {
+      "ACTIVE": "Actif",
+      "INACTIVE": "Inactif",
+      "RETIRED": "Retiré",
+      "SUSPENDED": "Suspendu"
+    }
+  },
+  "place": {
+    "title": "Lieux",
+    "notFound": "Aucune place trouvée."
+  },
+  "table": {
+    "title": "Titre",
+    "capacity": "Capacité",
+    "price": "Prix",
+    "company": "Entreprise",
+    "email": "Email",
+    "date": "Date",
+    "status": "Statut",
+    "name": "Nom",
+    "phoneNumber": "Numéro de téléphone",
+    "language": "Langue(s)"
   },
   "errors": {
     "generic": {
@@ -114,11 +168,22 @@
     "add": "ajouter"
   },
   "admin": {
+    "nav": {
+      "dashboard": "Tableau de bord",
+      "reservations": "Reservations"
+    },
     "reservations": {
+      "notFound": "Aucune reservation trouvée.",
       "loadError": "Les réservations n'ont pas pu être chargées. Veuillez réessayer plus tard."
     },
     "guides": {
-      "loadError": "Les guides n'ont pas pu être chargés. Veuillez réessayer plus tard."
+      "notFound": "Aucun guide trouvé.",
+      "loadError": "Les guides n'ont pas pu être chargés. Veuillez réessayer plus tard.",
+      "allPhones": "Téléphones"
+    },
+    "places": {
+      "notFound": "Aucune place trouvée.",
+      "loadError": "Les places n'ont pas pu être chargés. Veuillez réessayer plus tard."
     }
   }
 }

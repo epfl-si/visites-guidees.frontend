@@ -1,13 +1,14 @@
 import { callBackend } from "@/lib/api";
 import type { RegistrationFormType } from "@/types/register";
-import type { reservations } from "@/types/reservation";
+import type { Reservation } from "@/types/reservation";
 
-const VERSION = "v1"
+const VERSION = "v1";
+const ENDPOINT = "reservations";
 
 export async function postRegistration(
   data: Record<string, any>
 ) {
-  const url = `${VERSION}/reservations/`;
+  const url = `${VERSION}/${ENDPOINT}/`;
   if (!data) {
     throw new Error('Data is required to post registration');
   }
@@ -24,5 +25,11 @@ export async function getReservations(limit: number | undefined = undefined, ord
 
   const parameter = params.size ? `?${params.toString()}` : '';
 
-  return await callBackend<reservations[]>(`${VERSION}/reservations${parameter}`)
+  return await callBackend<Reservation[]>(`${VERSION}/${ENDPOINT}${parameter}`)
+}
+
+export async function getReservation(reservationId: number) {
+  return await callBackend<Reservation>(`${VERSION}/${ENDPOINT}/${reservationId}`, {
+    method: "GET",
+  })
 }
