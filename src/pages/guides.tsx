@@ -29,7 +29,6 @@ export default function Guides() {
   useEffect(() => {
     const fetchGuides = async () => {
       const data = await getGuides();
-      console.log("data : ", data)
       if (data.success) setGuides(data.data);
     }
     fetchGuides();
