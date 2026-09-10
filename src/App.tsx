@@ -16,6 +16,7 @@ import NotFound from "@/pages/not-found"
 import { registrationSegments } from '@/lib/routes';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
+import Guides from '@/pages/guides';
 
 export default function App() {
   const oidc = useOpenIDConnectContext();
@@ -74,6 +75,7 @@ export default function App() {
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/admin/reservation" element={<Reservations />} />
                 <Route path="/admin/reservation/:id" element={<Reservation />} />
+                <Route path="/admin/guide" element={<Guides />} />
               </Route>
             </Route>
           </Route>

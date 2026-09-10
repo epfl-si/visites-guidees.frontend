@@ -120,6 +120,8 @@
     "searchError": "The user search failed. Please try again.",
     "addSuccess": "The guide has been added.",
     "addError": "The guide could not be added. Please try again.",
+    "allStatus": "All",
+    "noResults": "No result for this search.",
     "status": {
       "ACTIVE": "Active",
       "INACTIVE": "Inactive",
@@ -169,7 +171,8 @@
   "admin": {
     "nav": {
       "dashboard": "Dashboard",
-      "reservations": "Reservations"
+      "reservations": "Reservations",
+      "guides": "Guides"
     },
     "reservations": {
       "notFound": "No reservation found.",
