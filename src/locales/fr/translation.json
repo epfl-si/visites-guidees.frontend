@@ -121,6 +121,8 @@
     "searchError": "La recherche d'utilisateurs et d'utilisatrices a échoué. Veuillez réessayer.",
     "addSuccess": "Le guide a été ajouté.",
     "addError": "Le guide n'a pas pu être ajouté. Veuillez réessayer.",
+    "allStatus": "Tous",
+    "noResults": "Aucun résultat pour cette recherche.",
     "status": {
       "ACTIVE": "Actif",
       "INACTIVE": "Inactif",
