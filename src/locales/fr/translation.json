@@ -170,7 +170,8 @@
   "admin": {
     "nav": {
       "dashboard": "Tableau de bord",
-      "reservations": "Reservations"
+      "reservations": "Reservations",
+      "guides": "Guides"
     },
     "reservations": {
       "notFound": "Aucune reservation trouvée.",

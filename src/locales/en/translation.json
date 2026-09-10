@@ -169,7 +169,8 @@
   "admin": {
     "nav": {
       "dashboard": "Dashboard",
-      "reservations": "Reservations"
+      "reservations": "Reservations",
+      "guides": "Guides"
     },
     "reservations": {
       "notFound": "No reservation found.",
