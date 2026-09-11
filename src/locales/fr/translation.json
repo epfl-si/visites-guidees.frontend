@@ -185,5 +185,31 @@
       "notFound": "Aucune place trouvée.",
       "loadError": "Les places n'ont pas pu être chargés. Veuillez réessayer plus tard."
     }
+  },
+  "guideConfirmation": {
+    "title": "Demande de visite guidée",
+    "description": "Vous avez été assigné à cette visite guidée. Indiquez-nous si vous pouvez la prendre en charge.",
+    "loading": "Chargement de la demande…",
+    "loadError": "Cette demande n'a pas pu être chargée. Veuillez réessayer plus tard.",
+    "details": {
+      "date": "Date",
+      "time": "Heure",
+      "participants": "Participantes et participants",
+      "language": "Langue",
+      "comment": "Commentaire"
+    },
+    "actions": {
+      "accept": "Accepter",
+      "decline": "Refuser",
+      "submitting": "Envoi en cours…"
+    },
+    "status": {
+      "accepted": "Vous avez accepté cette visite guidée. Vous serez averti si vous êtes retenu.",
+      "declined": "Vous avez refusé cette visite guidée.",
+      "chosen": "Vous avez été retenu pour animer cette visite guidée."
+    },
+    "acceptSuccess": "Votre acceptation a bien été enregistrée.",
+    "declineSuccess": "Votre refus a bien été enregistré.",
+    "submitError": "Votre réponse n'a pas pu être envoyée. Veuillez réessayer."
   }
 }

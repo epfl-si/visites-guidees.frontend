@@ -14,6 +14,7 @@ import Reservation from './pages/reservation';
 import { RequireRole } from './auth/RequireRole';
 import NotFound from "@/pages/not-found"
 import { registrationSegments } from '@/lib/routes';
+import GuideConfirmation from '@/pages/guide-confirmation';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
@@ -68,6 +69,12 @@ export default function App() {
                 element={<Registration user={connectedUser} oidc={oidc} />}
               />
             ))}
+            <Route element={<RequireRole role="guide" user={connectedUser} />}>
+              <Route
+                path="/reservations/:reservationId/confirmation"
+                element={<GuideConfirmation />}
+              />
+            </Route>
             <Route element={<RequireRole role="admin" user={connectedUser} />}>
               <Route element={<AdminLayout />}>
                 {/* All routes that here require admin permission */}
