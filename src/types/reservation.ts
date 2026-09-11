@@ -33,3 +33,23 @@ export type Reservations = {
   date: Date;
   status: ReservationStatus;
 }
+
+export type ReservationGuideAction = "accept" | "refuse";
+
+export type ReservationGuideStatus =
+  | "WAITING"
+  | "ACCEPTED"
+  | "DECLINED"
+  | "CHOSEN";
+
+export type GuideInvitation = {
+  reservationId: number;
+  status: ReservationGuideStatus;
+  reservation: {
+    date: string;
+    participantNumber: number;
+    comment: string | null;
+    language: { id: number; name: string };
+    place: { id: number; title: Record<string, string> };
+  };
+};

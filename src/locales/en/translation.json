@@ -184,5 +184,33 @@
       "notFound": "No place found.",
       "loadError": "The places could not be loaded. Please try again later."
     }
+  },
+  "guideConfirmation": {
+    "title": "Guided tour request",
+    "description": "You have been assigned to this guided tour. Let us know whether you can take it.",
+    "actions": {
+      "accept": "Accept",
+      "decline": "Decline",
+      "submitting": "Sending…"
+    },
+    "status": {
+      "accepted": "You have accepted this guided tour. You will be notified if you are picked.",
+      "declined": "You have declined this guided tour.",
+      "chosen": "You have been picked to run this guided tour."
+    },
+    "acceptSuccess": "Your acceptance has been recorded.",
+    "declineSuccess": "Your refusal has been recorded.",
+    "submitError": "Your answer could not be sent. Please try again.",
+    "forbidden": "Only an active guide can answer a guided tour request.",
+    "notInvited": "You have not been assigned to this guided tour.",
+    "loading": "Loading the request…",
+    "loadError": "This request could not be loaded. Please try again later.",
+    "details": {
+      "date": "Date",
+      "time": "Time",
+      "participants": "Participants",
+      "language": "Language",
+      "comment": "Comment"
+    }
   }
 }
