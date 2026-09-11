@@ -189,15 +189,6 @@
   "guideConfirmation": {
     "title": "Demande de visite guidée",
     "description": "Vous avez été assigné à cette visite guidée. Indiquez-nous si vous pouvez la prendre en charge.",
-    "loading": "Chargement de la demande…",
-    "loadError": "Cette demande n'a pas pu être chargée. Veuillez réessayer plus tard.",
-    "details": {
-      "date": "Date",
-      "time": "Heure",
-      "participants": "Participantes et participants",
-      "language": "Langue",
-      "comment": "Commentaire"
-    },
     "actions": {
       "accept": "Accepter",
       "decline": "Refuser",
@@ -210,6 +201,17 @@
     },
     "acceptSuccess": "Votre acceptation a bien été enregistrée.",
     "declineSuccess": "Votre refus a bien été enregistré.",
-    "submitError": "Votre réponse n'a pas pu être envoyée. Veuillez réessayer."
+    "submitError": "Votre réponse n'a pas pu être envoyée. Veuillez réessayer.",
+    "forbidden": "Seul un guide actif peut répondre à une demande de visite guidée.",
+    "notInvited": "Vous n'avez pas été assigné à cette visite guidée.",
+    "loading": "Chargement de la demande…",
+    "loadError": "Cette demande n'a pas pu être chargée. Veuillez réessayer plus tard.",
+    "details": {
+      "date": "Date",
+      "time": "Heure",
+      "participants": "Participantes et participants",
+      "language": "Langue",
+      "comment": "Commentaire"
+    }
   }
 }

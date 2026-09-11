@@ -71,7 +71,7 @@ export default function App() {
             ))}
             <Route element={<RequireRole role="guide" user={connectedUser} />}>
               <Route
-                path="/reservations/:reservationId/confirmation"
+                path="/reservations/:reservationId"
                 element={<GuideConfirmation />}
               />
             </Route>

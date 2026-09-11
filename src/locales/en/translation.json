@@ -188,15 +188,6 @@
   "guideConfirmation": {
     "title": "Guided tour request",
     "description": "You have been assigned to this guided tour. Let us know whether you can take it.",
-    "loading": "Loading the request…",
-    "loadError": "This request could not be loaded. Please try again later.",
-    "details": {
-      "date": "Date",
-      "time": "Time",
-      "participants": "Participants",
-      "language": "Language",
-      "comment": "Comment"
-    },
     "actions": {
       "accept": "Accept",
       "decline": "Decline",
@@ -209,6 +200,17 @@
     },
     "acceptSuccess": "Your acceptance has been recorded.",
     "declineSuccess": "Your refusal has been recorded.",
-    "submitError": "Your answer could not be sent. Please try again."
+    "submitError": "Your answer could not be sent. Please try again.",
+    "forbidden": "Only an active guide can answer a guided tour request.",
+    "notInvited": "You have not been assigned to this guided tour.",
+    "loading": "Loading the request…",
+    "loadError": "This request could not be loaded. Please try again later.",
+    "details": {
+      "date": "Date",
+      "time": "Time",
+      "participants": "Participants",
+      "language": "Language",
+      "comment": "Comment"
+    }
   }
 }
