@@ -51,6 +51,28 @@ function countBusinessDaysBetween(from: Date, to: Date): number {
   return count;
 }
 
+function toDateInputValue(date: Date): string {
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${date.getFullYear()}-${month}-${day}`;
+}
+
+function earliestVisitDate(from: Date, minBusinessDays: number): string {
+  const cursor = new Date(from);
+  cursor.setHours(0, 0, 0, 0);
+
+  let businessDays = 0;
+  while (businessDays < minBusinessDays) {
+    cursor.setDate(cursor.getDate() + 1);
+    const day = cursor.getDay();
+    if (day !== 0 && day !== 6) {
+      businessDays++;
+    }
+  }
+
+  return toDateInputValue(cursor);
+}
+
 const initialFormData: RegistrationFormType = {
   firstName: "",
   lastName: "",
@@ -80,6 +102,10 @@ export default function RegistrationForm({
   const [formData, setFormData] = useState<RegistrationFormType>(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const countryOptions = useMemo(() => countryList().getData(), []);
+  const minVisitDate = useMemo(
+    () => earliestVisitDate(new Date(), MIN_BUSINESS_DAYS),
+    [],
+  );
 
   function updateField<K extends keyof RegistrationFormType>(
     field: K,
@@ -297,6 +323,7 @@ export default function RegistrationForm({
         <div className="grid grid-cols-2 gap-3">
           <Input
             type="date"
+            min={minVisitDate}
             value={formData.visitDate}
             onChange={(e) => updateField("visitDate", e.target.value)}
             required
