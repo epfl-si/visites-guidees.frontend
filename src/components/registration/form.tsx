@@ -22,7 +22,8 @@ import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect, useMemo, type FormEvent } from "react";
-import type { PlaceInformationType, RegistrationFormType } from "@/types/register";
+import type { RegistrationFormType } from "@/types/register";
+import type { PlaceInformationType } from "@/types/place";
 import countryList from "react-select-country-list";
 import { postRegistration } from "@/services/reservation";
 import { toast } from "sonner";
