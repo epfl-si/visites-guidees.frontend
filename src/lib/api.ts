@@ -7,6 +7,15 @@ export function setGlobalAccessToken(token: string | null) {
   globalAccessToken = token;
 };
 
+export class ApiError extends Error {
+  status: number;
+  constructor(message: string, status: number) {
+    super(message);
+    this.name = 'ApiError';
+    this.status = status;
+  }
+}
+
 interface ApiCallOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
   headers?: HeadersInit;
@@ -36,7 +45,7 @@ export async function call<T>(url: string, options: ApiCallOptions = {}): Promis
   const response = await fetch(url, fetchOptions);
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch API: ${url} (${response.status})`);
+    throw new ApiError(`Failed to fetch API: ${url} (${response.status})`, response.status);
   }
 
   return (await response.json()) as T;
