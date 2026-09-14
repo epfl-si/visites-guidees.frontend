@@ -8,7 +8,7 @@ export function setGlobalAccessToken(token: string | null) {
 };
 
 interface ApiCallOptions {
-  method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+  method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
   headers?: HeadersInit;
   body?: unknown;
 }
@@ -29,7 +29,7 @@ export async function call<T>(url: string, options: ApiCallOptions = {}): Promis
 
   const fetchOptions: RequestInit = { method, headers };
 
-  if (options.body && ['POST', 'PUT'].includes(method.toUpperCase())) {
+  if (options.body && ['POST', 'PUT', 'PATCH'].includes(method.toUpperCase())) {
     fetchOptions.body = JSON.stringify(options.body);
   }
 

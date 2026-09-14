@@ -1,22 +1,23 @@
-import { useEffect, useState } from "react"
-import { StateEnum, useOpenIDConnectContext } from "@epfl-si/react-appauth"
-import { AppLayout } from "@/components/layout/AppLayout"
-import AdminLayout from "./components/layout/AdminLayout"
-import { BrowserRouter, Route, Routes } from "react-router"
-import type { UserType } from "@/types/user"
-import Page from "@/pages/Page.tsx"
-import { fetchConnectedUser } from "@/services/auth"
-import Registration from "@/pages/registration"
-import Admin from "@/pages/admin"
-import { setGlobalAccessToken } from "@/lib/api"
-import Reservations from "./pages/reservations"
-import Reservation from "./pages/reservation"
-import { RequireRole } from "./auth/RequireRole"
-import { registrationSegments } from "@/lib/routes"
-import { useTranslation } from "react-i18next"
-import { toast } from "sonner"
 import { RequireAuth } from "./auth/RequireAuth"
 import ErrorPage from "./pages/Error"
+import { useEffect, useState } from 'react'
+import { StateEnum, useOpenIDConnectContext } from "@epfl-si/react-appauth";
+import { AppLayout } from "@/components/layout/AppLayout";
+import AdminLayout from './components/layout/AdminLayout';
+import { BrowserRouter, Route, Routes } from "react-router";
+import type { UserType } from "@/types/user";
+import Page from "@/pages/Page.tsx";
+import { fetchConnectedUser } from '@/services/auth';
+import Registration from '@/pages/registration';
+import Admin from '@/pages/admin';
+import { setGlobalAccessToken } from '@/lib/api';
+import Reservations from './pages/reservations';
+import Reservation from './pages/reservation';
+import { RequireRole } from './auth/RequireRole';
+import { registrationSegments } from '@/lib/routes';
+import GuideConfirmation from '@/pages/guide-confirmation';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 
 export default function App() {
   const oidc = useOpenIDConnectContext()
@@ -67,13 +68,11 @@ export default function App() {
               path="*"
               element={
                 <ErrorPage
-                  errorCode={400}
+                  errorCode={404}
                   message="errors.notFound.generic.title"
                 />
               }
             />
-            {"errors.generic"}
-            // Set the message
             <Route path="/" element={<Page />} />
             {registrationSegments.map((segment) => (
               <Route
@@ -95,6 +94,14 @@ export default function App() {
                     element={<Reservation />}
                   />
                 </Route>
+              </Route>
+              <Route
+                element={<RequireRole role="guide" user={connectedUser} />}
+              >
+                <Route
+                  path="/reservations/:reservationId/confirmation"
+                  element={<GuideConfirmation />}
+                />
               </Route>
             </Route>
           </Route>
