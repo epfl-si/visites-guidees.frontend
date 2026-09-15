@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import { useNavigate } from "react-router";
 import { Badge } from "@/components/ui/badge";
+import { AddGuideDialog } from "@/components/guide/addGuideDialog";
 
 export default function Guides() {
   const [guides, setGuides] = useState<Guide[]>([]);
@@ -92,6 +93,7 @@ export default function Guides() {
       <div className="flex-1 p-8 overflow-auto w-full mr-10">
         <div className="flex items-center gap-3 h-10 mb-8">
           <h1 className="text-4xl font-semibold">{t("guide.title")}</h1>
+          <AddGuideDialog />
         </div>
         <div className="flex flex-col gap-6">
           <div className="flex gap-4">
