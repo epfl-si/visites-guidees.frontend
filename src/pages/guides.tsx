@@ -97,37 +97,36 @@ export default function Guides() {
         </div>
         <div className="flex flex-col gap-6">
           <div className="flex gap-4">
-            <div className="relative flex-1 flex items-center">
+            <div className="relative flex-1 gap-3 flex items-center">
               <Search className="absolute left-3 h-4 w-4 text-muted-foreground pointer-events-none shrink-0" />
               <input
                 type="search"
                 value={inputSearch}
                 onChange={(e) => setInputSearch(e.target.value)}
                 placeholder={t("table.search", "Search a guide")}
-                className="h-9 w-full border border-input bg-background pl-9 pr-3 text-sm outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground"
+                className="h-full w-full rounded-md border border-input bg-background pl-9 pr-3 text-sm outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground"
               />
-            </div>
-
-            <Select
-              value={statusFilter}
-              onValueChange={(val) => setStatusFilter(val ?? "ALL")}
-            >
-              <SelectTrigger className="w-50 h-9 shrink-0 bg-background">
-                <SelectValue placeholder={t("table.filterStatus", "Filtrer par statut")}>
-                  {getSelectedLabel()}
-                </SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="ALL">
-                  {t("guide.allStatus")}
-                </SelectItem>
-                {Object.entries(GUIDE_STATUS).map(([key, config]) => (
-                  <SelectItem key={key} value={key}>
-                    {t(config.labelKey)}
+              <Select
+                value={statusFilter}
+                onValueChange={(val) => setStatusFilter(val ?? "ALL")}
+              >
+                <SelectTrigger className="w-50 h-full shrink-0 bg-background">
+                  <SelectValue placeholder={t("table.filterStatus", "Filtrer par statut")}>
+                    {getSelectedLabel()}
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ALL">
+                    {t("guide.allStatus")}
                   </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+                  {Object.entries(GUIDE_STATUS).map(([key, config]) => (
+                    <SelectItem key={key} value={key}>
+                      {t(config.labelKey)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
       <Table className="border border-border bg-background">
