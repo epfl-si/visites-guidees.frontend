@@ -17,6 +17,7 @@ import { useTranslation } from "react-i18next"
 import { toast } from "sonner"
 import { RequireAuth } from "./auth/RequireAuth"
 import ErrorPage from "./pages/Error"
+import Guides from "@/pages/guides"
 
 export default function App() {
   const oidc = useOpenIDConnectContext()
@@ -94,6 +95,7 @@ export default function App() {
                     path="/admin/reservation/:id"
                     element={<Reservation />}
                   />
+                  <Route path="/admin/guide" element={<Guides />} />
                 </Route>
               </Route>
             </Route>
