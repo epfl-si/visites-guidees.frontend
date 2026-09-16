@@ -82,18 +82,14 @@ export default function App() {
                 element={<Registration user={connectedUser} oidc={oidc} />}
               />
             ))}
-            <Route element={<RequireAuth oidc={oidc} />}>
+            <Route path="/admin" element={<RequireAuth oidc={oidc} />}>
               <Route
                 element={<RequireRole role="admin" user={connectedUser} />}
               >
                 <Route element={<AdminLayout />}>
-                  {/* All routes that here require admin permission */}
-                  <Route path="/admin" element={<Admin />} />
-                  <Route path="/admin/reservation" element={<Reservations />} />
-                  <Route
-                    path="/admin/reservation/:id"
-                    element={<Reservation />}
-                  />
+                  <Route index element={<Admin />} />
+                  <Route path="reservation" element={<Reservations />} />
+                  <Route path="reservation/:id" element={<Reservation />} />
                 </Route>
               </Route>
             </Route>
