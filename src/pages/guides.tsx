@@ -1,7 +1,7 @@
 import type { Guide } from "@/types/guide"
 import { useEffect, useState } from "react";
 import { Empty, EmptyHeader, EmptyDescription, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
-import { Calendar, Search } from "lucide-react";
+import { User, Search } from "lucide-react";
 import { getGuides } from "@/services/guide";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useTranslation } from "react-i18next";
@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useNavigate } from "react-router";
 import { Badge } from "@/components/ui/badge";
 import { AddGuideDialog } from "@/components/guide/addGuideDialog";
@@ -22,6 +23,8 @@ export default function Guides() {
   const [guides, setGuides] = useState<Guide[]>([]);
   const [inputSearch, setInputSearch] = useState<string>("");
   const [statusFilter, setStatusFilter] = useState<string>("ALL");
+  const [error, setError] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const navigate = useNavigate();
 
@@ -29,8 +32,14 @@ export default function Guides() {
 
   useEffect(() => {
     const fetchGuides = async () => {
-      const data = await getGuides();
-      if (data.success) setGuides(data.data);
+      getGuides().then((res) => {
+        if (res.success) {
+          setGuides(res.data);
+        } else {
+          setError(true);
+        }
+        setLoading(false);
+      })
     }
     fetchGuides();
   }, []);
@@ -71,23 +80,6 @@ export default function Guides() {
     return config ? t(config.labelKey) : statusFilter;
   };
 
-
-  if (guides.length === 0) {
-    return (
-      <Empty>
-        <EmptyHeader>
-          <EmptyMedia variant="icon">
-            <Calendar />
-          </EmptyMedia>
-          <EmptyTitle>{t("guide.notFound")}</EmptyTitle>
-          <EmptyDescription>
-            {t("guide.notFoundDescription")}
-          </EmptyDescription>
-        </EmptyHeader>
-      </Empty >
-    )
-  }
-
   return (
     <>
       <div className="flex-1 p-8 overflow-auto w-full mr-10">
@@ -100,11 +92,11 @@ export default function Guides() {
             <div className="relative flex-1 gap-3 flex items-center">
               <Search className="absolute left-3 h-4 w-4 text-muted-foreground pointer-events-none shrink-0" />
               <input
-                type="search"
-                value={inputSearch}
-                onChange={(e) => setInputSearch(e.target.value)}
-                placeholder={t("table.search", "Search a guide")}
-                className="h-full w-full rounded-md border border-input bg-background pl-9 pr-3 text-sm outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground"
+              type="search"
+              value={inputSearch}
+              onChange={(e) => setInputSearch(e.target.value)}
+              placeholder={t("table.search", "Search a guide")}
+              className="h-full w-full rounded-md border border-input bg-background pl-9 pr-3 text-sm outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground"
               />
               <Select
                 value={statusFilter}
@@ -128,58 +120,87 @@ export default function Guides() {
               </Select>
             </div>
           </div>
-
-      <Table className="border border-border bg-background">
-        <TableHeader>
-          <TableRow className="bg-muted/50">
-            <TableHead>{t("table.company")}</TableHead>
-            <TableHead>{t("table.email")}</TableHead>
-            <TableHead>{t("table.date")}</TableHead>
-            <TableHead>{t("table.status")}</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {filteredGuides.length === 0 ? (
-            <TableRow>
-              <TableCell colSpan={4} className="h-24 text-center text-muted-foreground">
-                {t("guide.noResults")}
-              </TableCell>
-            </TableRow>
-          ) : (
-
-            filteredGuides.map((guide) => {
-              const statusConfig = GUIDE_STATUS[guide.status];
-              if (!statusConfig) return null;
-              const StatusIcon = statusConfig.icon;
-              return (
-                <TableRow
-                  key={guide.id}
-                  onClick={() => navigate("#")}
-                  className="hover:cursor-pointer"
-                >
-                  <TableCell className="font-medium">{guide.user.firstName ?? "-"} {guide.user.lastName ?? "-"}</TableCell>
-                  <TableCell>{guide.user.email}</TableCell>
-                  <TableCell className="flex gap-1">{guide.languages.map((lang) => (
-                    <HoverCard>
-                      <HoverCardTrigger delay={10} closeDelay={100} render={<Badge variant="outline" className="hover:bg-red-300 hover:text-red-500 ">{lang.code}</Badge>} />
-                      <HoverCardContent className="w-1 xs">
-                        <div className="flex justify-center">{lang.name}</div>
-                      </HoverCardContent>
-                    </HoverCard>
-                  ))}</TableCell>
-                  <TableCell>
-                    <div className={`flex items-center gap-2 ${statusConfig.colorClass}`}>
-                      <StatusIcon className="w-4 h-4" />
-                      <span className="text-sm font-medium">
-                        {t(statusConfig.labelKey)}
-                      </span>
-                    </div>
+          <Table className="border border-border bg-background">
+            <TableHeader>
+              <TableRow className="bg-muted/50">
+                <TableHead>{t("table.company")}</TableHead>
+                <TableHead>{t("table.email")}</TableHead>
+                <TableHead>{t("table.date")}</TableHead>
+                <TableHead>{t("table.status")}</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {loading ? (
+                Array.from({ length: 5 }).map((_, index) => (
+                  <TableRow key={index}>
+                    <TableCell><Skeleton className="h-4 w-30" /></TableCell>
+                    <TableCell><Skeleton className="h-4 w-45" /></TableCell>
+                    <TableCell><Skeleton className="h-4 w-25" /></TableCell>
+                    <TableCell><Skeleton className="h-6 w-27" /></TableCell>
+                  </TableRow>
+                ))
+              ) : error ? (
+                <TableRow>
+                  <TableCell
+                    colSpan={4}
+                    className="h-66.25 text-center text-muted-foreground"
+                  >
+                    {t("admin.guides.loadError")}
                   </TableCell>
                 </TableRow>
-              );
-            })
-          )}
-        </TableBody>
+              ) : guides.length === 0 ? (
+                <TableRow>
+                  <TableCell
+                    colSpan={4}
+                    className="h-66.25 text-center text-muted-foreground"
+                  >
+                    <Empty>
+                      <EmptyHeader>
+                        <EmptyMedia variant="icon">
+                          <User />
+                        </EmptyMedia>
+                        <EmptyTitle>{t("guide.notFound")}</EmptyTitle>
+                        <EmptyDescription>
+                          {t("guide.notFoundDescription")}
+                        </EmptyDescription>
+                      </EmptyHeader>
+                    </Empty >
+                  </TableCell>
+                </TableRow>
+              ) : (
+                filteredGuides.map((guide) => {
+                  const statusConfig = GUIDE_STATUS[guide.status];
+                  if (!statusConfig) return null;
+                  const StatusIcon = statusConfig.icon;
+                  return (
+                    <TableRow
+                      key={guide.id}
+                      onClick={() => navigate("#")}
+                      className="hover:cursor-pointer"
+                    >
+                      <TableCell className="font-medium">{guide.user.firstName ?? "-"} {guide.user.lastName ?? "-"}</TableCell>
+                      <TableCell>{guide.user.email}</TableCell>
+                      <TableCell className="flex gap-1">{guide.languages.map((lang) => (
+                        <HoverCard>
+                          <HoverCardTrigger delay={10} closeDelay={100} render={<Badge variant="outline" className="hover:bg-red-300 hover:text-red-500 ">{lang.code}</Badge>} />
+                          <HoverCardContent className="w-auto">
+                            <div className="flex justify-center">{lang.name}</div>
+                          </HoverCardContent>
+                        </HoverCard>
+                      ))}</TableCell>
+                      <TableCell>
+                        <div className={`flex items-center gap-2 ${statusConfig.colorClass}`}>
+                          <StatusIcon className="w-4 h-4" />
+                          <span className="text-sm font-medium">
+                            {t(statusConfig.labelKey)}
+                          </span>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })
+              )}
+            </TableBody>
           </Table>
         </div>
       </div>
