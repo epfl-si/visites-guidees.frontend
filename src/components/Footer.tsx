@@ -17,12 +17,20 @@ export const Footer: React.FC = () => {
               height={28}
             />
           </a>
-          <div className="w-full border-t pt-4 flex flex-col items-center md:flex-row md:items-center md:justify-between gap-3">
+          <div className="flex flex-col w-full">
+            <ul className="flex flex-wrap justify-center md:justify-start items-center gap-x-4 gap-y-1 text-sm mb-2">
+              <a href="mailto:1234@epfl.ch" className="font-medium hover:underline">
+                {t("actions.getHelp")}
+              </a>
+              <li className="text-muted-foreground"><address className="not-italic">EPFL CH-1015 Lausanne</address></li>
+              <li className="text-muted-foreground not-italic"><a href="tel:+41216931234" className="not-italic">+41 21 693 12 34</a></li>
+            </ul>
+            <div className="border-t pt-4 flex flex-col items-center md:flex-row md:items-center md:justify-between gap-3">
               <div className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-1 text-sm">
                 <ul className="flex flex-wrap justify-center md:justify-start items-center gap-x-4 gap-y-1 text-sm">
                   <li>
                     <a href="mailto:1234@epfl.ch" className="font-medium hover:underline">
-                       {t('footer.contact')}
+                      {t('footer.contact')}
                     </a>
                   </li>
                   <li className="text-gray-500">{config.address}</li>
@@ -41,6 +49,7 @@ export const Footer: React.FC = () => {
                 <p>© 2026 EPFL – {t('footer.rights')}</p>
               </div>
             </div>
+          </div>
         </div>
       </div>
     </footer>
