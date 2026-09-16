@@ -154,7 +154,7 @@ export default function Guides() {
               return (
                 <TableRow
                   key={guide.id}
-                  onClick={() => navigate(guide.id.toString())}
+                  onClick={() => navigate("#")}
                   className="hover:cursor-pointer"
                 >
                   <TableCell className="font-medium">{guide.user.firstName ?? "-"} {guide.user.lastName ?? "-"}</TableCell>
