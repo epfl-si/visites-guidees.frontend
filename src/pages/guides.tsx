@@ -38,6 +38,9 @@ export default function Guides() {
         } else {
           setError(true);
         }
+      }).catch(() => {
+        setError(true);
+      }).finally(() => {
         setLoading(false);
       })
     }
