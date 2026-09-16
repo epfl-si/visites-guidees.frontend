@@ -46,23 +46,22 @@ export default function Guides() {
 
   const searchGuides = (guide: Guide, searchQuery: string) => {
     if (!searchQuery) return true;
-
     const query = searchQuery.toLowerCase().trim();
-
-    const matchInValues = Object.values(guide).some((value) => {
-      if (value === null || value === undefined) return false;
-      return String(value).toLowerCase().includes(query);
-    });
-
-    let matchInTranslatedStatus = false;
     const statusConfig = GUIDE_STATUS[guide.status as keyof typeof GUIDE_STATUS];
 
-    if (statusConfig) {
-      const translatedStatus = t(statusConfig.labelKey).toLowerCase();
-      matchInTranslatedStatus = translatedStatus.includes(query);
-    }
+    const haystack = [
+      guide.user?.firstName,
+      guide.user?.lastName,
+      guide.user?.email,
+      ...(guide.phone || []),
+      ...(guide.languages?.map((l) => l.name) || []),
+      statusConfig ? t(statusConfig.labelKey) : guide.status,
+    ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
 
-    return matchInValues || matchInTranslatedStatus;
+    return haystack.includes(query);
   };
 
   const filteredGuides = guides.filter((guide) => {
