@@ -1,5 +1,5 @@
 import { CirclePlus } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
   Dialog,
   DialogContent,
@@ -26,15 +26,16 @@ export const AddGuideDialog = () => {
   const { t } = useTranslation()
 
   const [isWaiting, setIsWaiting] = useState<boolean>(false)
+  const [hasSearched, setHasSearched] = useState<boolean>(false)
   const [users, setUsers] = useState<ResponseUserAPI[]>([])
   const [search, setSearch] = useState<string>("")
 
-  async function handleSearch() {
-    if (!search) return
+  async function handleSearch(query: string) {
+    if (!query) return
 
     setIsWaiting(true)
     try {
-      const usersResponse = await searchUser(search)
+      const usersResponse = await searchUser(query)
       if (!usersResponse.success) {
         throw new Error(usersResponse.error)
       }
@@ -45,8 +46,24 @@ export const AddGuideDialog = () => {
       setUsers([])
     } finally {
       setIsWaiting(false)
+      setHasSearched(true)
     }
   }
+
+  useEffect(() => {
+    setHasSearched(false)
+
+    if (!search) {
+      setUsers([])
+      return
+    }
+
+    const timeout = setTimeout(() => {
+      handleSearch(search)
+    }, 300)
+
+    return () => clearTimeout(timeout)
+  }, [search])
 
   async function handleGuideClick(sciper: number) {
     try {
@@ -60,6 +77,10 @@ export const AddGuideDialog = () => {
       toast.error(t("guide.addError"))
     }
   }
+
+  const showNoResult =
+    !isWaiting && hasSearched && users.length === 0 && search.trim() !== ""
+
   return (
     <Dialog>
       <DialogTrigger
@@ -76,9 +97,6 @@ export const AddGuideDialog = () => {
           <InputGroupInput
             placeholder="Search..."
             onChange={(e) => setSearch(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") handleSearch()
-            }}
             value={search}
           />
           {isWaiting && (
@@ -95,7 +113,7 @@ export const AddGuideDialog = () => {
             </p>
           )}
 
-          {!isWaiting && users.length === 0 && search.trim() !== "" && (
+          {showNoResult && (
             <p className="text-sm text-muted-foreground">
               {t("guide.noResult")}
             </p>
@@ -110,14 +128,12 @@ export const AddGuideDialog = () => {
                   </span>
                 </div>
                 <div className="flex">
-                  <div>
-                    <span className="m-1 text-muted-foreground">
-                      {user.sciper}
-                    </span>
-                    <Button onClick={() => handleGuideClick(Number(user.sciper))}>
-                      {t("actions.add")}
-                    </Button>
-                  </div>
+                  <span className="m-1 text-muted-foreground">
+                    {user.sciper}
+                  </span>
+                  <Button onClick={() => handleGuideClick(Number(user.sciper))}>
+                    {t("actions.add")}
+                  </Button>
                 </div>
               </div>
             ))}
