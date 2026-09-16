@@ -162,7 +162,7 @@ export default function Guides() {
                   <TableCell className="flex gap-1">{guide.languages.map((lang) => (
                     <HoverCard>
                       <HoverCardTrigger delay={10} closeDelay={100} render={<Badge variant="outline" className="hover:bg-red-300 hover:text-red-500 ">{lang.code}</Badge>} />
-                      <HoverCardContent className="w-1xs">
+                      <HoverCardContent className="w-1 xs">
                         <div className="flex justify-center">{lang.name}</div>
                       </HoverCardContent>
                     </HoverCard>
