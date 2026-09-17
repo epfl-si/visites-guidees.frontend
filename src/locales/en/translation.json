@@ -170,6 +170,10 @@
     "forbidden": {
       "title": "You don't have permission to access this page",
       "contact": "If you think this is an error, contact"
+    },
+    "session": {
+      "expired": "Your session has expired, please sign in again",
+      "reconnect": "Sign in"
     }
   },
   "actions": {
