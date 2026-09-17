@@ -87,7 +87,6 @@ export default function Guides() {
       <div className="flex-1 p-8 overflow-auto w-full mr-10">
         <div className="flex items-center gap-3 h-10 mb-8">
           <h1 className="text-4xl font-semibold">{t("guide.title")}</h1>
-          <AddGuideDialog />
         </div>
         <div className="flex flex-col gap-6">
           <div className="flex gap-4">
@@ -104,7 +103,7 @@ export default function Guides() {
                 value={statusFilter}
                 onValueChange={(val) => setStatusFilter(val ?? "ALL")}
               >
-                <SelectTrigger className="w-50 h-full shrink-0 bg-background">
+                <SelectTrigger className="w-30 h-full shrink-0 bg-background">
                   <SelectValue placeholder={t("table.filterStatus", "Filtrer par statut")}>
                     {getSelectedLabel()}
                   </SelectValue>
@@ -120,6 +119,7 @@ export default function Guides() {
                   ))}
                 </SelectContent>
               </Select>
+              <AddGuideDialog />
             </div>
           </div>
           <Table className="border border-border bg-background">
