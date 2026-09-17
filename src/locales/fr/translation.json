@@ -1,7 +1,7 @@
 {
   "header": {
     "signIn": "Se connecter",
-    "signOut": "se déconnecter"
+    "signOut": "Se déconnecter"
   },
   "footer": {
     "sourceCode": "Source Code",
