@@ -156,6 +156,10 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogin, onLogout }) => {
                 {t('header.signIn')}
               </Button>
             )}
+            <div className="border-t my-2" />
+            <div className="px-2.5">
+              <LanguageSelector />
+            </div>
           </nav>
         </div>
       )}
