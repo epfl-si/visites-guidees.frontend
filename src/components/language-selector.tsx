@@ -1,6 +1,7 @@
 import type React from "react";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 export const LanguageSelector: React.FC = () => {
   const { i18n } = useTranslation();
@@ -15,33 +16,35 @@ export const LanguageSelector: React.FC = () => {
     <nav className="ml-auto flex items-center space-x-4 text-sm sm:text-base select-none">
       <ol className="flex items-center space-x-1">
         <li>
-          <button
+          <Button
             type="button"
+            variant="link"
             onClick={() => changeLocale("fr")}
             className={cn(
-              "cursor-pointer font-bold transition-colors",
+              "h-auto p-0 font-bold transition-colors hover:no-underline",
               currentLang.startsWith("fr")
                 ? "text-red-500"
                 : "text-gray-300 hover:text-gray-400"
             )}
           >
             FR
-          </button>
+          </Button>
         </li>
         <span className="border-l-2 border-solid h-4 border-gray-300 mx-1"></span>
         <li>
-          <button
+          <Button
             type="button"
+            variant="link"
             onClick={() => changeLocale("en")}
             className={cn(
-              "cursor-pointer font-bold transition-colors",
+              "h-auto p-0 font-bold transition-colors hover:no-underline",
               currentLang.startsWith("en")
                 ? "text-red-500"
                 : "text-gray-300 hover:text-gray-400"
             )}
           >
             EN
-          </button>
+          </Button>
         </li>
       </ol>
     </nav>
