@@ -9,6 +9,7 @@ import {
 import type { UserType } from "@/types/user";
 import { useTranslation } from 'react-i18next';
 import { LanguageSelector } from "@/components/language-selector";
+import { Button } from "@/components/ui/button";
 
 interface HeaderProps {
   user: UserType | null | undefined;
@@ -69,26 +70,28 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogin, onLogout }) => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <button
+              <Button
                 type="button"
                 onClick={onLogin}
-                className="text-muted-foreground hover:text-foreground hover:cursor-pointer font-medium px-4 py-2"
+                variant="link"
+                className="text-muted-foreground text-base"
               >
                 {t('header.signIn')}
-              </button>
+              </Button>
             )}
             <LanguageSelector />
           </div>
 
           {/* Mobile burger button */}
-          <button
+          <Button
             type="button"
-            className="md:hidden p-2 text-muted-foreground"
+            variant="ghost"
+            className="md:hidden h-auto w-auto p-2 text-muted-foreground"
             onClick={() => setMobileMenuOpen((v) => !v)}
             aria-label="Menu"
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          </Button>
         </div>
       </header>
 
@@ -111,28 +114,30 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogin, onLogout }) => {
                   <span className="text-sm font-medium truncate">{user.username}</span>
                 </div>
                 <div className="border-t my-2" />
-                <button
+                <Button
                   type="button"
+                  variant="ghost"
                   onClick={() => {
                     if (onLogout) onLogout();
                     closeMobileMenu();
                   }}
-                  className="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-md transition-colors"
+                  className="w-full h-auto justify-start px-3 py-2 text-sm text-red-600 hover:bg-red-50 hover:text-red-600 rounded-md transition-colors"
                 >
                   {t('header.signOut')}
-                </button>
+                </Button>
               </>
             ) : (
-              <button
+              <Button
                 type="button"
+                variant="ghost"
                 onClick={() => {
                   if (onLogin) onLogin();
                   closeMobileMenu();
                 }}
-                className="w-full text-left px-3 py-2 text-sm font-medium hover:bg-slate-100 rounded-md transition-colors"
+                className="w-full h-auto justify-start px-3 py-2 text-sm font-medium hover:bg-slate-100 rounded-md transition-colors"
               >
-                 {t('header.signIn')}
-              </button>
+                {t('header.signIn')}
+              </Button>
             )}
           </nav>
         </div>
