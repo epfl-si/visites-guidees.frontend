@@ -163,7 +163,7 @@
     },
     "unauthenticated": {
       "title": "Vous devez être connecté(e) pour accéder à cette page",
-      "contact": "Si vous pensez qu'il s'agit d'une erreur, contactez ssss"
+      "contact": "Si vous pensez qu'il s'agit d'une erreur, contactez"
     },
     "forbidden": {
       "title": "Vous n'avez pas la permission d'accéder à cette page",
