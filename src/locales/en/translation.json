@@ -116,7 +116,7 @@
     "add": "Add a guide",
     "searching": "Searching...",
     "noResult": "No results found",
-    "notFound":"No guide found.",
+    "notFound": "No guide found.",
     "notFoundDescription": "Currently there is no guide.",
     "searchError": "The user search failed. Please try again.",
     "addSuccess": "The guide has been added.",
