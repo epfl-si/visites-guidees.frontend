@@ -29,6 +29,9 @@ export default function App() {
     username: "",
     email: "",
   })
+  const connectedUserLoading =
+    oidc.state === StateEnum.InProgress ||
+    (oidc.state === StateEnum.LoggedIn && !connectedUser.username)
 
   useEffect(() => {
     if (oidc.state === StateEnum.LoggedIn && oidc.accessToken) {
@@ -85,7 +88,13 @@ export default function App() {
             ))}
             <Route element={<RequireAuth oidc={oidc} />}>
               <Route
-                element={<RequireRole role="admin" user={connectedUser} />}
+                element={
+                  <RequireRole
+                    role="admin"
+                    user={connectedUser}
+                    loading={connectedUserLoading}
+                  />
+                }
               >
                 <Route element={<AdminLayout />}>
                   {/* All routes that here require admin permission */}
