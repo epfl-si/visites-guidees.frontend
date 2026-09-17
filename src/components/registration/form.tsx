@@ -103,18 +103,25 @@ export default function RegistrationForm({
   };
 
   useEffect(() => {
-    const savedFormData = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const savedLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY)
+    const savedFormData: RegistrationFormType & { lifetime: number } | null = savedLocalStorage ? JSON.parse(savedLocalStorage) : null;
     if (savedFormData) {
-      try {
-        setFormData(JSON.parse(savedFormData));
-      } catch {
-        localStorage.removeItem(LOCAL_STORAGE_KEY);
+      if (savedFormData.lifetime < Date.now()) {
+        if (savedFormData) {
+          try {
+            setFormData(savedFormData);
+          } catch {
+            localStorage.removeItem(LOCAL_STORAGE_KEY);
+          }
+        }
+      } else {
+        localStorage.removeItem(LOCAL_STORAGE_KEY)
       }
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(formData));
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ formData, lifeTime: Date.now() + 12 * 3600 * 1000 }));
   }, [formData]);
 
   const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
