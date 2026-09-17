@@ -1,10 +1,12 @@
 import { CircleUserRound, Menu, X } from "lucide-react";
 import React, { useState } from "react";
+import { Link } from "react-router";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
+  DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu";
 import type { UserType } from "@/types/user";
 import { useTranslation } from 'react-i18next';
@@ -64,7 +66,13 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogin, onLogout }) => {
                   </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={onLogout} className="cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50">
+                  {user.roles.includes("admin") && (
+                    <DropdownMenuItem render={<Link to="/admin" />} className="cursor-pointer">
+                      {t('admin.nav.dashboard')}
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={onLogout} variant="destructive">
                     {t('header.signOut')}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -111,9 +119,18 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogin, onLogout }) => {
                   ) : (
                     <CircleUserRound className="w-8 h-8 text-muted-foreground" strokeWidth={1} />
                   )}
-                  <span className="text-sm font-medium truncate">{user.username}</span>
+                  <span className="text-sm font-medium truncate">{user.firstName} {user.lastName}</span>
                 </div>
                 <div className="border-t my-2" />
+                {user.roles.includes("admin") && (
+                  <Link
+                    to="/admin"
+                    onClick={closeMobileMenu}
+                    className="block w-full text-left px-3 py-2 text-sm hover:bg-slate-100 rounded-md transition-colors"
+                  >
+                    {t('admin.nav.dashboard')}
+                  </Link>
+                )}
                 <Button
                   type="button"
                   variant="ghost"
