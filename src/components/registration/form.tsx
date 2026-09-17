@@ -16,16 +16,16 @@ import {
   NumberFieldGroup,
   NumberFieldIncrement,
   NumberFieldInput,
-  NumberFieldScrubArea,
 } from "@/components/reui/number-field"
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
-import { useState, useEffect, useMemo, type FormEvent } from "react";
-import type { PlaceInformationType, RegistrationFormType } from "@/types/register";
+import { useState, useEffect, useMemo, type SubmitEvent } from "react";
+import type { RegistrationFormType } from "@/types/register";
 import countryList from "react-select-country-list";
 import { postRegistration } from "@/services/reservation";
 import { toast } from "sonner";
+import type { PlaceInformationType } from "@/types/place";
 
 const LOCAL_STORAGE_KEY = "registrationFormData";
 
@@ -117,7 +117,7 @@ export default function RegistrationForm({
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(formData));
   }, [formData]);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!formData.gdprConsent) {
@@ -151,10 +151,7 @@ export default function RegistrationForm({
     }
 
     const isoDate = new Date(`${formData.visitDate}T${formData.visitTime}`).toISOString();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { visitTime,visitDate, ...rest } = formData;
-    // Backend expects `numberOfParticipant` (singular) — see reservations schema.
-    // Mapped here rather than renaming the front-end type.
+    const { visitTime, visitDate, ...rest } = formData;
     const formDataToSubmit = {
       ...rest,
       date: isoDate,
@@ -318,17 +315,17 @@ export default function RegistrationForm({
         <NumberField
           min={0} max={100}
           value={formData.participantNumber}
-          onValueChange={(value) =>{
+          onValueChange={(value) => {
             if (value !== null) updateField("participantNumber", value)
           }}>
           <NumberFieldGroup>
             <NumberFieldInput className="text-start" />
             <div className="border-input bg-muted/30 rounded-lg m-px flex shrink-0 flex-col overflow-hidden border">
               <NumberFieldIncrement className="border-input hover:bg-accent focus-visible:bg-accent flex h-3.5 w-full flex-1 shrink-0 items-center rounded-none! border-b px-1.5 leading-none">
-                <ChevronUpIcon  className="size-3.5" />
+                <ChevronUpIcon className="size-3.5" />
               </NumberFieldIncrement>
               <NumberFieldDecrement className="hover:bg-accent focus-visible:bg-accent flex h-3.5 w-full flex-1 shrink-0 items-center rounded-none! px-1.5 leading-none">
-                <ChevronDownIcon  className="size-3.5" />
+                <ChevronDownIcon className="size-3.5" />
               </NumberFieldDecrement>
             </div>
           </NumberFieldGroup>
