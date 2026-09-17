@@ -8,7 +8,7 @@ import Page from "@/pages/Page.tsx"
 import { fetchConnectedUser } from "@/services/auth"
 import Registration from "@/pages/registration"
 import Admin from "@/pages/admin"
-import { setGlobalAccessToken } from "@/lib/api"
+import { setGlobalAccessToken, setUnauthorizedHandler } from "@/lib/api"
 import Reservations from "./pages/reservations"
 import Reservation from "./pages/reservation"
 import { RequireRole } from "./auth/RequireRole"
@@ -34,6 +34,18 @@ export default function App() {
     (oidc.state === StateEnum.LoggedIn && !connectedUser.username)
 
   useEffect(() => {
+    setUnauthorizedHandler(() => {
+      toast.error(t("errors.session.expired"), {
+        action: {
+          label: t("errors.session.reconnect"),
+          onClick: () => window.location.reload(),
+        },
+      })
+    })
+    return () => setUnauthorizedHandler(null)
+  }, [t])
+
+  useEffect(() => {
     if (oidc.state === StateEnum.LoggedIn && oidc.accessToken) {
       setGlobalAccessToken(oidc.accessToken)
 
@@ -44,7 +56,9 @@ export default function App() {
           if (ignore) return
           if (!response.success) {
             console.error("ConnectedUser Error", response.error)
-            toast.error(t("errors.dataLoading.userDataError"))
+            if (response.code !== 401) {
+              toast.error(t("errors.dataLoading.userDataError"))
+            }
             return
           }
           setConnectedUser(response.data)

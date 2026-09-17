@@ -145,3 +145,22 @@
 [data-sonner-toast].cn-toast [data-title] {
   font-weight: 400;
 }
+
+/* Match the app's primary Button (src/components/ui/button.tsx). Sonner
+   injects its own [data-button] rule into the document at runtime (after
+   this stylesheet), so at equal specificity it wins the cascade — the
+   `.toaster` ancestor class bumps specificity above sonner's rule. */
+.toaster [data-sonner-toast].cn-toast [data-button] {
+  height: 2rem;
+  padding: 0 0.625rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--radius-lg);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.toaster [data-sonner-toast].cn-toast [data-button]:hover {
+  background: var(--primary);
+  opacity: 0.8;
+}

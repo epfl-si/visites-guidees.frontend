@@ -37,6 +37,10 @@ export const AddGuideDialog = () => {
     try {
       const usersResponse = await searchUser(query)
       if (!usersResponse.success) {
+        if (usersResponse.code === 401) {
+          setUsers([])
+          return
+        }
         throw new Error(usersResponse.error)
       }
       setUsers(usersResponse.data)
@@ -69,6 +73,7 @@ export const AddGuideDialog = () => {
     try {
       const response = await addGuide(sciper)
       if (!response.success) {
+        if (response.code === 401) return
         throw new Error(response.error)
       }
       toast.success(t("guide.addSuccess"))

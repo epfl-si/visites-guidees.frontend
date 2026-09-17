@@ -7,6 +7,12 @@ export function setGlobalAccessToken(token: string | null) {
   globalAccessToken = token;
 };
 
+let onUnauthorized: (() => void) | null = null;
+
+export function setUnauthorizedHandler(handler: (() => void) | null) {
+  onUnauthorized = handler;
+};
+
 interface ApiCallOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
   headers?: HeadersInit;
@@ -35,10 +41,6 @@ export async function call<T>(url: string, options: ApiCallOptions = {}): Promis
 
   const response = await fetch(url, fetchOptions);
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch API: ${url} (${response.status})`);
-  }
-
   return (await response.json()) as T;
 }
 
@@ -48,5 +50,11 @@ export async function callBackend<T>(
   endpoint: string,
   options: ApiCallOptions = {},
 ): Promise<BackendResponse<T>> {
-  return call<BackendResponse<T>>(`${BACKEND_URL}${endpoint}`, options);
+  const data = await call<BackendResponse<T>>(`${BACKEND_URL}${endpoint}`, options);
+
+  if (!data.success && data.code === 401) {
+    onUnauthorized?.();
+  }
+
+  return data;
 }
