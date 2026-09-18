@@ -9,16 +9,14 @@ import { useTranslation } from "react-i18next";
 export const AppLayout = ({ user, oidc }: { user: UserType, oidc: State }) => {
   const { t } = useTranslation()
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <title>{t("app.title")}</title>
-      <main className="flex flex-col min-h-screen">
-        <Header user={user} onLogin={() => oidc.login()} onLogout={() => oidc.logout()} />
-        <Toaster position="bottom-center" />
-        <div className="w-full mx-auto flex-1 flex flex-col">
-          <Outlet />
-        </div>
-        <Footer />
+      <Header user={user} onLogin={() => oidc.login()} onLogout={() => oidc.logout()}/>
+      <Toaster position="bottom-center" />
+      <main id="main-content" className="w-full mx-auto flex-1 flex flex-col">
+        <Outlet />
       </main>
-    </>
+      <Footer />
+    </div>
   );
 }
