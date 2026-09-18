@@ -103,7 +103,9 @@
       "WAITINGPAYMENT": "Waiting for Payment",
       "READY": "Ready",
       "CANCELLED": "Cancelled"
-    }
+    },
+    "tableCaption": "Reservations, filtered by the search field and the status filter",
+    "openDetails": "Open the reservation of {{name}}"
   },
   "guide": {
     "title": "The guides",
@@ -128,7 +130,9 @@
       "INACTIVE": "Inactive",
       "RETIRED": "Retired",
       "SUSPENDED": "Suspended"
-    }
+    },
+    "tableCaption": "Guides, filtered by the search field and the status filter",
+    "notFoundDescription": "No guide has been registered yet."
   },
   "place": {
     "title": "Places",
@@ -144,7 +148,9 @@
     "status": "Status",
     "name": "Name",
     "phoneNumber": "Phone number",
-    "language": "Language(s)"
+    "language": "Language(s)",
+    "search": "Search",
+    "filterStatus": "Filter by status"
   },
   "errors": {
     "generic": {
@@ -186,7 +192,8 @@
     "nav": {
       "dashboard": "Dashboard",
       "reservations": "Reservations",
-      "guides": "Guides"
+      "guides": "Guides",
+      "label": "Back office sections"
     },
     "reservations": {
       "notFound": "No reservation found.",
@@ -200,6 +207,10 @@
     "places": {
       "notFound": "No place found.",
       "loadError": "The places could not be loaded. Please try again later."
-    }
+    },
+    "title": "Admin dashboard"
+  },
+  "a11y": {
+    "skipToContent": "Skip to main content"
   }
 }

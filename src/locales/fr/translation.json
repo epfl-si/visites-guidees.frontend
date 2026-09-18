@@ -104,7 +104,9 @@
       "WAITINGPAYMENT": "Attente Paiement",
       "READY": "Prêt",
       "CANCELLED": "Annulé"
-    }
+    },
+    "tableCaption": "Réservations, filtrées par le champ de recherche et le filtre de statut",
+    "openDetails": "Ouvrir la réservation de {{name}}"
   },
   "guide": {
     "title": "Les guides",
@@ -129,7 +131,9 @@
       "INACTIVE": "Inactif",
       "RETIRED": "Retiré",
       "SUSPENDED": "Suspendu"
-    }
+    },
+    "tableCaption": "Guides, filtrés par le champ de recherche et le filtre de statut",
+    "notFoundDescription": "Aucun guide n'a encore été enregistré."
   },
   "place": {
     "title": "Lieux",
@@ -145,7 +149,9 @@
     "status": "Statut",
     "name": "Nom",
     "phoneNumber": "Numéro de téléphone",
-    "language": "Langue(s)"
+    "language": "Langue(s)",
+    "search": "Rechercher",
+    "filterStatus": "Filtrer par statut"
   },
   "errors": {
     "generic": {
@@ -187,7 +193,8 @@
     "nav": {
       "dashboard": "Tableau de bord",
       "reservations": "Reservations",
-      "guides": "Guides"
+      "guides": "Guides",
+      "label": "Sections du back-office"
     },
     "reservations": {
       "notFound": "Aucune reservation trouvée.",
@@ -201,6 +208,10 @@
     "places": {
       "notFound": "Aucune place trouvée.",
       "loadError": "Les places n'ont pas pu être chargés. Veuillez réessayer plus tard."
-    }
+    },
+    "title": "Tableau de bord"
+  },
+  "a11y": {
+    "skipToContent": "Aller au contenu principal"
   }
 }

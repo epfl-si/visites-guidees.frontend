@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Empty, EmptyHeader, EmptyDescription, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { Calendar, Search } from "lucide-react";
 import { getReservations } from "@/services/reservation";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useTranslation } from "react-i18next";
 import { RESERVATION_STATUS } from "@/constants/status";
 import {
@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export default function Reservations() {
   const [reservations, setReservations] = useState<Reservation[]>([]);
@@ -95,12 +95,16 @@ export default function Reservations() {
         <div className="flex flex-col gap-6">
           <div className="flex gap-4">
             <div className="relative flex-1 flex items-center">
-              <Search className="absolute left-3 h-4 w-4 text-muted-foreground pointer-events-none shrink-0" />
+              <label htmlFor="reservation-search" className="sr-only">
+                {t("table.search")}
+              </label>
+              <Search aria-hidden="true" className="absolute left-3 h-4 w-4 text-muted-foreground pointer-events-none shrink-0" />
               <input
+                id="reservation-search"
                 type="search"
                 value={inputSearch}
                 onChange={(e) => setInputSearch(e.target.value)}
-                placeholder={t("table.search", "Search a reservation")}
+                placeholder={t("table.search")}
                 className="h-9 w-full border border-input bg-background pl-9 pr-3 text-sm outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground"
               />
             </div>
@@ -109,7 +113,7 @@ export default function Reservations() {
               value={statusFilter}
               onValueChange={(val) => setStatusFilter(val ?? "ALL")}
             >
-              <SelectTrigger className="w-50 h-9 shrink-0 bg-background">
+              <SelectTrigger aria-label={t("table.filterStatus")} className="w-50 h-9 shrink-0 bg-background">
                 <SelectValue placeholder={t("table.filterStatus", "Filtrer par statut")}>
                   {getSelectedLabel()}
                 </SelectValue>
@@ -128,6 +132,7 @@ export default function Reservations() {
           </div>
 
       <Table className="border border-border bg-background">
+        <TableCaption className="sr-only">{t("reservation.tableCaption")}</TableCaption>
         <TableHeader>
           <TableRow className="bg-muted/50">
             <TableHead>{t("table.company")}</TableHead>
@@ -155,12 +160,22 @@ export default function Reservations() {
                   onClick={() => navigate(reservation.id.toString())}
                   className="hover:cursor-pointer"
                 >
-                  <TableCell className="font-medium">{reservation.company ?? "-"}</TableCell>
+                  <TableCell className="font-medium">
+                    <Link
+                      to={reservation.id.toString()}
+                      aria-label={t("reservation.openDetails", {
+                        name: reservation.company ?? reservation.email,
+                      })}
+                      className="underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                    >
+                      {reservation.company ?? "-"}
+                    </Link>
+                  </TableCell>
                     <TableCell>{reservation.email}</TableCell>
                     <TableCell>{new Date(reservation.date).toLocaleDateString()}</TableCell>
                     <TableCell>
                       <div className={`flex items-center gap-2 ${statusConfig.colorClass}`}>
-                        <StatusIcon className="w-4 h-4" />
+                        <StatusIcon aria-hidden="true" className="w-4 h-4" />
                         <span className="text-sm font-medium">
                           {t(statusConfig.labelKey)}
                         </span>
