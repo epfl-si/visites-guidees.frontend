@@ -104,6 +104,9 @@
       "WAITINGPAYMENT": "Attente Paiement",
       "READY": "Prêt",
       "CANCELLED": "Annulé"
+    },
+    "steps": {
+      "reserved": "Réserver"
     }
   },
   "guide": {
