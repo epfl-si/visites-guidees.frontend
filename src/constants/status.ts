@@ -61,3 +61,10 @@ export const GUIDE_STATUS: Record<GuideStatus, StatusConfig> = {
     colorClass: "text-amber-600"
   }
 }
+
+export const STATUS_ORDER: ReservationStatus[] = [
+  "WAITINGGUIDE",
+  "WAITINGVALIDATION",
+  "WAITINGPAYMENT",
+  "READY",
+]
