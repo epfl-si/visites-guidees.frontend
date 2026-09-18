@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react"
 import { StateEnum, useOpenIDConnectContext } from "@epfl-si/react-appauth"
 import { AppLayout } from "@/components/layout/AppLayout"
@@ -114,10 +115,7 @@ export default function App() {
                   {/* All routes that here require admin permission */}
                   <Route path="/admin" element={<Admin />} />
                   <Route path="/admin/reservation" element={<Reservations />} />
-                  <Route
-                    path="/admin/reservation/:id"
-                    element={<Reservation />}
-                  />
+                  <Route path="/admin/reservation/:id" element={<Reservation />} />
                   <Route path="/admin/guide" element={<Guides />} />
                 </Route>
               </Route>
