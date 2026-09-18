@@ -20,7 +20,7 @@ export const PlacesTable = ({ places, loading, error }: { places: Place[], loadi
     <Card className="">
       <CardHeader>
         <CardTitle>
-          {t("place.title")}
+          <h2>{t("place.title")}</h2>
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -36,7 +36,7 @@ export const PlacesTable = ({ places, loading, error }: { places: Place[], loadi
             <TableBody>
               {loading ? (
                 Array.from({ length: 5 }).map((_, index) => (
-                  <TableRow key={index}>
+                  <TableRow key={index} aria-hidden="true">
                     <TableCell><Skeleton className="h-4 w-45" /></TableCell>
                     <TableCell><Skeleton className="h-4 w-30" /></TableCell>
                     <TableCell><Skeleton className="h-4 w-30" /></TableCell>
@@ -45,6 +45,7 @@ export const PlacesTable = ({ places, loading, error }: { places: Place[], loadi
               ) : error ? (
                 <TableRow>
                   <TableCell
+                    role="alert"
                     colSpan={4}
                     className="h-66.25 text-center text-muted-foreground"
                   >
