@@ -3,6 +3,7 @@ import type { ReservationStatus } from "@/types/status";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
 import { useTranslation } from "react-i18next";
+import { cn } from "@/lib/utils";
 import {
   ArrowLeft,
   Calendar,
@@ -18,9 +19,8 @@ import {
   Languages,
   UserKeyIcon
 } from "lucide-react";
-
+import { SnakeStatus } from "@/components/reservations/snake-status";
 import { getReservation } from "@/services/reservation";
-
 import { LoadingPage } from "./Loading";
 import { Empty, EmptyHeader, EmptyDescription, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { Button } from "@/components/ui/button";
@@ -30,9 +30,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-
 import { RESERVATION_STATUS } from "@/constants/status";
-import { cn } from "@/lib/utils";
 
 function formatDateOnly(d: Date | string) {
   return new Date(d).toLocaleDateString("fr-CH", {
@@ -98,7 +96,6 @@ export default function Reservation() {
   return (
     <div className="flex-1 w-full overflow-auto">
       <div className="max-w-6xl mx-auto p-6 md:p-8 space-y-8">
-
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div className="min-w-0 space-y-1.5">
             <div className="flex items-center gap-3">
@@ -191,20 +188,6 @@ export default function Reservation() {
             </section>
             <section className="space-y-3">
               <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">
-                {t("reservation.paymentInfo")}
-              </h3>
-              <div className="border border-border rounded-md p-4 bg-background shadow-sm flex items-start gap-3">
-                <CreditCard className="h-5 w-5 text-muted-foreground mt-0.5 shrink-0" />
-                <div>
-                  <p className="text-xs text-muted-foreground">{t("reservation.paymentMethod")}</p>
-                  <p className="text-sm font-medium">{reservation.payment}</p>
-                </div>
-              </div>
-            </section>
-          </div>
-          <div className="lg:col-span-2 space-y-6">
-            <section className="space-y-3">
-              <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">
                 {t("reservation.customer")}
               </h3>
               <div className="border border-border rounded-md p-4 space-y-4 bg-background shadow-sm">
@@ -278,6 +261,21 @@ export default function Reservation() {
                 </div>
               </section>
               )}
+            <section className="space-y-3">
+              <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">
+                {t("reservation.paymentInfo")}
+              </h3>
+              <div className="border border-border rounded-md p-4 bg-background shadow-sm flex items-start gap-3">
+                <CreditCard className="h-5 w-5 text-muted-foreground mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-xs text-muted-foreground">{t("reservation.paymentMethod")}</p>
+                  <p className="text-sm font-medium">{reservation.payment}</p>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div className="lg:col-span-2 space-y-6">
+            <SnakeStatus status={reservation.status} />
           </div>
         </div>
       </div>
