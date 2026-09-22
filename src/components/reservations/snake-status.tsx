@@ -62,10 +62,18 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
               </p>
             </div>
           </div>
-          <div className="h-1/2 w-full border-b-4 border-l-4 border-accent rounded-bl-full" />
+          <div className={cn("h-1/2 w-full border-b-4 border-l-4 rounded-bl-full",
+            steps[1].status !== "pending"
+              ? "border-emerald-600"
+              : "border-accent"
+          )} />
         </div>
 
-        <div className="relative flex-1 border-t-4 border-emerald-600">
+        <div className={cn("relative flex-1 border-t-4",
+          steps[0].status !== "pending"
+          ? "border-emerald-600"
+          : "border-accent"
+      )}>
           <div className="absolute -top-6 right-0 flex h-12 w-12 translate-x-1/2 items-center justify-center rounded-full bg-emerald-600">
             <Check className="h-7 w-7 text-background" />
             <p className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap text-center text-sm font-medium">
@@ -79,9 +87,17 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
 
       <div className="flex w-full -mt-1">
         <div className="w-12 shrink-0" />
-        <div className="flex-1 border-t-4 border-accent" />
+        <div className={cn("flex-1 border-t-4",
+          steps[1].status !== "pending"
+          ? "border-emerald-600"
+          : "border-accent"
+        )} />
         <div className="flex flex-col w-12 shrink-0 h-40">
-          <div className="h-1/2 w-full border-t-4 border-r-4 border-accent rounded-tr-full relative">
+          <div className={cn("h-1/2 w-full border-t-4 border-r-4 rounded-tr-full relative",
+            steps[1].status !== "pending"
+              ? "border-emerald-600"
+              : "border-accent"
+          )}>
             <div
               className={
                 cn("absolute -bottom-6 -right-6.5 flex h-12 w-12 items-center justify-center rounded-full",
@@ -102,13 +118,21 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
               </p>
             </div>
           </div>
-          <div className="h-1/2 w-full border-b-4 border-r-4 border-accent rounded-br-full" />
+          <div className={cn("h-1/2 w-full border-b-4 border-r-4 rounded-br-full",
+            steps[2].status !== "pending"
+              ? "border-emerald-600"
+              : "border-accent"
+          )} />
         </div>
       </div>
 
       <div className="flex w-full -mt-1">
         <div className="flex flex-col w-12 shrink-0 h-40">
-          <div className="h-1/2 w-full border-t-4 border-l-4 border-accent rounded-tl-full relative">
+          <div className={cn("h-1/2 w-full border-t-4 border-l-4 rounded-tl-full relative",
+            steps[2].status !== "pending"
+              ? "border-emerald-600"
+              : "border-accent"
+          )}>
             <div
               className={
                 cn("absolute -bottom-6 -left-5.5 flex h-12 w-12 items-center justify-center rounded-full",
@@ -129,15 +153,28 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
               </p>
             </div>
           </div>
-          <div className="h-1/2 w-full border-b-4 border-l-4 border-accent rounded-bl-full" />
+          <div
+            className={cn("h-1/2 w-full border-b-4 border-l-4 rounded-bl-full",
+              steps[3].status !== "pending"
+              ? "border-emerald-600"
+              : "border-accent"
+            )} />
         </div>
-        <div className="flex-1 border-t-4 border-accent" />
+        <div className={cn("flex-1 border-t-4",
+          steps[2].status !== "pending"
+            ? "border-emerald-600"
+            : "border-accent"
+          )} />
         <div className="w-12 shrink-0" />
       </div>
 
       <div className="flex w-full -mt-1">
         <div className="w-12 shrink-0" />
-        <div className="relative flex-1 border-t-4 border-accent">
+        <div className={cn("relative flex-1 border-t-4",
+          steps[3].status !== "pending"
+            ? "border-emerald-600"
+            : "border-accent"
+          )}>
           <div
             className={
               cn("absolute -top-6 right-0 flex h-12 w-12 translate-x-1/2 items-center justify-center rounded-full",
