@@ -22,10 +22,10 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect, useMemo, type SubmitEvent } from "react";
 import type { RegistrationFormType } from "@/types/register";
+import type { PlaceInformationType } from "@/types/place";
 import countryList from "react-select-country-list";
 import { postRegistration } from "@/services/reservation";
 import { toast } from "sonner";
-import type { PlaceInformationType } from "@/types/place";
 
 const LOCAL_STORAGE_KEY = "registrationFormData";
 
