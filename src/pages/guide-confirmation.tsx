@@ -5,8 +5,8 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
-import { ApiError } from '@/lib/api';
 import { getGuideInvitation, respondToInvitation } from '@/services/reservation';
+import type { BackendResponseError } from '@/types/api';
 import type { GuideInvitation, ReservationGuideAction } from '@/types/reservation';
 
 function DetailRow({ label, value }: { label: string; value: string }) {
@@ -34,10 +34,18 @@ export default function GuideConfirmation() {
     if (!hasValidId) return;
 
     getGuideInvitation(reservationId)
-      .then(setInvitation)
+      .then((res) => {
+        if (!res.success) {
+          console.error('getGuideInvitation failed', res.requestId, res.message);
+          toast.error(messageFor(res, t, 'guideConfirmation.loadError'));
+          setFailed(true);
+          return;
+        }
+        setInvitation(res.data);
+      })
       .catch((error) => {
         console.error('getGuideInvitation Error', error);
-        toast.error(messageFor(error, t, 'guideConfirmation.loadError'));
+        toast.error(t('guideConfirmation.loadError'));
         setFailed(true);
       });
   }, [hasValidId, reservationId, t]);
@@ -45,8 +53,16 @@ export default function GuideConfirmation() {
   const respond = async (action: ReservationGuideAction) => {
     setIsSubmitting(true);
     try {
-      await respondToInvitation(reservationId, action);
-      setInvitation(await getGuideInvitation(reservationId));
+      const answer = await respondToInvitation(reservationId, action);
+      if (!answer.success) {
+        console.error('respondToInvitation failed', answer.requestId, answer.message);
+        toast.error(messageFor(answer, t, 'guideConfirmation.submitError'));
+        return;
+      }
+
+      const refreshed = await getGuideInvitation(reservationId);
+      if (refreshed.success) setInvitation(refreshed.data);
+
       toast.success(
         action === 'accept'
           ? t('guideConfirmation.acceptSuccess')
@@ -54,7 +70,7 @@ export default function GuideConfirmation() {
       );
     } catch (error) {
       console.error('respondToInvitation Error', error);
-      toast.error(messageFor(error, t, 'guideConfirmation.submitError'));
+      toast.error(t('guideConfirmation.submitError'));
     } finally {
       setIsSubmitting(false);
     }
@@ -169,15 +185,11 @@ export default function GuideConfirmation() {
 }
 
 function messageFor(
-  error: unknown,
+  error: BackendResponseError,
   t: (key: string) => string,
   fallbackKey: string,
 ): string {
-  if (error instanceof ApiError && error.status === 403) {
-    return t('guideConfirmation.forbidden');
-  }
-  if (error instanceof ApiError && error.status === 404) {
-    return t('guideConfirmation.notInvited');
-  }
+  if (error.code === 403) return t('guideConfirmation.forbidden');
+  if (error.code === 404) return t('guideConfirmation.notInvited');
   return t(fallbackKey);
 }
