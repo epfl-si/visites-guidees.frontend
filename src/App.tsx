@@ -125,7 +125,7 @@ export default function App() {
                 element={<RequireRole role="guide" user={connectedUser} />}
               >
                 <Route
-                  path="/reservations/:reservationId"
+                  path="/guide/reservations/:reservationId"
                   element={<GuideConfirmation />}
                 />
               </Route>
