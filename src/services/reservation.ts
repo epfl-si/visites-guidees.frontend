@@ -1,6 +1,10 @@
 import { callBackend } from "@/lib/api";
 import type { RegistrationFormType } from "@/types/register";
-import type { Reservation, GuideInvitation, ReservationGuideStatus } from "@/types/reservation";
+import type {
+  Reservation,
+  GuideInvitation,
+  ReservationGuideAction,
+} from "@/types/reservation";
 
 const VERSION = "v1";
 const ENDPOINT = "reservations";
@@ -39,21 +43,20 @@ export async function getGuideInvitation(reservationId: number) {
     `${VERSION}/reservations/${reservationId}/invitation`,
   );
   if (!response.success) {
-    throw new Error("Failed to fetch guide invitation");
+    throw new Error("Failed to fetch the guide invitation");
   }
   return response.data;
 }
 
 export async function respondToInvitation(
   reservationId: number,
-  status: Extract<ReservationGuideStatus, "ACCEPTED" | "DECLINED">,
+  action: ReservationGuideAction,
 ) {
-  const response = await callBackend<GuideInvitation>(
-    `${VERSION}/reservations/${reservationId}/invitation`,
-    { method: 'PATCH', body: { status } },
+  const response = await callBackend<void>(
+    `${VERSION}/reservations/${reservationId}/${action}`,
+    { method: 'POST' },
   );
   if (!response.success) {
     throw new Error("Failed to submit the guide answer");
   }
-  return response.data;
 }

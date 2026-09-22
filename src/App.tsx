@@ -113,6 +113,7 @@ export default function App() {
                   {/* All routes that here require admin permission */}
                   <Route path="/admin" element={<Admin />} />
                   <Route path="/admin/reservation" element={<Reservations />} />
+                  <Route path="/admin/reservation/:id" element={<Reservation />} />
                   <Route
                     path="/admin/reservation/:id"
                     element={<Reservation />}
@@ -124,7 +125,7 @@ export default function App() {
                 element={<RequireRole role="guide" user={connectedUser} />}
               >
                 <Route
-                  path="/reservations/:reservationId/confirmation"
+                  path="/reservations/:reservationId"
                   element={<GuideConfirmation />}
                 />
               </Route>
