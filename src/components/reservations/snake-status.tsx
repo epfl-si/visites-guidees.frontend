@@ -33,8 +33,6 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
     });
   }, [status, t]);
 
-  console.log("steps : ", steps);
-
   return (
     <div className="w-full max-w-sm mx-auto p-10 flex flex-col">
 
