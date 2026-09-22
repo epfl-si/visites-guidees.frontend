@@ -103,6 +103,13 @@
       "WAITINGPAYMENT": "Waiting for Payment",
       "READY": "Ready",
       "CANCELLED": "Cancelled"
+    },
+    "steps": {
+      "reserved": "Reserve",
+      "waitingguide": "Awaiting guide",
+      "waitingvalidation": "Pending validation",
+      "waitingpayment": "Awaiting payment",
+      "ready": "Ready"
     }
   },
   "guide": {
