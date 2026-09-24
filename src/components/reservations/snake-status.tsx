@@ -1,11 +1,12 @@
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Check } from "lucide-react";
-import type { ReservationStatus, SnakeStatus } from "@/types/status";
+import type { ReservationStatus } from "@/types/status";
 import { useTranslation } from "react-i18next";
 import { STATUS_ORDER } from "@/constants/status";
 import type { ReservationStep } from "@/types/reservation";
 import type { StepStatus } from "@/types/status";
 import { cn } from "@/lib/utils";
+import { SVG, TOTAL_SVG_LENGTH, TARGET_DISTANCES } from "@/constants/workflow";
 
 export function SnakeStatus({ status }: { status: ReservationStatus }) {
   const { t } = useTranslation();
@@ -19,7 +20,6 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
         stepStatus = "success";
       } else if (index === currentIndex) {
         stepStatus = "in-progress";
-
         if (index === STATUS_ORDER.length - 1) {
           stepStatus = "success";
         }
@@ -33,166 +33,112 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
     });
   }, [status, t]);
 
+  const currentIndex = STATUS_ORDER.lastIndexOf(status);
+  const targetDistance = currentIndex === -1 ? 0 : TARGET_DISTANCES[currentIndex] ?? 0;
+
+  const [dashOffset, setDashOffset] = useState(TOTAL_SVG_LENGTH);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setDashOffset(TOTAL_SVG_LENGTH - targetDistance);
+    }, 100);
+    return () => clearTimeout(timeout);
+  }, [targetDistance]);
+
   return (
-    <div className="w-full max-w-sm mx-auto p-10 flex flex-col">
+    <div className="relative mx-auto my-10 w-full max-w-sm aspect-4/6">
+      <svg viewBox="0 0 400 600" className="absolute inset-0 z-0 h-full w-full overflow-visible">
+        <path
+          d={SVG}
+          fill="none"
+          stroke="#e5e7eb"
+          strokeWidth="8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d={SVG}
+          fill="none"
+          stroke="#059669"
+          strokeWidth="8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeDasharray={TOTAL_SVG_LENGTH}
+          strokeDashoffset={dashOffset}
+          className="transition-all duration-1000 ease-in-out"
+        />
+      </svg>
+      <div className="absolute inset-0 z-10 h-full w-full">
 
-      <div className="flex w-full">
-        <div className="flex flex-col w-12 shrink-0 h-40">
-          <div className="h-1/2 w-full border-t-4 border-l-4 border-emerald-600 rounded-tl-full relative">
-            <div
-              className={
-                cn("absolute -bottom-6 -left-6.5 flex h-12 w-12 items-center justify-center rounded-full",
-                  steps[0].status === "success" && "bg-emerald-600 text",
-                  steps[0].status === "in-progress" && "bg-yellow-600",
-                  steps[0].status === "pending" && "bg-accent text-muted-foreground"
-                )
-              }
-            >
-              {steps[0].status === "success" && (
-                <Check className="h-7 w-7 text-background" />
-              )}
-              {steps[0].status === "in-progress" && (
-                <div className="h-4 w-4 rounded-full bg-white animate-pulse" />
-              )}
-
-              <p className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap text-center text-sm font-medium">
-                {steps[0]?.label}
-              </p>
-            </div>
+        <div className="absolute flex flex-col items-center -translate-x-1/2 -translate-y-1/2 left-84 top-12">
+          <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-600 text-white shadow-md">
+            <Check className="h-7 w-7" />
           </div>
-          <div className={cn("h-1/2 w-full border-b-4 border-l-4 rounded-bl-full",
-            steps[1].status !== "pending"
-              ? "border-emerald-600"
-              : "border-accent"
-          )} />
+          <p className="absolute top-full mt-3 whitespace-nowrap text-center text-sm font-medium text-foreground">
+            {t("reservation.steps.reserved")}
+          </p>
         </div>
 
-        <div className={cn("relative flex-1 border-t-4",
-          steps[0].status !== "pending"
-          ? "border-emerald-600"
-          : "border-accent"
-      )}>
-          <div className="absolute -top-6 right-0 flex h-12 w-12 translate-x-1/2 items-center justify-center rounded-full bg-emerald-600">
-            <Check className="h-7 w-7 text-background" />
-            <p className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap text-center text-sm font-medium">
-              {t("reservation.steps.reserved")}
-            </p>
-          </div>
-        </div>
-
-        <div className="w-12 shrink-0" />
-      </div>
-
-      <div className="flex w-full -mt-1">
-        <div className="w-12 shrink-0" />
-        <div className={cn("flex-1 border-t-4",
-          steps[1].status !== "pending"
-          ? "border-emerald-600"
-          : "border-accent"
-        )} />
-        <div className="flex flex-col w-12 shrink-0 h-40">
-          <div className={cn("h-1/2 w-full border-t-4 border-r-4 rounded-tr-full relative",
-            steps[1].status !== "pending"
-              ? "border-emerald-600"
-              : "border-accent"
+        <div className="absolute flex flex-col items-center -translate-x-1/2 -translate-y-1/2 left-12 top-32">
+          <div className={cn(
+            "relative z-10 flex h-12 w-12 items-center justify-center rounded-full transition-colors",
+            steps[0].status === "success" && "bg-emerald-600 text-white",
+            steps[0].status === "in-progress" && "bg-yellow-500 text-white shadow-md",
+            steps[0].status === "pending" && "bg-accent text-muted-foreground"
           )}>
-            <div
-              className={
-                cn("absolute -bottom-6 -right-6.5 flex h-12 w-12 items-center justify-center rounded-full",
-                  steps[1].status === "success" && "bg-emerald-600 text",
-                  steps[1].status === "in-progress" && "bg-yellow-600",
-                  steps[1].status === "pending" && "bg-accent text-muted-foreground"
-                )
-              }
-            >
-              {steps[1].status === "success" && (
-                <Check className="h-7 w-7 text-background" />
-              )}
-              {steps[1].status === "in-progress" && (
-                <div className="h-4 w-4 rounded-full bg-white animate-pulse" />
-              )}
-              <p className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap text-center text-sm font-medium">
-                {steps[1]?.label}
-              </p>
-            </div>
+            {steps[0].status === "success" && <Check className="h-7 w-7" />}
+            {steps[0].status === "in-progress" && <div className="h-4 w-4 animate-pulse rounded-full bg-white" />}
           </div>
-          <div className={cn("h-1/2 w-full border-b-4 border-r-4 rounded-br-full",
-            steps[2].status !== "pending"
-              ? "border-emerald-600"
-              : "border-accent"
-          )} />
+          <p className="absolute top-full mt-3 whitespace-nowrap text-center text-sm font-medium">
+            {steps[0]?.label}
+          </p>
         </div>
-      </div>
 
-      <div className="flex w-full -mt-1">
-        <div className="flex flex-col w-12 shrink-0 h-40">
-          <div className={cn("h-1/2 w-full border-t-4 border-l-4 rounded-tl-full relative",
-            steps[2].status !== "pending"
-              ? "border-emerald-600"
-              : "border-accent"
+        <div className="absolute flex flex-col items-center -translate-x-1/2 -translate-y-1/2 left-84 top-70">
+          <div className={cn(
+            "relative z-10 flex h-12 w-12 items-center justify-center rounded-full transition-colors",
+            steps[1].status === "success" && "bg-emerald-600 text-white",
+            steps[1].status === "in-progress" && "bg-yellow-500 text-white shadow-md",
+            steps[1].status === "pending" && "bg-accent text-muted-foreground"
           )}>
-            <div
-              className={
-                cn("absolute -bottom-6 -left-5.5 flex h-12 w-12 items-center justify-center rounded-full",
-                  steps[2].status === "success" && "bg-emerald-600 text",
-                  steps[2].status === "in-progress" && "bg-yellow-600",
-                  steps[2].status === "pending" && "bg-accent text-muted-foreground"
-                )
-              }
-            >
-              {steps[2].status === "success" && (
-                <Check className="h-7 w-7 text-background" />
-              )}
-              {steps[2].status === "in-progress" && (
-                <div className="h-4 w-4 rounded-full bg-white animate-pulse" />
-              )}
-              <p className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap text-center text-sm font-medium">
-                {steps[2]?.label}
-              </p>
-            </div>
+            {steps[1].status === "success" && <Check className="h-7 w-7" />}
+            {steps[1].status === "in-progress" && <div className="h-4 w-4 animate-pulse rounded-full bg-white" />}
           </div>
-          <div
-            className={cn("h-1/2 w-full border-b-4 border-l-4 rounded-bl-full",
-              steps[3].status !== "pending"
-              ? "border-emerald-600"
-              : "border-accent"
-            )} />
+          <p className="absolute top-full mt-3 whitespace-nowrap text-center text-sm font-medium">
+            {steps[1]?.label}
+          </p>
         </div>
-        <div className={cn("flex-1 border-t-4",
-          steps[2].status !== "pending"
-            ? "border-emerald-600"
-            : "border-accent"
-          )} />
-        <div className="w-12 shrink-0" />
-      </div>
 
-      <div className="flex w-full -mt-1">
-        <div className="w-12 shrink-0" />
-        <div className={cn("relative flex-1 border-t-4",
-          steps[3].status !== "pending"
-            ? "border-emerald-600"
-            : "border-accent"
+        <div className="absolute flex flex-col items-center -translate-x-1/2 -translate-y-1/2 left-12 top-108">
+          <div className={cn(
+            "relative z-10 flex h-12 w-12 items-center justify-center rounded-full transition-colors",
+            steps[2].status === "success" && "bg-emerald-600 text-white",
+            steps[2].status === "in-progress" && "bg-yellow-500 text-white shadow-md",
+            steps[2].status === "pending" && "bg-accent text-muted-foreground"
           )}>
-          <div
-            className={
-              cn("absolute -top-6 right-0 flex h-12 w-12 translate-x-1/2 items-center justify-center rounded-full",
-                steps[3].status === "success" && "bg-emerald-600 text",
-                steps[3].status === "in-progress" && "bg-yellow-600",
-                steps[3].status === "pending" && "bg-accent text-muted-foreground"
-              )
-            }
-          >
-            {steps[3].status === "success" && (
-              <Check className="h-7 w-7 text-background" />
-            )}
-            {steps[3].status === "in-progress" && (
-              <div className="h-4 w-4 rounded-full bg-white animate-pulse" />
-            )}
-            <p className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap text-center text-sm font-medium">
-              {steps[3]?.label}
-            </p>
+            {steps[2].status === "success" && <Check className="h-7 w-7" />}
+            {steps[2].status === "in-progress" && <div className="h-4 w-4 animate-pulse rounded-full bg-white" />}
           </div>
+          <p className="absolute top-full mt-3 whitespace-nowrap text-center text-sm font-medium">
+            {steps[2]?.label}
+          </p>
         </div>
+
+        <div className="absolute flex flex-col items-center -translate-x-1/2 -translate-y-1/2 left-84 top-127">
+          <div className={cn(
+            "relative z-10 flex h-12 w-12 items-center justify-center rounded-full transition-colors",
+            steps[3].status === "success" && "bg-emerald-600 text-white",
+            steps[3].status === "in-progress" && "bg-yellow-500 text-white shadow-md",
+            steps[3].status === "pending" && "bg-accent text-muted-foreground"
+          )}>
+            {steps[3].status === "success" && <Check className="h-7 w-7" />}
+            {steps[3].status === "in-progress" && <div className="h-4 w-4 animate-pulse rounded-full bg-white" />}
+          </div>
+          <p className="absolute top-full mt-3 whitespace-nowrap text-center text-sm font-medium">
+            {steps[3]?.label}
+          </p>
+        </div>
+
       </div>
     </div>
   );
