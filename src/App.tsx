@@ -122,7 +122,13 @@ export default function App() {
                 </Route>
               </Route>
               <Route
-                element={<RequireRole role="guide" user={connectedUser} />}
+                element={
+                  <RequireRole
+                    role="guide"
+                    user={connectedUser}
+                    loading={connectedUserLoading}
+                  />
+                }
               >
                 <Route
                   path="/guide/reservations/:reservationId"
