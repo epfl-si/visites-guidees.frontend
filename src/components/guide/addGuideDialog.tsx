@@ -1,6 +1,7 @@
 import {
   ArrowLeft,
   ArrowRight,
+  Calendar,
   CircleCheck,
   CirclePlus,
   Languages,
@@ -8,6 +9,7 @@ import {
   Search,
   UserRound,
   UserSearch,
+  Users,
 } from "lucide-react"
 import { useEffect, useState, useCallback } from "react"
 import type { Dispatch, SetStateAction } from "react"
@@ -39,17 +41,21 @@ import Stepper from "../stepper"
 import type { Language } from "@/types/language"
 import type { CreateGuide } from "@/types/guide"
 import { getLanguages as getAvailableLanguages } from "@/services/language"
+import { getPlaces as getAvailablePlaces } from "@/services/place"
+import type { Place } from "@/types/place"
 
 const STEPS = [
   { key: "guide", icon: UserSearch },
   { key: "language", icon: Languages },
   { key: "place", icon: MapPin },
+  { key: "calendar", icon: Calendar },
   { key: "confirm", icon: CircleCheck },
 ] as const
 
 const EMPTY_INFORMATION: CreateGuide = {
   sciper: 0,
   languageIds: [],
+  placeIds: [],
   startDate: "",
 }
 
@@ -128,7 +134,7 @@ const SelectGuide = ({
         )}
       </InputGroup>
 
-      <div className="max-h-72 space-y-2 overflow-y-auto">
+      <div className="max-h-72 space-y-2 overflow-y-auto pr-2 [scrollbar-gutter:stable]">
         {!search.trim() && (
           <p className="py-6 text-center text-sm text-muted-foreground">
             {t("guide.dialog.guide.empty")}
@@ -251,8 +257,8 @@ export const SelectLanguage = ({
         {selectedLanguages.length === 0
           ? t("guide.dialog.language.none")
           : t("guide.dialog.language.selected", {
-            count: selectedLanguages.length,
-          })}
+              count: selectedLanguages.length,
+            })}
       </p>
 
       <DialogFooter className="sm:justify-between">
@@ -263,6 +269,141 @@ export const SelectLanguage = ({
         <Button
           disabled={selectedLanguages.length === 0}
           onClick={() => setStep(3)}
+        >
+          {t("actions.next")}
+          <ArrowRight data-icon="inline-end" />
+        </Button>
+      </DialogFooter>
+    </div>
+  )
+}
+export const SelectPlace = ({
+  setStep,
+  selectedInformation,
+  setSelectedInformation,
+}: {
+  setStep: (step: number) => void
+  selectedInformation: CreateGuide
+  setSelectedInformation: Dispatch<SetStateAction<CreateGuide>>
+}) => {
+  const { t, i18n } = useTranslation()
+  const selectedPlaces = selectedInformation.placeIds
+  const [isWaiting, setIsWaiting] = useState<boolean>(true)
+  const [places, setPlaces] = useState<Place[]>([])
+  const currentLanguage = (i18n.resolvedLanguage || "en") as "en" | "fr"
+
+  const allSelected =
+    places.length > 0 && selectedPlaces.length === places.length
+
+  async function getPlaces() {
+    try {
+      const placesResponse = await getAvailablePlaces()
+      if (!placesResponse.success) {
+        if (placesResponse.code === 401) {
+          setPlaces([])
+          return
+        }
+        throw new Error(placesResponse.error)
+      }
+      setPlaces(placesResponse.data)
+    } catch {
+      toast.error(t("errors.dataloading.defaultMessage"))
+      setPlaces([])
+    } finally {
+      setIsWaiting(false)
+    }
+  }
+
+  useEffect(() => {
+    getPlaces()
+  }, [])
+
+  function togglePlace(id: number, checked: boolean) {
+    setSelectedInformation((prev) => ({
+      ...prev,
+      placeIds: checked
+        ? [...prev.placeIds, id]
+        : prev.placeIds.filter((placeId) => placeId !== id),
+    }))
+  }
+
+  function toggleAll() {
+    setSelectedInformation((prev) => ({
+      ...prev,
+      placeIds: allSelected ? [] : places.map((place) => place.id),
+    }))
+  }
+
+  return (
+    <div className="flex flex-col gap-3">
+      {places.length > 1 && (
+        <div className="flex justify-end">
+          <Button variant="ghost" size="sm" onClick={toggleAll}>
+            {allSelected
+              ? t("guide.dialog.place.deselectAll")
+              : t("guide.dialog.place.selectAll")}
+          </Button>
+        </div>
+      )}
+
+      <div className="flex max-h-80 flex-col gap-2 overflow-y-auto pr-2 [scrollbar-gutter:stable]">
+        {isWaiting ? (
+          Array.from({ length: 3 }).map((_, i) => (
+            <Skeleton key={i} className="h-16 w-full" />
+          ))
+        ) : places.length === 0 ? (
+          <p className="py-6 text-center text-sm text-muted-foreground">
+            {t("guide.dialog.place.empty")}
+          </p>
+        ) : (
+          places.map((place) => (
+            <Label
+              key={place.id}
+              className="cursor-pointer gap-3 rounded-lg border p-2 pr-3 transition-colors hover:bg-muted/50 has-data-checked:border-primary has-data-checked:bg-primary/5"
+            >
+              {place.picture ? (
+                <img
+                  src={place.picture}
+                  alt=""
+                  className="size-12 shrink-0 rounded-md object-cover"
+                />
+              ) : (
+                <div className="flex size-12 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
+                  <MapPin className="size-5" />
+                </div>
+              )}
+              <div className="flex min-w-0 flex-1 flex-col gap-1">
+                <span className="truncate">{place.title[currentLanguage]}</span>
+                <span className="flex items-center gap-1 text-xs font-normal text-muted-foreground">
+                  <Users className="size-3" />
+                  {t("guide.dialog.place.capacity", { count: place.capacity })}
+                </span>
+              </div>
+              <Checkbox
+                checked={selectedPlaces.includes(place.id)}
+                onCheckedChange={(checked) => togglePlace(place.id, checked)}
+              />
+            </Label>
+          ))
+        )}
+      </div>
+
+      <p className="text-xs text-muted-foreground">
+        {selectedPlaces.length === 0
+          ? t("guide.dialog.place.none")
+          : t("guide.dialog.place.selected", {
+              count: selectedPlaces.length,
+            })}
+      </p>
+
+      <DialogFooter className="sm:justify-between">
+        <Button variant="outline" onClick={() => setStep(2)}>
+          <ArrowLeft data-icon="inline-start" />
+          {t("actions.previous")}
+        </Button>
+        <Button
+          disabled={selectedPlaces.length === 0}
+          onClick={() => setStep(4)}
         >
           {t("actions.next")}
           <ArrowRight data-icon="inline-end" />
@@ -349,6 +490,14 @@ export const AddGuideDialog = () => {
             case 2:
               return (
                 <SelectLanguage
+                  setStep={setStep}
+                  selectedInformation={selectedInformation}
+                  setSelectedInformation={setSelectedInformation}
+                />
+              )
+            case 3:
+              return (
+                <SelectPlace
                   setStep={setStep}
                   selectedInformation={selectedInformation}
                   setSelectedInformation={setSelectedInformation}

@@ -148,7 +148,19 @@
       },
       "place": {
         "title": "Tour places",
-        "description": "Choose the places this guide will be able to show."
+        "description": "Choose the places this guide will be able to show.",
+        "selectAll": "Select all",
+        "deselectAll": "Deselect all",
+        "capacity_one": "{{count}} person per group.",
+        "capacity_other": "{{count}} people per group.",
+        "selected_one": "{{count}} place selected",
+        "selected_other": "{{count}} places selected",
+        "none": "Select at least one place to continue.",
+        "empty": "No place is available at the moment."
+      },
+      "calendar": {
+        "title": "Start date",
+        "description": "Choose from when this guide will be able to lead tours."
       },
       "confirm": {
         "title": "Confirmation",
