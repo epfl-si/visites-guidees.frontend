@@ -59,7 +59,7 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
         <path
           d={SVG}
           fill="none"
-          stroke="#059669"
+          stroke="#FFb3b3"
           strokeWidth="8"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -71,7 +71,7 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
       <div className="absolute inset-0 z-10 h-full w-full">
 
         <div className="absolute flex flex-col items-center -translate-x-1/2 -translate-y-1/2 left-84 top-12">
-          <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-600 text-white shadow-md">
+          <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-epfl-red text-white">
             <Check className="h-7 w-7" />
           </div>
           <p className="absolute top-full mt-3 whitespace-nowrap text-center text-sm font-medium text-foreground">
@@ -82,14 +82,14 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
         <div className="absolute flex flex-col items-center -translate-x-1/2 -translate-y-1/2 left-12 top-32">
           <div className={cn(
             "relative z-10 flex h-12 w-12 items-center justify-center rounded-full transition-colors",
-            steps[0].status === "success" && "bg-emerald-600 text-white",
-            steps[0].status === "in-progress" && "bg-yellow-500 text-white shadow-md",
+            steps[0].status === "success" && "bg-epfl-red text-white",
+            steps[0].status === "in-progress" && "bg-white text-white border-epfl-red border-3 border-dashed",
             steps[0].status === "pending" && "bg-accent text-muted-foreground"
           )}>
             {steps[0].status === "success" && <Check className="h-7 w-7" />}
-            {steps[0].status === "in-progress" && <div className="h-4 w-4 animate-pulse rounded-full bg-white" />}
+            {steps[0].status === "in-progress" && <div className="h-3 w-3 animate-pulse rounded-full bg-epfl-red" />}
           </div>
-          <p className="absolute top-full mt-3 whitespace-nowrap text-center text-sm font-medium">
+          <p className="absolute left-full ml-4 top-1/2 -translate-y-1/2 w-28 text-left text-sm font-medium leading-tight">
             {steps[0]?.label}
           </p>
         </div>
@@ -97,14 +97,14 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
         <div className="absolute flex flex-col items-center -translate-x-1/2 -translate-y-1/2 left-84 top-70">
           <div className={cn(
             "relative z-10 flex h-12 w-12 items-center justify-center rounded-full transition-colors",
-            steps[1].status === "success" && "bg-emerald-600 text-white",
-            steps[1].status === "in-progress" && "bg-yellow-500 text-white shadow-md",
+            steps[1].status === "success" && "bg-epfl-red text-white",
+            steps[1].status === "in-progress" && "bg-white text-white border-epfl-red border-3 border-dashed",
             steps[1].status === "pending" && "bg-accent text-muted-foreground"
           )}>
             {steps[1].status === "success" && <Check className="h-7 w-7" />}
-            {steps[1].status === "in-progress" && <div className="h-4 w-4 animate-pulse rounded-full bg-white" />}
+            {steps[1].status === "in-progress" && <div className="h-3 w-3 animate-pulse rounded-full bg-epfl-red" />}
           </div>
-          <p className="absolute top-full mt-3 whitespace-nowrap text-center text-sm font-medium">
+          <p className="absolute right-full mr-4 top-1/2 -translate-y-1/2 w-28 text-right text-sm font-medium leading-tight">
             {steps[1]?.label}
           </p>
         </div>
@@ -112,14 +112,14 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
         <div className="absolute flex flex-col items-center -translate-x-1/2 -translate-y-1/2 left-12 top-108">
           <div className={cn(
             "relative z-10 flex h-12 w-12 items-center justify-center rounded-full transition-colors",
-            steps[2].status === "success" && "bg-emerald-600 text-white",
-            steps[2].status === "in-progress" && "bg-yellow-500 text-white shadow-md",
+            steps[2].status === "success" && "bg-epfl-red text-white",
+            steps[2].status === "in-progress" && "bg-white text-white border-epfl-red border-3 border-dashed",
             steps[2].status === "pending" && "bg-accent text-muted-foreground"
           )}>
             {steps[2].status === "success" && <Check className="h-7 w-7" />}
-            {steps[2].status === "in-progress" && <div className="h-4 w-4 animate-pulse rounded-full bg-white" />}
+            {steps[2].status === "in-progress" && <div className="h-3 w-3 animate-pulse rounded-full bg-epfl-red" />}
           </div>
-          <p className="absolute top-full mt-3 whitespace-nowrap text-center text-sm font-medium">
+          <p className="absolute left-full ml-4 top-1/2 -translate-y-1/2 w-28 text-left text-sm font-medium leading-tight">
             {steps[2]?.label}
           </p>
         </div>
@@ -127,12 +127,12 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
         <div className="absolute flex flex-col items-center -translate-x-1/2 -translate-y-1/2 left-84 top-127">
           <div className={cn(
             "relative z-10 flex h-12 w-12 items-center justify-center rounded-full transition-colors",
-            steps[3].status === "success" && "bg-emerald-600 text-white",
-            steps[3].status === "in-progress" && "bg-yellow-500 text-white shadow-md",
+            steps[3].status === "success" && "bg-epfl-red text-white",
+            steps[3].status === "in-progress" && "bg-white text-white border-epfl-red border-3 border-dashed",
             steps[3].status === "pending" && "bg-accent text-muted-foreground"
           )}>
             {steps[3].status === "success" && <Check className="h-7 w-7" />}
-            {steps[3].status === "in-progress" && <div className="h-4 w-4 animate-pulse rounded-full bg-white" />}
+            {steps[3].status === "in-progress" && <div className="h-3 w-3 animate-pulse rounded-full bg-epfl-red" />}
           </div>
           <p className="absolute top-full mt-3 whitespace-nowrap text-center text-sm font-medium">
             {steps[3]?.label}
