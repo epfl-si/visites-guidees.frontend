@@ -13,5 +13,6 @@ export type Guide = {
 export type CreateGuide = {
   sciper: number;
   languageIds: number[];
+  placeIds: number[];
   startDate: string;
 }
