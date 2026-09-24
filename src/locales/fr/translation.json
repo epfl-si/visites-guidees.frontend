@@ -141,7 +141,11 @@
       },
       "language": {
         "title": "Langues de visite",
-        "description": "Cochez les langues dans lesquelles ce guide peut mener une visite. Vous pourrez les modifier plus tard."
+        "description": "Cochez les langues dans lesquelles ce guide peut mener une visite. Vous pourrez les modifier plus tard.",
+        "selected_one": "{{count}} langue sélectionnée",
+        "selected_other": "{{count}} langues sélectionnées",
+        "none": "Sélectionnez au moins une langue pour continuer.",
+        "empty": "Aucune langue n'est disponible pour le moment."
       },
       "place": {
         "title": "Lieux de visite",
@@ -204,6 +208,7 @@
     "previousPage": "Previous page",
     "add": "ajouter",
     "getHelp": "Obtenir de l'aide",
+    "next": "Suivant",
     "previous": "Retour",
     "select": "Choisir"
   },

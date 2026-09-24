@@ -140,7 +140,11 @@
       },
       "language": {
         "title": "Tour languages",
-        "description": "Check the languages this guide can lead a tour in. You can change them later."
+        "description": "Check the languages this guide can lead a tour in. You can change them later.",
+        "selected_one": "{{count}} language selected",
+        "selected_other": "{{count}} languages selected",
+        "none": "Select at least one language to continue.",
+        "empty": "No language is available at the moment."
       },
       "place": {
         "title": "Tour places",
@@ -203,6 +207,7 @@
     "previousPage": "Previous page",
     "add": "ajouter",
     "getHelp": "Get help",
+    "next": "Next",
     "previous": "Back",
     "select": "Select"
   },
