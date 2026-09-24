@@ -2,6 +2,7 @@ import type { ReservationStatus } from "@/types/status";
 import type { Language } from "@/types/language";
 import type { Guide } from "@/types/guide";
 import type { Place } from "@/types/place";
+import type { StepStatus } from "@/types/status";
 
 export type Reservation = {
   id: number;
@@ -33,3 +34,9 @@ export type Reservations = {
   date: Date;
   status: ReservationStatus;
 }
+
+export type ReservationStep = {
+  status: StepStatus;
+  label: string;
+  reservationStatus: ReservationStatus;
+};

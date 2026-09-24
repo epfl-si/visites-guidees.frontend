@@ -3,6 +3,7 @@ import type { ReservationStatus } from "@/types/status";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
 import { useTranslation } from "react-i18next";
+import { cn } from "@/lib/utils";
 import {
   ArrowLeft,
   Calendar,
@@ -18,9 +19,8 @@ import {
   Languages,
   UserKeyIcon
 } from "lucide-react";
-
+import { SnakeStatus } from "@/components/reservations/snake-status";
 import { getReservation } from "@/services/reservation";
-
 import { LoadingPage } from "./Loading";
 import { Empty, EmptyHeader, EmptyDescription, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { Button } from "@/components/ui/button";
@@ -30,9 +30,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-
 import { RESERVATION_STATUS } from "@/constants/status";
-import { cn } from "@/lib/utils";
 
 function formatDateOnly(d: Date | string) {
   return new Date(d).toLocaleDateString("fr-CH", {
@@ -50,22 +48,19 @@ export default function Reservation() {
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    const fetchReservation = async (reservationId: number) => {
-      setLoading(true);
-      try {
-        const data = await getReservation(reservationId);
-        if (data.success) setReservation(data.data);
-
-      } finally {
-        setLoading(false);
+    const fetchReservation = async () => {
+      if (id) {
+        setLoading(true);
+        await getReservation(Number(id))
+          .then((data) => {
+            if (data.success) {
+              setReservation(data.data);
+            }
+        })
       }
-    };
-
-    if (id) {
-      fetchReservation(Number(id));
-    } else {
       setLoading(false);
-    }
+    };
+    fetchReservation();
   }, [id]);
 
   const currentLang = (i18n.resolvedLanguage || 'en') as 'en' | 'fr';
@@ -98,7 +93,6 @@ export default function Reservation() {
   return (
     <div className="flex-1 w-full overflow-auto">
       <div className="max-w-6xl mx-auto p-6 md:p-8 space-y-8">
-
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div className="min-w-0 space-y-1.5">
             <div className="flex items-center gap-3">
@@ -149,136 +143,132 @@ export default function Reservation() {
             </DropdownMenu>
           </div>
         </div>
-        <div className="grid lg:grid-cols-5 gap-6">
-          <div className="lg:col-span-3 space-y-6">
-            <section className="space-y-3">
-              <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">
-                {t("reservation.visitDetails")}
-              </h3>
-              <div className="border border-border rounded-md divide-y divide-border bg-background shadow-sm">
-                <div className="flex items-center gap-4 p-4">
-                  <div className="h-12 w-12 rounded-md bg-secondary flex items-center justify-center shrink-0">
-                    <CalendarClock className="h-6 w-6 text-muted-foreground" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs text-muted-foreground">{t("reservation.dateLabel")}</p>
-                    <p className="font-medium text-base truncate">{formatDateOnly(reservation.date)}</p>
-                  </div>
+        <div className="flex space-y-6 gap-8">
+          <section className="space-y-3">
+            <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">
+              {t("reservation.visitDetails")}
+            </h3>
+            <div className="border border-border rounded-md divide-y divide-border bg-background shadow-sm">
+              <div className="flex items-center gap-4 p-4">
+                <div className="h-12 w-12 rounded-md bg-secondary flex items-center justify-center shrink-0">
+                  <CalendarClock className="h-6 w-6 text-muted-foreground" />
                 </div>
-                <div className="flex items-center gap-4 p-4">
-                  <div className="h-12 w-12 rounded-md bg-secondary flex items-center justify-center shrink-0">
-                    <Users className="h-6 w-6 text-muted-foreground" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs text-muted-foreground">{t("reservation.participantNbr")}</p>
-                    <p className="font-medium text-base truncate">
-                      {reservation.participantNumber} {t("reservation.people")}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4 p-4">
-                  <div className="h-12 w-12 rounded-md bg-secondary flex items-center justify-center shrink-0">
-                    <Languages className="h-6 w-6 text-muted-foreground" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs text-muted-foreground">{t("reservation.languageLabel")}</p>
-                    <p className="font-medium text-base truncate">
-                      {reservation.language.name}
-                    </p>
-                  </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs text-muted-foreground">{t("reservation.dateLabel")}</p>
+                  <p className="font-medium text-base truncate">{formatDateOnly(reservation.date)}</p>
                 </div>
               </div>
-            </section>
-            <section className="space-y-3">
-              <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">
-                {t("reservation.paymentInfo")}
-              </h3>
-              <div className="border border-border rounded-md p-4 bg-background shadow-sm flex items-start gap-3">
-                <CreditCard className="h-5 w-5 text-muted-foreground mt-0.5 shrink-0" />
+              <div className="flex items-center gap-4 p-4">
+                <div className="h-12 w-12 rounded-md bg-secondary flex items-center justify-center shrink-0">
+                  <Users className="h-6 w-6 text-muted-foreground" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs text-muted-foreground">{t("reservation.participantNbr")}</p>
+                  <p className="font-medium text-base truncate">
+                    {reservation.participantNumber} {t("reservation.people")}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 p-4">
+                <div className="h-12 w-12 rounded-md bg-secondary flex items-center justify-center shrink-0">
+                  <Languages className="h-6 w-6 text-muted-foreground" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs text-muted-foreground">{t("reservation.languageLabel")}</p>
+                  <p className="font-medium text-base truncate">
+                    {reservation.language.name}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className="space-y-3">
+            <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">
+              {t("reservation.customer")}
+            </h3>
+            <div className="border border-border rounded-md p-4 space-y-4 bg-background shadow-sm">
+              <div className="flex items-start gap-3">
+                <User className="h-4 w-4 text-muted-foreground mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-xs text-muted-foreground">{t("reservation.paymentMethod")}</p>
-                  <p className="text-sm font-medium">{reservation.payment}</p>
+                  <p className="text-xs text-muted-foreground">{t("reservation.name")}</p>
+                  <p className="text-sm font-medium">{reservation.firstName} {reservation.lastName}</p>
                 </div>
               </div>
-            </section>
-          </div>
-          <div className="lg:col-span-2 space-y-6">
-            <section className="space-y-3">
-              <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">
-                {t("reservation.customer")}
-              </h3>
-              <div className="border border-border rounded-md p-4 space-y-4 bg-background shadow-sm">
+              {reservation.company && (
                 <div className="flex items-start gap-3">
-                  <User className="h-4 w-4 text-muted-foreground mt-0.5 shrink-0" />
+                  <Building className="h-4 w-4 text-muted-foreground mt-0.5 shrink-0" />
                   <div>
-                    <p className="text-xs text-muted-foreground">{t("reservation.name")}</p>
-                    <p className="text-sm font-medium">{reservation.firstName} {reservation.lastName}</p>
+                    <p className="text-xs text-muted-foreground">{t("reservation.company")}</p>
+                    <p className="text-sm font-medium">{reservation.company}</p>
                   </div>
                 </div>
-                {reservation.company && (
-                  <div className="flex items-start gap-3">
-                    <Building className="h-4 w-4 text-muted-foreground mt-0.5 shrink-0" />
-                    <div>
-                      <p className="text-xs text-muted-foreground">{t("reservation.company")}</p>
-                      <p className="text-sm font-medium">{reservation.company}</p>
-                    </div>
-                  </div>
-                )}
-                <div className="flex items-start gap-3">
-                  <Mail className="h-4 w-4 text-muted-foreground mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">{t("reservation.email")}</p>
-                    <a href={`mailto:${reservation.email}`} className="text-sm font-medium text-blue-600 hover:underline">
-                      {reservation.email}
-                    </a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Phone className="h-4 w-4 text-muted-foreground mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">{t("reservation.phone")}</p>
-                    <a href={`tel:${reservation.phone}`} className="text-sm font-medium hover:underline">
-                      {reservation.phone}
-                    </a>
-                  </div>
-                </div>
-
-              </div>
-            </section>
-            <section className="space-y-3">
-              <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">
-                {t("reservation.place")}
-              </h3>
-              <div className="border border-border rounded-md p-4 bg-background shadow-sm">
-                <div className="flex items-start gap-3">
-                  <MapPin className="h-4 w-4 text-muted-foreground mt-0.5 shrink-0" />
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">{reservation.place.title[currentLang]}</p>
-                    <p className="text-sm">
-                      {reservation.place.description[currentLang]}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-            {reservation.reservationGuides.length > 0 && (
-            <section className="space-y-3">
-              <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">
-                {t("reservation.guideInfo")}
-              </h3>
-              <div className="border border-border rounded-md p-4 bg-background shadow-sm flex flex-col items-start gap-6">
-                  {reservation.reservationGuides.map((guide) => (
-                  <div className="flex justify-between gap-4">
-                    <UserKeyIcon className="h-5 w-5 text-muted-foreground mt-0.5 shrink-0" />
-                    <div>
-                      <p className="text-sm font-medium">{guide.guide.user.firstName} {guide.guide.user.lastName}</p>
-                    </div>
-                  </div>
-                ))}
-                </div>
-              </section>
               )}
-          </div>
+              <div className="flex items-start gap-3">
+                <Mail className="h-4 w-4 text-muted-foreground mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-xs text-muted-foreground">{t("reservation.email")}</p>
+                  <a href={`mailto:${reservation.email}`} className="text-sm font-medium text-blue-600 hover:underline">
+                    {reservation.email}
+                  </a>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Phone className="h-4 w-4 text-muted-foreground mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-xs text-muted-foreground">{t("reservation.phone")}</p>
+                  <a href={`tel:${reservation.phone}`} className="text-sm font-medium hover:underline">
+                    {reservation.phone}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className="space-y-3">
+            <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">
+              {t("reservation.place")}
+            </h3>
+            <div className="border border-border rounded-md p-4 bg-background shadow-sm">
+              <div className="flex items-start gap-3">
+                <MapPin className="h-4 w-4 text-muted-foreground mt-0.5 shrink-0" />
+                <div className="space-y-1">
+                  <p className="text-sm font-medium">{reservation.place.title[currentLang]}</p>
+                  <p className="text-sm">
+                    {reservation.place.description[currentLang]}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">
+              {t("reservation.paymentInfo")}
+            </h3>
+            <div className="border border-border rounded-md p-4 bg-background shadow-sm flex items-start gap-3">
+              <CreditCard className="h-5 w-5 text-muted-foreground mt-0.5 shrink-0" />
+              <div>
+                <p className="text-xs text-muted-foreground">{t("reservation.paymentMethod")}</p>
+                <p className="text-sm font-medium">{reservation.payment}</p>
+              </div>
+            </div>
+          </section>
+          {reservation.reservationGuides.length > 0 && (
+          <section className="space-y-3">
+            <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">
+              {t("reservation.guideInfo")}
+            </h3>
+            <div className="border border-border rounded-md p-4 bg-background shadow-sm flex flex-col items-start gap-6">
+              {reservation.reservationGuides.map((guide) => (
+                <div className="flex justify-between gap-4">
+                  <UserKeyIcon className="h-5 w-5 text-muted-foreground mt-0.5 shrink-0" />
+                  <div>
+                    <p className="text-sm font-medium">{guide.guide.user.firstName} {guide.guide.user.lastName}</p>
+                  </div>
+                </div>
+              ))}
+              </div>
+            </section>
+            )}
+        </div>
+        <div className="lg:col-span-2 space-y-6">
+          <SnakeStatus status={reservation.status} />
         </div>
       </div>
     </div>
