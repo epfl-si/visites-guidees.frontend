@@ -48,22 +48,19 @@ export default function Reservation() {
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    const fetchReservation = async (reservationId: number) => {
-      setLoading(true);
-      try {
-        const data = await getReservation(reservationId);
-        if (data.success) setReservation(data.data);
-
-      } finally {
-        setLoading(false);
+    const fetchReservation = async () => {
+      if (id) {
+        setLoading(true);
+        await getReservation(Number(id))
+          .then((data) => {
+            if (data.success) {
+              setReservation(data.data);
+            }
+        })
       }
-    };
-
-    if (id) {
-      fetchReservation(Number(id));
-    } else {
       setLoading(false);
-    }
+    };
+    fetchReservation();
   }, [id]);
 
   const currentLang = (i18n.resolvedLanguage || 'en') as 'en' | 'fr';
