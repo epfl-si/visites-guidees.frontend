@@ -128,6 +128,28 @@
       "INACTIVE": "Inactive",
       "RETIRED": "Retired",
       "SUSPENDED": "Suspended"
+    },
+    "dialog": {
+      "step": "Step {{current}} of {{total}}",
+      "guide": {
+        "title": "Choose the person",
+        "description": "Search for the person to add as a guide by sciper, email or name.",
+        "placeholder": "123456, john.doe@epfl.ch, John Doe",
+        "empty": "Start typing to search for an EPFL member.",
+        "noResult": "Nobody matches “{{search}}”. Check the spelling or try with the sciper."
+      },
+      "language": {
+        "title": "Tour languages",
+        "description": "Check the languages this guide can lead a tour in. You can change them later."
+      },
+      "place": {
+        "title": "Tour places",
+        "description": "Choose the places this guide will be able to show."
+      },
+      "confirm": {
+        "title": "Confirmation",
+        "description": "Check the information before adding the guide."
+      }
     }
   },
   "place": {
@@ -180,7 +202,9 @@
     "backToHome": "Back to home",
     "previousPage": "Previous page",
     "add": "ajouter",
-    "getHelp": "Get help"
+    "getHelp": "Get help",
+    "previous": "Back",
+    "select": "Select"
   },
   "admin": {
     "nav": {
