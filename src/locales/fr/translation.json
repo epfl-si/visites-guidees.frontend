@@ -149,7 +149,19 @@
       },
       "place": {
         "title": "Lieux de visite",
-        "description": "Choisissez les lieux que ce guide pourra faire visiter."
+        "description": "Choisissez les lieux que ce guide pourra faire visiter.",
+        "selectAll": "Tout sélectionner",
+        "deselectAll": "Tout désélectionner",
+        "capacity_one": "{{count}} personnes par groupe.",
+        "capacity_other": "{{count}} personnes par groupe.",
+        "selected_one": "{{count}} lieu sélectionné",
+        "selected_other": "{{count}} lieux sélectionnés",
+        "none": "Sélectionnez au moins un lieu pour continuer.",
+        "empty": "Aucun lieu n'est disponible pour le moment."
+      },
+      "calendar": {
+        "title": "Date de début",
+        "description": "Choisissez à partir de quand ce guide pourra mener des visites."
       },
       "confirm": {
         "title": "Confirmation",
