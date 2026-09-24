@@ -129,6 +129,28 @@
       "INACTIVE": "Inactif",
       "RETIRED": "Retiré",
       "SUSPENDED": "Suspendu"
+    },
+    "dialog": {
+      "step": "Étape {{current}} sur {{total}}",
+      "guide": {
+        "title": "Choisir la personne",
+        "description": "Recherchez la personne à ajouter comme guide par son sciper, son email ou son nom.",
+        "placeholder": "123456, jean.dupont@epfl.ch, Jean Dupont",
+        "empty": "Commencez à taper pour rechercher une personne de l'EPFL.",
+        "noResult": "Aucune personne ne correspond à « {{search}} ». Vérifiez l'orthographe ou essayez avec le sciper."
+      },
+      "language": {
+        "title": "Langues de visite",
+        "description": "Cochez les langues dans lesquelles ce guide peut mener une visite. Vous pourrez les modifier plus tard."
+      },
+      "place": {
+        "title": "Lieux de visite",
+        "description": "Choisissez les lieux que ce guide pourra faire visiter."
+      },
+      "confirm": {
+        "title": "Confirmation",
+        "description": "Vérifiez les informations avant d'ajouter le guide."
+      }
     }
   },
   "place": {
@@ -181,7 +203,9 @@
     "backToHome": "Back to home",
     "previousPage": "Previous page",
     "add": "ajouter",
-    "getHelp": "Obtenir de l'aide"
+    "getHelp": "Obtenir de l'aide",
+    "previous": "Retour",
+    "select": "Choisir"
   },
   "admin": {
     "nav": {
