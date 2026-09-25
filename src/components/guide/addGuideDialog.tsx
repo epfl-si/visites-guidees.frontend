@@ -26,7 +26,7 @@ import {
 import { Button, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { searchUser } from "@/services/user"
-import { addGuide } from "@/services/guide"
+import { addGuide, getGuide } from "@/services/guide"
 import { Badge } from "@/components/ui/badge"
 import type { ResponseUserAPI } from "@/types/user"
 import { Spinner } from "@/components/ui/spinner"
@@ -42,7 +42,7 @@ import { useTranslation } from "react-i18next"
 import { toast } from "sonner"
 import Stepper from "../stepper"
 import type { Language } from "@/types/language"
-import type { CreateGuide } from "@/types/guide"
+import type { CreateGuide, Guide } from "@/types/guide"
 import { getLanguages as getAvailableLanguages } from "@/services/language"
 import { getPlaces as getAvailablePlaces } from "@/services/place"
 import type { Place } from "@/types/place"
@@ -265,8 +265,8 @@ export const SelectLanguage = ({
         {selectedLanguages.length === 0
           ? t("guide.dialog.language.none")
           : t("guide.dialog.language.selected", {
-              count: selectedLanguages.length,
-            })}
+            count: selectedLanguages.length,
+          })}
       </p>
 
       <DialogFooter className="sm:justify-between">
@@ -404,8 +404,8 @@ export const SelectPlace = ({
         {selectedPlaces.length === 0
           ? t("guide.dialog.place.none")
           : t("guide.dialog.place.selected", {
-              count: selectedPlaces.length,
-            })}
+            count: selectedPlaces.length,
+          })}
       </p>
 
       <DialogFooter className="sm:justify-between">
@@ -445,14 +445,13 @@ export const SelectStartDate = ({
     : undefined
 
   function selectDate(date: Date | undefined) {
-    // Noon keeps the same calendar day once converted to UTC
     const startDate = date
       ? new Date(
-          date.getFullYear(),
-          date.getMonth(),
-          date.getDate(),
-          12
-        ).toISOString()
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        12
+      ).toISOString()
       : ""
     setSelectedInformation((prev) => ({ ...prev, startDate }))
   }
@@ -477,10 +476,10 @@ export const SelectStartDate = ({
       <p className="text-center text-xs text-muted-foreground">
         {selectedDate
           ? t("guide.dialog.calendar.selected", {
-              date: selectedDate.toLocaleDateString(i18n.resolvedLanguage, {
-                dateStyle: "full",
-              }),
-            })
+            date: selectedDate.toLocaleDateString(i18n.resolvedLanguage, {
+              dateStyle: "full",
+            }),
+          })
           : t("guide.dialog.calendar.none")}
       </p>
 
@@ -637,7 +636,7 @@ export const ConfirmGuide = ({
   )
 }
 
-export const AddGuideDialog = () => {
+export const AddGuideDialog = ({ guides, setGuides }: { guides: Guide[], setGuides: Dispatch<SetStateAction<Guide[]>> }) => {
   const { t } = useTranslation()
   const [step, setStep] = useState<number>(1)
   const [selectedGuide, setSelectedGuide] = useState<ResponseUserAPI | null>(
@@ -652,7 +651,19 @@ export const AddGuideDialog = () => {
   const current = STEPS[step - 1]
   const StepIcon = current.icon
 
-  function handleOpenChange(open: boolean) {
+  async function AddGuideInTable() {
+    const response = await getGuide(selectedInformation.sciper)
+    if (!response.success) {
+      if (response.code === 401) return
+      throw new Error(response.error)
+    }
+    setGuides([
+      ...guides,
+      response.data
+    ]);
+  }
+
+  async function handleOpenChange(open: boolean) {
     setOpen(open)
     if (open) return
     setStep(1)
@@ -751,7 +762,7 @@ export const AddGuideDialog = () => {
                   selectedInformation={selectedInformation}
                   languages={languages}
                   places={places}
-                  onAdded={() => handleOpenChange(false)}
+                  onAdded={() => (handleOpenChange(false), AddGuideInTable())}
                 />
               )
           }

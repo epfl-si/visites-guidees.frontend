@@ -65,7 +65,7 @@ export default function Admin() {
             <PlacesTable places={places} loading={loadingPlaces} error={errorPlaces}/>
           </div>
         </div>
-        <GuidesTable guides={guides} loading={loadingGuides} error={errorGuides}/>
+        <GuidesTable guides={guides} setGuides={setGuides} loading={loadingGuides} error={errorGuides}/>
       </div>
     </div>
   )
