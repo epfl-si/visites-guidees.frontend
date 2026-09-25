@@ -167,7 +167,13 @@
       },
       "confirm": {
         "title": "Confirmation",
-        "description": "Vérifiez les informations avant d'ajouter le guide."
+        "description": "Vérifiez les informations avant d'ajouter le guide.",
+        "guide": "Guide",
+        "languages": "Langues",
+        "places": "Lieux",
+        "startDate": "Date de début",
+        "edit": "Modifier",
+        "submit": "Ajouter le guide"
       }
     }
   },

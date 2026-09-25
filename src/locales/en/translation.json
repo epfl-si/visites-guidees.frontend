@@ -166,7 +166,13 @@
       },
       "confirm": {
         "title": "Confirmation",
-        "description": "Check the information before adding the guide."
+        "description": "Check the information before adding the guide.",
+        "guide": "Guide",
+        "languages": "Languages",
+        "places": "Places",
+        "startDate": "Start date",
+        "edit": "Edit",
+        "submit": "Add the guide"
       }
     }
   },
