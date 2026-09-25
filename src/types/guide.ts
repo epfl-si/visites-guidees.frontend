@@ -9,3 +9,10 @@ export type Guide = {
   user: User;
   languages: Language[];
 }
+
+export type CreateGuide = {
+  sciper: number;
+  languageIds: number[];
+  placeIds: number[];
+  startDate: string;
+}

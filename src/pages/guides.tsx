@@ -17,7 +17,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { useNavigate } from "react-router";
 import { Badge } from "@/components/ui/badge";
-import { AddGuideDialog } from "@/components/guide/addGuideDialog";
+import { AddGuideDialog } from "@/components/guide/addGuideDialog/index";
 
 export default function Guides() {
   const [guides, setGuides] = useState<Guide[]>([]);
@@ -60,9 +60,9 @@ export default function Guides() {
       ...(guide.languages?.map((l) => l.name) || []),
       statusConfig ? t(statusConfig.labelKey) : guide.status,
     ]
-    .filter(Boolean)
-    .join(" ")
-    .toLowerCase();
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
 
     return haystack.includes(query);
   };
@@ -119,7 +119,7 @@ export default function Guides() {
                   ))}
                 </SelectContent>
               </Select>
-              <AddGuideDialog />
+              <AddGuideDialog guides={guides} setGuides={setGuides} />
             </div>
           </div>
           <Table className="border border-border bg-background">

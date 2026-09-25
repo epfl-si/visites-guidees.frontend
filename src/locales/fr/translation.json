@@ -129,6 +129,52 @@
       "INACTIVE": "Inactif",
       "RETIRED": "Retiré",
       "SUSPENDED": "Suspendu"
+    },
+    "dialog": {
+      "step": "Étape {{current}} sur {{total}}",
+      "guide": {
+        "title": "Choisir la personne",
+        "description": "Recherchez la personne à ajouter comme guide par son sciper, son email ou son nom.",
+        "placeholder": "123456, jean.dupont@epfl.ch, Jean Dupont",
+        "empty": "Commencez à taper pour rechercher une personne de l'EPFL.",
+        "noResult": "Aucune personne ne correspond à « {{search}} ». Vérifiez l'orthographe ou essayez avec le sciper."
+      },
+      "language": {
+        "title": "Langues de visite",
+        "description": "Cochez les langues dans lesquelles ce guide peut mener une visite. Vous pourrez les modifier plus tard.",
+        "selected_one": "{{count}} langue sélectionnée",
+        "selected_other": "{{count}} langues sélectionnées",
+        "none": "Sélectionnez au moins une langue pour continuer.",
+        "empty": "Aucune langue n'est disponible pour le moment."
+      },
+      "place": {
+        "title": "Lieux de visite",
+        "description": "Choisissez les lieux que ce guide pourra faire visiter.",
+        "selectAll": "Tout sélectionner",
+        "deselectAll": "Tout désélectionner",
+        "capacity_one": "{{count}} personnes par groupe.",
+        "capacity_other": "{{count}} personnes par groupe.",
+        "selected_one": "{{count}} lieu sélectionné",
+        "selected_other": "{{count}} lieux sélectionnés",
+        "none": "Sélectionnez au moins un lieu pour continuer.",
+        "empty": "Aucun lieu n'est disponible pour le moment."
+      },
+      "calendar": {
+        "title": "Date de début",
+        "description": "Choisissez à partir de quand ce guide pourra mener des visites.",
+        "selected": "Début des visites le {{date}}",
+        "none": "Choisissez une date pour continuer."
+      },
+      "confirm": {
+        "title": "Confirmation",
+        "description": "Vérifiez les informations avant d'ajouter le guide.",
+        "guide": "Guide",
+        "languages": "Langues",
+        "places": "Lieux",
+        "startDate": "Date de début",
+        "edit": "Modifier",
+        "submit": "Ajouter le guide"
+      }
     }
   },
   "place": {
@@ -181,7 +227,10 @@
     "backToHome": "Back to home",
     "previousPage": "Previous page",
     "add": "ajouter",
-    "getHelp": "Obtenir de l'aide"
+    "getHelp": "Obtenir de l'aide",
+    "next": "Suivant",
+    "previous": "Retour",
+    "select": "Choisir"
   },
   "admin": {
     "nav": {
