@@ -1,11 +1,11 @@
-name: Test
+name: Test with ESLint
 
 on: [push, pull_request]
 
 jobs:
-  test:
+  test-Linter:
     runs-on: ubuntu-latest
-    name: Test
+    name: Test with ESLint
 
     steps:
       - name: Clone repository
