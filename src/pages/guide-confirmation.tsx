@@ -110,7 +110,9 @@ export default function GuideConfirmation() {
 
   const { reservation, status } = invitation;
   const visitDate = new Date(reservation.date);
-  const placeTitle = reservation.place.title[language] ?? reservation.place.title.en;
+  const placeTitle =
+    reservation.place.title[language as keyof typeof reservation.place.title] ??
+    reservation.place.title.en;
 
   return (
     <article className="mx-auto w-full max-w-2xl px-4 py-10">

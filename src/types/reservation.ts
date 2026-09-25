@@ -23,6 +23,7 @@ export type Reservation = {
   status: ReservationStatus;
   language: Language;
   place: Place
+  comment: string | null;
   reservationGuides: { guide: Guide }[];
 }
 
@@ -45,11 +46,8 @@ export type ReservationGuideStatus =
 export type GuideInvitation = {
   reservationId: number;
   status: ReservationGuideStatus;
-  reservation: {
-    date: string;
-    participantNumber: number;
-    comment: string | null;
-    language: { id: number; name: string };
-    place: { id: number; title: Record<string, string> };
-  };
+  reservation: Pick<Reservation, "date" | "participantNumber" | "comment"> & {
+    language: Pick<Language, "id" | "name">;
+    place: Pick<Place, "id" | "title">;
+  }
 };
