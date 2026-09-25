@@ -1,7 +1,7 @@
 import {
   ArrowLeft,
   ArrowRight,
-  Calendar,
+  CalendarDays,
   CircleCheck,
   CirclePlus,
   Languages,
@@ -43,12 +43,14 @@ import type { CreateGuide } from "@/types/guide"
 import { getLanguages as getAvailableLanguages } from "@/services/language"
 import { getPlaces as getAvailablePlaces } from "@/services/place"
 import type { Place } from "@/types/place"
+import { Calendar } from "@/components/ui/calendar"
+import { enUS, fr } from "react-day-picker/locale"
 
 const STEPS = [
   { key: "guide", icon: UserSearch },
   { key: "language", icon: Languages },
   { key: "place", icon: MapPin },
-  { key: "calendar", icon: Calendar },
+  { key: "calendar", icon: CalendarDays },
   { key: "confirm", icon: CircleCheck },
 ] as const
 
@@ -134,7 +136,7 @@ const SelectGuide = ({
         )}
       </InputGroup>
 
-      <div className="max-h-72 space-y-2 overflow-y-auto pr-2 [scrollbar-gutter:stable]">
+      <div className="max-h-72 [scrollbar-gutter:stable] space-y-2 overflow-y-auto pr-2">
         {!search.trim() && (
           <p className="py-6 text-center text-sm text-muted-foreground">
             {t("guide.dialog.guide.empty")}
@@ -277,6 +279,7 @@ export const SelectLanguage = ({
     </div>
   )
 }
+
 export const SelectPlace = ({
   setStep,
   selectedInformation,
@@ -346,7 +349,7 @@ export const SelectPlace = ({
         </div>
       )}
 
-      <div className="flex max-h-80 flex-col gap-2 overflow-y-auto pr-2 [scrollbar-gutter:stable]">
+      <div className="flex max-h-80 [scrollbar-gutter:stable] flex-col gap-2 overflow-y-auto pr-2">
         {isWaiting ? (
           Array.from({ length: 3 }).map((_, i) => (
             <Skeleton key={i} className="h-16 w-full" />
@@ -405,6 +408,79 @@ export const SelectPlace = ({
           disabled={selectedPlaces.length === 0}
           onClick={() => setStep(4)}
         >
+          {t("actions.next")}
+          <ArrowRight data-icon="inline-end" />
+        </Button>
+      </DialogFooter>
+    </div>
+  )
+}
+
+export const SelectStartDate = ({
+  setStep,
+  selectedInformation,
+  setSelectedInformation,
+}: {
+  setStep: (step: number) => void
+  selectedInformation: CreateGuide
+  setSelectedInformation: Dispatch<SetStateAction<CreateGuide>>
+}) => {
+  const { t, i18n } = useTranslation()
+
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const lastMonth = new Date(today.getFullYear() + 2, 11)
+
+  const selectedDate = selectedInformation.startDate
+    ? new Date(selectedInformation.startDate)
+    : undefined
+
+  function selectDate(date: Date | undefined) {
+    // Noon keeps the same calendar day once converted to UTC
+    const startDate = date
+      ? new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate(),
+          12
+        ).toISOString()
+      : ""
+    setSelectedInformation((prev) => ({ ...prev, startDate }))
+  }
+
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="flex justify-center">
+        <Calendar
+          mode="single"
+          selected={selectedDate}
+          onSelect={selectDate}
+          defaultMonth={selectedDate ?? today}
+          disabled={{ before: today }}
+          startMonth={today}
+          endMonth={lastMonth}
+          captionLayout="dropdown"
+          locale={i18n.resolvedLanguage === "fr" ? fr : enUS}
+          className="rounded-lg border"
+        />
+      </div>
+
+      <p className="text-center text-xs text-muted-foreground">
+        {selectedDate
+          ? t("guide.dialog.calendar.selected", {
+              date: selectedDate.toLocaleDateString(i18n.resolvedLanguage, {
+                dateStyle: "full",
+              }),
+            })
+          : t("guide.dialog.calendar.none")}
+      </p>
+
+      <DialogFooter className="sm:justify-between">
+        <Button variant="outline" onClick={() => setStep(3)}>
+          <ArrowLeft data-icon="inline-start" />
+          {t("actions.previous")}
+        </Button>
+        <Button disabled={!selectedDate} onClick={() => setStep(5)}>
           {t("actions.next")}
           <ArrowRight data-icon="inline-end" />
         </Button>
@@ -498,6 +574,14 @@ export const AddGuideDialog = () => {
             case 3:
               return (
                 <SelectPlace
+                  setStep={setStep}
+                  selectedInformation={selectedInformation}
+                  setSelectedInformation={setSelectedInformation}
+                />
+              )
+            case 4:
+              return (
+                <SelectStartDate
                   setStep={setStep}
                   selectedInformation={selectedInformation}
                   setSelectedInformation={setSelectedInformation}

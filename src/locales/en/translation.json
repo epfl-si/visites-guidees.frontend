@@ -160,7 +160,9 @@
       },
       "calendar": {
         "title": "Start date",
-        "description": "Choose from when this guide will be able to lead tours."
+        "description": "Choose from when this guide will be able to lead tours.",
+        "selected": "Tours start on {{date}}",
+        "none": "Choose a date to continue."
       },
       "confirm": {
         "title": "Confirmation",
