@@ -174,6 +174,18 @@
     "session": {
       "expired": "Your session has expired, please sign in again",
       "reconnect": "Sign in"
+    },
+    "guideNotActive": {
+      "title": "Only an active guide can answer a guided tour request",
+      "contact": "If you think this is an error, contact"
+    },
+    "notInvited": {
+      "title": "You have not been assigned to this guided tour",
+      "contact": "If you think this is an error, contact"
+    },
+    "invitationLoad": {
+      "title": "This request could not be loaded, please try again later",
+      "contact": "If you think this is an error, contact"
     }
   },
   "actions": {
@@ -218,10 +230,7 @@
     "acceptSuccess": "Your acceptance has been recorded.",
     "declineSuccess": "Your refusal has been recorded.",
     "submitError": "Your answer could not be sent. Please try again.",
-    "forbidden": "Only an active guide can answer a guided tour request.",
-    "notInvited": "You have not been assigned to this guided tour.",
     "loading": "Loading the request…",
-    "loadError": "This request could not be loaded. Please try again later.",
     "details": {
       "date": "Date",
       "time": "Time",

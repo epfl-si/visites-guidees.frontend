@@ -8,6 +8,7 @@ import { Spinner } from '@/components/ui/spinner';
 import { getGuideInvitation, respondToInvitation } from '@/services/reservation';
 import type { BackendResponseError } from '@/types/api';
 import type { GuideInvitation, ReservationGuideAction } from '@/types/reservation';
+import ErrorPage from "@/pages/Error"
 
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (
@@ -26,6 +27,7 @@ export default function GuideConfirmation() {
   const [invitation, setInvitation] = useState<GuideInvitation | null>(null);
   const [failed, setFailed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<{ code: number; message: string } | null>(null);
 
   const reservationId = Number(reservationIdParam);
   const hasValidId = Number.isInteger(reservationId);
@@ -36,15 +38,19 @@ export default function GuideConfirmation() {
     getGuideInvitation(reservationId)
       .then((res) => {
         if (!res.success) {
-          toast.error(messageFor(res, t, 'guideConfirmation.loadError'));
+          const messageError = messageFor(res, 'errors.invitationLoad.title');
+          toast.error(t(messageError));
           setFailed(true);
+          setError({ code: res.code, message: messageError });
           return;
         }
         setInvitation(res.data);
       })
       .catch((error) => {
-        toast.error(t('guideConfirmation.loadError'));
+        console.error('getGuideInvitation Error', error);
+        toast.error(t('errors.invitationLoad.title'));
         setFailed(true);
+        setError({ code: 503, message: 'errors.invitationLoad.title' });
       });
   }, [hasValidId, reservationId, t]);
 
@@ -53,7 +59,7 @@ export default function GuideConfirmation() {
     try {
       const answer = await respondToInvitation(reservationId, action);
       if (!answer.success) {
-        toast.error(messageFor(answer, t, 'guideConfirmation.submitError'));
+        toast.error(t(messageFor(answer, 'guideConfirmation.submitError')));
         return;
       }
 
@@ -66,6 +72,7 @@ export default function GuideConfirmation() {
           : t('guideConfirmation.declineSuccess'),
       );
     } catch (error) {
+      console.error('respondToInvitation Error', error);
       toast.error(t('guideConfirmation.submitError'));
     } finally {
       setIsSubmitting(false);
@@ -73,16 +80,14 @@ export default function GuideConfirmation() {
   };
 
   if (!hasValidId || failed) {
-    return (
-      <article className="mx-auto w-full max-w-2xl px-4 py-10">
-        <h1 className="mb-4 font-heading text-4xl font-bold tracking-tight">
-          {t('guideConfirmation.title')}
-        </h1>
-        <p role="alert" className="text-epfl-accent">
-          {t('guideConfirmation.loadError')}
-        </p>
-      </article>
-    );
+    if (error) {
+      return (
+        <ErrorPage
+          errorCode={error.code}
+          message={error.message}
+        />
+      );
+    }
   }
 
   if (!invitation) {
@@ -184,10 +189,9 @@ export default function GuideConfirmation() {
 
 function messageFor(
   error: BackendResponseError,
-  t: (key: string) => string,
   fallbackKey: string,
 ): string {
-  if (error.code === 403) return t('guideConfirmation.forbidden');
-  if (error.code === 404) return t('guideConfirmation.notInvited');
-  return t(fallbackKey);
+  if (error.code === 403) return 'errors.guideNotActive.title';
+  if (error.code === 404) return 'errors.notInvited.title';
+  return fallbackKey;
 }

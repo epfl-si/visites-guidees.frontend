@@ -175,6 +175,18 @@
     "session": {
       "expired": "Votre session a expiré, veuillez vous reconnecter",
       "reconnect": "Se reconnecter"
+    },
+    "guideNotActive": {
+      "title": "Seul un guide actif peut répondre à une demande de visite guidée",
+      "contact": "Si vous pensez qu'il s'agit d'une erreur, contactez"
+    },
+    "notInvited": {
+      "title": "Vous n'avez pas été assigné à cette visite guidée",
+      "contact": "Si vous pensez qu'il s'agit d'une erreur, contactez"
+    },
+    "invitationLoad": {
+      "title": "Cette demande n'a pas pu être chargée, veuillez réessayer plus tard",
+      "contact": "Si vous pensez qu'il s'agit d'une erreur, contactez"
     }
   },
   "actions": {
@@ -219,10 +231,7 @@
     "acceptSuccess": "Votre acceptation a bien été enregistrée.",
     "declineSuccess": "Votre refus a bien été enregistré.",
     "submitError": "Votre réponse n'a pas pu être envoyée. Veuillez réessayer.",
-    "forbidden": "Seul un guide actif peut répondre à une demande de visite guidée.",
-    "notInvited": "Vous n'avez pas été assigné à cette visite guidée.",
     "loading": "Chargement de la demande…",
-    "loadError": "Cette demande n'a pas pu être chargée. Veuillez réessayer plus tard.",
     "details": {
       "date": "Date",
       "time": "Heure",
