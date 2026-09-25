@@ -19,6 +19,8 @@ import { registrationSegments } from '@/lib/routes';
 import GuideConfirmation from '@/pages/guide-confirmation';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
+import Guides from "@/pages/guides"
+import GuideDashboard from "./pages/guide-dashboard"
 
 export default function App() {
   const oidc = useOpenIDConnectContext()
@@ -130,6 +132,7 @@ export default function App() {
                   path="guide/reservations/:reservationId"
                   element={<GuideConfirmation />}
                 />
+                <Route path="/guide" element={<GuideDashboard />}/>
               </Route>
             </Route>
           </Route>
