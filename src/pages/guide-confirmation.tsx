@@ -30,7 +30,7 @@ export default function GuideConfirmation() {
   const [error, setError] = useState<{ code: number; message: string } | null>(null);
 
   const reservationId = Number(reservationIdParam);
-  const hasValidId = Number.isInteger(reservationId);
+  const hasValidId = Number.isInteger(reservationId) && reservationId > 0;
 
   useEffect(() => {
     if (!hasValidId) return;
