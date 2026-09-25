@@ -116,7 +116,9 @@ export default function GuideConfirmation() {
 
       <Card>
         <CardHeader>
-          <CardTitle>{placeTitle}</CardTitle>
+          <CardTitle>
+            <h2>{placeTitle}</h2>
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <dl className="flex flex-col gap-3 text-sm">
