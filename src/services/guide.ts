@@ -9,6 +9,10 @@ export async function getGuides(): Promise<BackendResponse<Guide[]>> {
   return await callBackend<Guide[]>(`${VERSION}/${ENDPOINT}`)
 }
 
+export const getGuide = async (sciper: number): Promise<BackendResponse<Guide>> => {
+  return await callBackend<Guide>(`${VERSION}/${ENDPOINT}/${sciper}`)
+}
+
 export async function addGuide(guide: CreateGuide) {
   return await callBackend(`${VERSION}/${ENDPOINT}`, {
     method: "POST",

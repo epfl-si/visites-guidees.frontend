@@ -14,8 +14,9 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/h
 import { GUIDE_STATUS } from "@/constants/status";
 import { AddGuideDialog } from "@/components/guide/addGuideDialog";
 import { Skeleton } from "@/components/ui/skeleton";
+import type { Dispatch, SetStateAction } from "react";
 
-export const GuidesTable = ({ guides, loading, error }: { guides: Guide[], loading: boolean, error: boolean }) => {
+export const GuidesTable = ({ guides, setGuides, loading, error }: { guides: Guide[], setGuides: Dispatch<SetStateAction<Guide[]>>, loading: boolean, error: boolean }) => {
   const { t } = useTranslation();
 
   return (
@@ -24,7 +25,7 @@ export const GuidesTable = ({ guides, loading, error }: { guides: Guide[], loadi
         <CardTitle>
           {t("guide.label")}
         </CardTitle>
-        <AddGuideDialog />
+        <AddGuideDialog guides={guides} setGuides={setGuides} />
       </CardHeader>
       <CardContent>
         <div className="rounded-md border">
@@ -45,8 +46,8 @@ export const GuidesTable = ({ guides, loading, error }: { guides: Guide[], loadi
                     <TableCell><Skeleton className="h-4 w-30" /></TableCell>
                     <TableCell><Skeleton className="h-4 w-45" /></TableCell>
                     <TableCell><Skeleton className="h-4 w-25" /></TableCell>
-                    <TableCell><Skeleton className="h-6 w-27.5"/></TableCell>
-                    <TableCell><Skeleton className="h-6 w-27.5"/></TableCell>
+                    <TableCell><Skeleton className="h-6 w-27.5" /></TableCell>
+                    <TableCell><Skeleton className="h-6 w-27.5" /></TableCell>
                   </TableRow>
                 ))
               ) : error ? (
