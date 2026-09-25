@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -22,6 +22,7 @@ function DetailRow({ label, value }: { label: string; value: string }) {
 export default function GuideConfirmation() {
   const { reservationId: reservationIdParam } = useParams<{ reservationId: string }>();
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const language = i18n.resolvedLanguage ?? 'en';
 
   const [invitation, setInvitation] = useState<GuideInvitation | null>(null);
@@ -67,14 +68,12 @@ export default function GuideConfirmation() {
         return;
       }
 
-      const refreshed = await getGuideInvitation(reservationId);
-      if (refreshed.success) setInvitation(refreshed.data);
-
       toast.success(
         action === 'accept'
           ? t('guideConfirmation.acceptSuccess')
           : t('guideConfirmation.declineSuccess'),
       );
+      navigate('/');
     } catch (error) {
       console.error('respondToInvitation Error', error);
       toast.error(t('guideConfirmation.submitError'));
