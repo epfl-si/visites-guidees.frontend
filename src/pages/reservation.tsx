@@ -15,7 +15,7 @@ import {
   Users,
   CalendarClock,
   CreditCard,
-  Languages,
+  Languages as Lang,
   UserKeyIcon
 } from "lucide-react";
 
@@ -33,6 +33,7 @@ import {
 
 import { RESERVATION_STATUS } from "@/constants/status";
 import { cn } from "@/lib/utils";
+import type { Languages } from "@/types/language";
 
 function formatDateOnly(d: Date | string) {
   return new Date(d).toLocaleDateString("fr-CH", {
@@ -50,25 +51,20 @@ export default function Reservation() {
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    const fetchReservation = async (reservationId: number) => {
+    const fetchReservation = async () => {
       setLoading(true);
-      try {
-        const data = await getReservation(reservationId);
-        if (data.success) setReservation(data.data);
-
-      } finally {
-        setLoading(false);
+      if (id && Number.isInteger(id) && Number(id) > 0) {
+        getReservation(Number(id))
+          .then((data) => {
+            if (data.success) setReservation(data.data);
+          })
       }
-    };
-
-    if (id) {
-      fetchReservation(Number(id));
-    } else {
       setLoading(false);
-    }
+    };
+    fetchReservation();
   }, [id]);
 
-  const currentLang = (i18n.resolvedLanguage || 'en') as 'en' | 'fr';
+  const currentLang = i18n.resolvedLanguage as Languages;
 
   if (loading) {
     return <LoadingPage />;
@@ -178,7 +174,7 @@ export default function Reservation() {
                 </div>
                 <div className="flex items-center gap-4 p-4">
                   <div className="h-12 w-12 rounded-md bg-secondary flex items-center justify-center shrink-0">
-                    <Languages className="h-6 w-6 text-muted-foreground" />
+                    <Lang className="h-6 w-6 text-muted-foreground" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs text-muted-foreground">{t("reservation.languageLabel")}</p>

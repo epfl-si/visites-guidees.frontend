@@ -1,19 +1,18 @@
 import RegistrationForm from '@/components/registration/form';
 import { useParams } from 'react-router';
-import type { UserType } from "@/types/user";
 import type { PlaceInformationType } from "@/types/place"
-import type {State} from "@epfl-si/react-appauth";
 import { useState,useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getPlaceById } from '@/services/place';
 import { toast } from "sonner";
+import type { Languages } from '@/types/language';
 
-export default function Registration({ user: _user, oidc:_oidc }: { user: UserType, oidc: State }) {
+export default function Registration() {
   const { placeId: placeIdString } = useParams<{ placeId: string }>();
   const [visitInformation, setVisitInformation] = useState<PlaceInformationType|null>(null);
 
   const { t, i18n } = useTranslation();
-  const currentLanguage = i18n.resolvedLanguage ?? 'en';
+  const currentLanguage = i18n.resolvedLanguage as Languages;
   const placeId = Number(placeIdString);
 
   useEffect(() => {
@@ -21,8 +20,7 @@ export default function Registration({ user: _user, oidc:_oidc }: { user: UserTy
 
     getPlaceById(placeId)
       .then(setVisitInformation)
-      .catch((error) => {
-        console.error('getPlaceById Error', error);
+      .catch(() => {
         toast.error(t("registration.loadError"));
       });
   }, [placeId, t]);

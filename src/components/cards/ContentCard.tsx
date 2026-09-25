@@ -3,6 +3,7 @@ import { cn, slugify } from "@/lib/utils";
 import { registrationPath } from "@/lib/routes";
 import type { ContentCardType } from "@/types/content-card";
 import { useTranslation } from "react-i18next";
+import type { Languages } from "@/types/language";
 
 export function ContentCard({
   content,
@@ -14,7 +15,7 @@ export function ContentCard({
   id?: string;
 }) {
   const { i18n } = useTranslation();
-  const link = registrationPath(content.id, i18n.resolvedLanguage ?? "en");
+  const link = registrationPath(content.id, i18n.resolvedLanguage as Languages);
   return (
     <article
       id={`content-card-${id}`}

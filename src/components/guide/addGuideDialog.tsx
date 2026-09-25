@@ -1,5 +1,5 @@
 import { CirclePlus } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import {
   Dialog,
   DialogContent,
@@ -30,7 +30,7 @@ export const AddGuideDialog = () => {
   const [users, setUsers] = useState<ResponseUserAPI[]>([])
   const [search, setSearch] = useState<string>("")
 
-  async function handleSearch(query: string) {
+  const handleSearch = useCallback(async (query: string) => {
     if (!query) return
 
     setIsWaiting(true)
@@ -44,30 +44,32 @@ export const AddGuideDialog = () => {
         throw new Error(usersResponse.error)
       }
       setUsers(usersResponse.data)
-    } catch (error) {
-      console.error("searchUser Error", error)
+    } catch {
       toast.error(t("guide.searchError"))
       setUsers([])
     } finally {
       setIsWaiting(false)
       setHasSearched(true)
     }
-  }
+  }, [t])
 
   useEffect(() => {
-    setHasSearched(false)
+    const searchUser = async () => {
+      setHasSearched(false)
 
-    if (!search) {
-      setUsers([])
-      return
+      if (!search) {
+        setUsers([])
+        return
+      }
+
+      const timeout = setTimeout(() => {
+        handleSearch(search)
+      }, 300)
+
+      return () => clearTimeout(timeout)
     }
-
-    const timeout = setTimeout(() => {
-      handleSearch(search)
-    }, 300)
-
-    return () => clearTimeout(timeout)
-  }, [search])
+    searchUser();
+  }, [search, handleSearch])
 
   async function handleGuideClick(sciper: number) {
     try {
@@ -77,8 +79,7 @@ export const AddGuideDialog = () => {
         throw new Error(response.error)
       }
       toast.success(t("guide.addSuccess"))
-    } catch (error) {
-      console.error("addGuide Error", error)
+    } catch {
       toast.error(t("guide.addError"))
     }
   }
