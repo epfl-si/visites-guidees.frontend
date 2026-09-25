@@ -161,7 +161,9 @@
       },
       "calendar": {
         "title": "Date de début",
-        "description": "Choisissez à partir de quand ce guide pourra mener des visites."
+        "description": "Choisissez à partir de quand ce guide pourra mener des visites.",
+        "selected": "Début des visites le {{date}}",
+        "none": "Choisissez une date pour continuer."
       },
       "confirm": {
         "title": "Confirmation",
