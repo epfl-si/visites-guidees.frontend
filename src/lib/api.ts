@@ -7,14 +7,25 @@ export function setGlobalAccessToken(token: string | null) {
   globalAccessToken = token;
 };
 
+
 let onUnauthorized: (() => void) | null = null;
 
 export function setUnauthorizedHandler(handler: (() => void) | null) {
   onUnauthorized = handler;
 };
 
+export class ApiError extends Error {
+  status: number;
+
+  constructor(message: string, status: number) {
+    super(message);
+    this.name = 'ApiError';
+    this.status = status;
+  }
+}
+
 interface ApiCallOptions {
-  method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+  method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
   headers?: HeadersInit;
   body?: unknown;
 }
@@ -35,13 +46,22 @@ export async function call<T>(url: string, options: ApiCallOptions = {}): Promis
 
   const fetchOptions: RequestInit = { method, headers };
 
-  if (options.body && ['POST', 'PUT'].includes(method.toUpperCase())) {
+  if (options.body && ['POST', 'PUT', 'PATCH'].includes(method.toUpperCase())) {
     fetchOptions.body = JSON.stringify(options.body);
   }
 
   const response = await fetch(url, fetchOptions);
 
-  return (await response.json()) as T;
+  const body = await response.json().catch(() => null);
+
+  if (body === null) {
+    throw new ApiError(
+      `No readable body from ${url} (${response.status})`,
+      response.status,
+    );
+  }
+
+  return body as T;
 }
 
 const BACKEND_URL = env().GUIDED_TOURS_BACKEND_URL || 'http://localhost:3000/';

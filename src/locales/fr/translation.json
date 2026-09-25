@@ -175,6 +175,22 @@
     "session": {
       "expired": "Votre session a expiré, veuillez vous reconnecter",
       "reconnect": "Se reconnecter"
+    },
+    "guideNotActive": {
+      "title": "Seul un guide actif peut répondre à une demande de visite guidée",
+      "contact": "Si vous pensez qu'il s'agit d'une erreur, contactez"
+    },
+    "notInvited": {
+      "title": "Vous n'avez pas été assigné à cette visite guidée",
+      "contact": "Si vous pensez qu'il s'agit d'une erreur, contactez"
+    },
+    "invitationLoad": {
+      "title": "Cette demande n'a pas pu être chargée, veuillez réessayer plus tard",
+      "contact": "Si vous pensez qu'il s'agit d'une erreur, contactez"
+    },
+    "invalidReservationId": {
+      "title": "ID de réservation invalide",
+      "contact": "If you think this is an error, contact"
     }
   },
   "actions": {
@@ -201,6 +217,31 @@
     "places": {
       "notFound": "Aucune place trouvée.",
       "loadError": "Les places n'ont pas pu être chargés. Veuillez réessayer plus tard."
+    }
+  },
+  "guideConfirmation": {
+    "title": "Demande de visite guidée",
+    "description": "Vous avez été assigné à cette visite guidée. Indiquez-nous si vous pouvez la prendre en charge.",
+    "actions": {
+      "accept": "Accepter",
+      "decline": "Refuser",
+      "submitting": "Envoi en cours…"
+    },
+    "status": {
+      "accepted": "Vous avez accepté cette visite guidée. Vous serez averti si vous êtes retenu.",
+      "declined": "Vous avez refusé cette visite guidée.",
+      "chosen": "Vous avez été retenu pour animer cette visite guidée."
+    },
+    "acceptSuccess": "Votre acceptation a bien été enregistrée.",
+    "declineSuccess": "Votre refus a bien été enregistré.",
+    "submitError": "Votre réponse n'a pas pu être envoyée. Veuillez réessayer.",
+    "loading": "Chargement de la demande…",
+    "details": {
+      "date": "Date",
+      "time": "Heure",
+      "participants": "Participantes et participants",
+      "language": "Langue",
+      "comment": "Commentaire"
     }
   }
 }
