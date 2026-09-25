@@ -36,7 +36,6 @@ export default function GuideConfirmation() {
     getGuideInvitation(reservationId)
       .then((res) => {
         if (!res.success) {
-          console.error('getGuideInvitation failed', res.requestId, res.message);
           toast.error(messageFor(res, t, 'guideConfirmation.loadError'));
           setFailed(true);
           return;
@@ -44,7 +43,6 @@ export default function GuideConfirmation() {
         setInvitation(res.data);
       })
       .catch((error) => {
-        console.error('getGuideInvitation Error', error);
         toast.error(t('guideConfirmation.loadError'));
         setFailed(true);
       });
@@ -55,7 +53,6 @@ export default function GuideConfirmation() {
     try {
       const answer = await respondToInvitation(reservationId, action);
       if (!answer.success) {
-        console.error('respondToInvitation failed', answer.requestId, answer.message);
         toast.error(messageFor(answer, t, 'guideConfirmation.submitError'));
         return;
       }
@@ -69,7 +66,6 @@ export default function GuideConfirmation() {
           : t('guideConfirmation.declineSuccess'),
       );
     } catch (error) {
-      console.error('respondToInvitation Error', error);
       toast.error(t('guideConfirmation.submitError'));
     } finally {
       setIsSubmitting(false);
