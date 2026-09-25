@@ -5,10 +5,11 @@ import { Spinner } from '@/components/ui/spinner';
 import { getPlaces } from '@/services/place';
 import type { Place } from '@/types/place';
 import { toast } from "sonner"
+import type { Languages } from '@/types/language';
 
 export default function Page() {
   const { t, i18n } = useTranslation();
-  const lang = i18n.resolvedLanguage === 'fr' ? 'fr' : 'en';
+  const lang = i18n.resolvedLanguage as Languages;
   const [places, setPlaces] = useState<Place[] | null>(null);
   const [failed, setFailed] = useState(false);
 

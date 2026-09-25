@@ -2,11 +2,12 @@ import type React from "react";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import type { Languages } from "@/types/language";
 
 export const LanguageSelector: React.FC = () => {
   const { i18n } = useTranslation();
 
-  const currentLang = i18n.resolvedLanguage || i18n.language || "en";
+  const currentLang = i18n.resolvedLanguage as Languages;
 
   const changeLocale = (newLang: string) => {
     i18n.changeLanguage(newLang);

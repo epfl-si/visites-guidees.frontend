@@ -6,7 +6,7 @@ const VERSION = "v1";
 const ENDPOINT = "reservations";
 
 export async function postRegistration(
-  data: Record<string, any>
+  data: RegistrationFormType
 ) {
   const url = `${VERSION}/${ENDPOINT}/`;
   if (!data) {

@@ -77,7 +77,22 @@ export default function RegistrationForm({
   information: PlaceInformationType;
 }) {
   const { t } = useTranslation();
-  const [formData, setFormData] = useState<RegistrationFormType>(initialFormData);
+  const [formData, setFormData] = useState<RegistrationFormType>(() => {
+    try {
+      const savedLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY);
+      if (savedLocalStorage) {
+        const savedFormData = JSON.parse(savedLocalStorage) as RegistrationFormType & { lifetime: number };
+        if (savedFormData.lifetime > Date.now()) {
+          return savedFormData;
+        } else {
+          localStorage.removeItem(LOCAL_STORAGE_KEY);
+        }
+      }
+    } catch {
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
+    }
+    return initialFormData;
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const countryOptions = useMemo(() => countryList().getData(), []);
 
@@ -101,24 +116,6 @@ export default function RegistrationForm({
     }
     return true;
   };
-
-  useEffect(() => {
-    const savedLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY)
-    const savedFormData: RegistrationFormType & { lifetime: number } | null = savedLocalStorage ? JSON.parse(savedLocalStorage) : null;
-    if (savedFormData) {
-      if (savedFormData.lifetime < Date.now()) {
-        if (savedFormData) {
-          try {
-            setFormData(savedFormData);
-          } catch {
-            localStorage.removeItem(LOCAL_STORAGE_KEY);
-          }
-        }
-      } else {
-        localStorage.removeItem(LOCAL_STORAGE_KEY)
-      }
-    }
-  }, []);
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ formData, lifeTime: Date.now() + 12 * 3600 * 1000 }));
@@ -158,7 +155,7 @@ export default function RegistrationForm({
     }
 
     const isoDate = new Date(`${formData.visitDate}T${formData.visitTime}`).toISOString();
-    const { visitTime, visitDate, ...rest } = formData;
+    const { ...rest } = formData;
     const formDataToSubmit = {
       ...rest,
       date: isoDate,
@@ -175,8 +172,7 @@ export default function RegistrationForm({
       toast.success(t("registration.submitSuccess"));
       setFormData(initialFormData);
       localStorage.removeItem(LOCAL_STORAGE_KEY);
-    } catch (error) {
-      console.error("Registration submission failed: ", error);
+    } catch {
       toast.error(t("registration.submitError"));
     } finally {
       setIsSubmitting(false);

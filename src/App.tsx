@@ -55,7 +55,6 @@ export default function App() {
         .then((response) => {
           if (ignore) return
           if (!response.success) {
-            console.error("ConnectedUser Error", response.error)
             if (response.code !== 401) {
               toast.error(t("errors.dataLoading.userDataError"))
             }
@@ -63,9 +62,8 @@ export default function App() {
           }
           setConnectedUser(response.data)
         })
-        .catch((error) => {
+        .catch(() => {
           if (ignore) return
-          console.log("ConnectedUser Error", error)
           oidc.logout()
         })
 
@@ -97,7 +95,7 @@ export default function App() {
               <Route
                 key={segment}
                 path={`/:placeId/${segment}`}
-                element={<Registration user={connectedUser} oidc={oidc} />}
+                element={<Registration />}
               />
             ))}
             <Route element={<RequireAuth oidc={oidc} />}>

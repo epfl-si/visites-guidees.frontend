@@ -10,11 +10,12 @@ import {
 import { useTranslation } from 'react-i18next';
 import type { Place } from "@/types/place";
 import { Skeleton } from "@/components/ui/skeleton";
+import type { Languages } from "@/types/language";
 
 export const PlacesTable = ({ places, loading, error }: { places: Place[], loading: boolean, error: boolean }) => {
   const { t, i18n } = useTranslation();
 
-  const currentLang = (i18n.resolvedLanguage || 'en') as 'en' | 'fr';
+  const currentLang = i18n.resolvedLanguage as Languages;
 
   return (
     <Card className="">
