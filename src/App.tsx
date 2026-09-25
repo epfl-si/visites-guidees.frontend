@@ -18,6 +18,7 @@ import { toast } from "sonner"
 import { RequireAuth } from "./auth/RequireAuth"
 import ErrorPage from "./pages/Error"
 import Guides from "@/pages/guides"
+import GuideDashboard from "./pages/guide-dashboard"
 
 export default function App() {
   const oidc = useOpenIDConnectContext()
@@ -120,6 +121,17 @@ export default function App() {
                   />
                   <Route path="/admin/guide" element={<Guides />} />
                 </Route>
+              </Route>
+              <Route
+                element={
+                  <RequireRole
+                    role="guide"
+                    user={connectedUser}
+                    loading={connectedUserLoading}
+                  />
+                }
+              >
+                <Route path="/guide" element={<GuideDashboard />}/>
               </Route>
             </Route>
           </Route>
