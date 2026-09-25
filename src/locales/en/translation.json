@@ -186,6 +186,10 @@
     "invitationLoad": {
       "title": "This request could not be loaded, please try again later",
       "contact": "If you think this is an error, contact"
+    },
+    "invalidReservationId": {
+      "title": "Invalid reservation ID",
+      "contact": "If you think this is an error, contact"
     }
   },
   "actions": {

@@ -187,6 +187,10 @@
     "invitationLoad": {
       "title": "Cette demande n'a pas pu être chargée, veuillez réessayer plus tard",
       "contact": "Si vous pensez qu'il s'agit d'une erreur, contactez"
+    },
+    "invalidReservationId": {
+      "title": "ID de réservation invalide",
+      "contact": "If you think this is an error, contact"
     }
   },
   "actions": {

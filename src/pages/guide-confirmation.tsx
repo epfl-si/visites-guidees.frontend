@@ -33,7 +33,11 @@ export default function GuideConfirmation() {
   const hasValidId = Number.isInteger(reservationId) && reservationId > 0;
 
   useEffect(() => {
-    if (!hasValidId) return;
+    if (!hasValidId) {
+      setFailed(true);
+      setError({ code: 400, message: 'errors.invalidReservationId.title' });
+      return;
+    }
 
     getGuideInvitation(reservationId)
       .then((res) => {
