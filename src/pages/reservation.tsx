@@ -51,8 +51,9 @@ export default function Reservation() {
   useEffect(() => {
     const fetchReservation = async () => {
       setLoading(true);
-      if (id && Number.isInteger(id) && Number(id) > 0) {
-        getReservation(Number(id))
+      const reservationId = Number(id);
+      if (id && Number.isInteger(reservationId) && Number(reservationId) > 0) {
+        getReservation(reservationId)
           .then((data) => {
             if (data.success) setReservation(data.data);
           })
@@ -188,7 +189,7 @@ export default function Reservation() {
               </div>
               <div className="flex items-center gap-4 p-4">
                 <div className="h-12 w-12 rounded-md bg-secondary flex items-center justify-center shrink-0">
-                  <Languages className="h-6 w-6 text-muted-foreground" />
+                  <Lang className="h-6 w-6 text-muted-foreground" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-xs text-muted-foreground">{t("reservation.languageLabel")}</p>
