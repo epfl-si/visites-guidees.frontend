@@ -297,6 +297,14 @@
       "participants": "Participants",
       "language": "Language",
       "comment": "Comment"
+    },
+    "confirm": {
+      "acceptTitle": "Accept this guided tour?",
+      "acceptDescription": "You will be added to the list of available guides for this visit. An admin still has to pick the final guide.",
+      "declineTitle": "Decline this guided tour?",
+      "declineDescription": "You will not be considered for this visit.",
+      "confirm": "Confirm",
+      "cancel": "Cancel"
     }
   }
 }
