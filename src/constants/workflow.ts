@@ -8,3 +8,10 @@ export const TARGET_DISTANCES = [
   1214,
   1577,
 ];
+
+export const COORDINATES = [
+  { left: "12.5%", top: "21.66%" },
+  { left: "87.5%", top: "48.33%" },
+  { left: "12.5%", top: "75.00%" },
+  { left: "87.5%", top: "88.33%" },
+];
