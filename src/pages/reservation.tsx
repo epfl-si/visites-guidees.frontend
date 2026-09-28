@@ -153,27 +153,9 @@ export default function Reservation() {
                 <div className="h-12 w-12 rounded-md bg-secondary flex items-center justify-center shrink-0">
                   <CalendarClock className="h-6 w-6 text-muted-foreground" />
                 </div>
-                <div className="flex items-center gap-4 p-4">
-                  <div className="h-12 w-12 rounded-md bg-secondary flex items-center justify-center shrink-0">
-                    <Users className="h-6 w-6 text-muted-foreground" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs text-muted-foreground">{t("reservation.participantNbr")}</p>
-                    <p className="font-medium text-base truncate">
-                      {reservation.participantNumber} {t("reservation.people")}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4 p-4">
-                  <div className="h-12 w-12 rounded-md bg-secondary flex items-center justify-center shrink-0">
-                    <Lang className="h-6 w-6 text-muted-foreground" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs text-muted-foreground">{t("reservation.languageLabel")}</p>
-                    <p className="font-medium text-base truncate">
-                      {reservation.language.name}
-                    </p>
-                  </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs text-muted-foreground">{t("reservation.dateLabel")}</p>
+                  <p className="font-medium text-base truncate">{formatDateOnly(reservation.date)}</p>
                 </div>
               </div>
               <div className="flex items-center gap-4 p-4">
