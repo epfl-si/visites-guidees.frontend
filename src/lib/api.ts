@@ -14,16 +14,6 @@ export function setUnauthorizedHandler(handler: (() => void) | null) {
   onUnauthorized = handler;
 };
 
-export class ApiError extends Error {
-  status: number;
-
-  constructor(message: string, status: number) {
-    super(message);
-    this.name = 'ApiError';
-    this.status = status;
-  }
-}
-
 interface ApiCallOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
   headers?: HeadersInit;
@@ -55,10 +45,14 @@ export async function call<T>(url: string, options: ApiCallOptions = {}): Promis
   const body = await response.json().catch(() => null);
 
   if (body === null) {
-    throw new ApiError(
-      `No readable body from ${url} (${response.status})`,
-      response.status,
-    );
+    return {
+      success: false,
+      code: response.status,
+      message: [`No readable body from ${url}`],
+      error: 'InvalidResponse',
+      timestamp: new Date().toISOString(),
+      requestId: 'unknown',
+    } as T;
   }
 
   return body as T;
