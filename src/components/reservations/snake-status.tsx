@@ -10,9 +10,9 @@ import { SVG, TOTAL_SVG_LENGTH, TARGET_DISTANCES } from "@/constants/workflow";
 
 export function SnakeStatus({ status }: { status: ReservationStatus }) {
   const { t } = useTranslation();
+  const currentIndex = STATUS_ORDER.indexOf(status);
 
   const steps: ReservationStep[] = useMemo(() => {
-    const currentIndex = STATUS_ORDER.lastIndexOf(status);
     return STATUS_ORDER.map((flowStatus, index) => {
       let stepStatus: StepStatus = "pending";
 
@@ -31,9 +31,8 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
         status: stepStatus,
       };
     });
-  }, [status, t]);
+  }, [t, currentIndex]);
 
-  const currentIndex = STATUS_ORDER.indexOf(status);
   const targetDistance = currentIndex === -1 ? 0 : TARGET_DISTANCES[currentIndex] ?? 0;
 
   const [dashOffset, setDashOffset] = useState(TOTAL_SVG_LENGTH);
