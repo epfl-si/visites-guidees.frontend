@@ -19,10 +19,4 @@ export type GuideStatus =
   | "SUSPENDED"
   | "RETIRED";
 
-export type SnakeStatus =
-  | "SUCCESS"
-  | "PENDING"
-  | "IN_PROGRESS"
-  | "CANCEL"
-
 export type StepStatus = "success" | "in-progress" | "pending";
