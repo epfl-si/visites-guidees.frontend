@@ -33,7 +33,7 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
     });
   }, [status, t]);
 
-  const currentIndex = STATUS_ORDER.lastIndexOf(status);
+  const currentIndex = STATUS_ORDER.indexOf(status);
   const targetDistance = currentIndex === -1 ? 0 : TARGET_DISTANCES[currentIndex] ?? 0;
 
   const [dashOffset, setDashOffset] = useState(TOTAL_SVG_LENGTH);
