@@ -298,6 +298,14 @@
       "participants": "Participantes et participants",
       "language": "Langue",
       "comment": "Commentaire"
+    },
+    "confirm": {
+      "acceptTitle": "Accepter cette visite guidée ?",
+      "acceptDescription": "Vous serez ajouté à la liste des guides disponibles pour cette visite. Un administrateur choisira ensuite le guide retenu.",
+      "declineTitle": "Refuser cette visite guidée ?",
+      "declineDescription": "Vous ne serez pas retenu pour cette visite.",
+      "confirm": "Confirmer",
+      "cancel": "Annuler"
     }
   }
 }

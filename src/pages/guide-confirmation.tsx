@@ -4,6 +4,15 @@ import { useNavigate, useParams } from 'react-router';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Spinner } from '@/components/ui/spinner';
 import { getGuideInvitation, respondToInvitation } from '@/services/reservation';
 import type { BackendResponseError } from '@/types/api';
@@ -29,6 +38,7 @@ export default function GuideConfirmation() {
   const [failed, setFailed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<{ code: number; message: string } | null>(null);
+  const [pendingAction, setPendingAction] = useState<ReservationGuideAction | null>(null);
 
   const reservationId = Number(reservationIdParam);
   const hasValidId = Number.isInteger(reservationId) && reservationId > 0;
@@ -77,6 +87,7 @@ export default function GuideConfirmation() {
       toast.error(t('guideConfirmation.submitError'));
     } finally {
       setIsSubmitting(false);
+      setPendingAction(null);
     }
   };
 
@@ -167,14 +178,12 @@ export default function GuideConfirmation() {
       <section className="mt-8">
         {status === 'WAITING' ? (
           <div className="flex flex-wrap gap-3">
-            <Button onClick={() => respond('accept')} disabled={isSubmitting}>
-              {isSubmitting
-                ? t('guideConfirmation.actions.submitting')
-                : t('guideConfirmation.actions.accept')}
+            <Button onClick={() => setPendingAction('accept')} disabled={isSubmitting}>
+              {t('guideConfirmation.actions.accept')}
             </Button>
             <Button
               variant="outline"
-              onClick={() => respond('refuse')}
+              onClick={() => setPendingAction('refuse')}
               disabled={isSubmitting}
             >
               {t('guideConfirmation.actions.decline')}
@@ -186,6 +195,47 @@ export default function GuideConfirmation() {
           </p>
         )}
       </section>
+
+      <Dialog
+        open={pendingAction !== null}
+        onOpenChange={(open) => {
+          if (!open && !isSubmitting) setPendingAction(null);
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              {pendingAction === 'accept'
+                ? t('guideConfirmation.confirm.acceptTitle')
+                : t('guideConfirmation.confirm.declineTitle')}
+            </DialogTitle>
+            <DialogDescription>
+              {pendingAction === 'accept'
+                ? t('guideConfirmation.confirm.acceptDescription')
+                : t('guideConfirmation.confirm.declineDescription')}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose
+              render={
+                <Button variant="outline" disabled={isSubmitting}>
+                  {t('guideConfirmation.confirm.cancel')}
+                </Button>
+              }
+            />
+            <Button
+              disabled={isSubmitting}
+              onClick={() => {
+                if (pendingAction) respond(pendingAction);
+              }}
+            >
+              {isSubmitting
+                ? t('guideConfirmation.actions.submitting')
+                : t('guideConfirmation.confirm.confirm')}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </article>
   );
 }
