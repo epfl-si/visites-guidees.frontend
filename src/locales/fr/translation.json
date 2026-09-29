@@ -226,6 +226,10 @@
       "reason": "Motif",
       "from": "Du",
       "to": "Au"
+    },
+    "dashboard": {
+      "fetchError": "Impossible de récupérer les informations du guide",
+      "welcome": "Bonjour"
     }
   },
   "place": {
