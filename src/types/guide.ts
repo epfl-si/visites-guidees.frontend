@@ -1,6 +1,7 @@
 import type { GuideStatus } from "@/types/status";
 import type { Language } from "@/types/language";
 import type { User } from "@/types/user";
+import type { BlockedPeriod } from "@/types/blockedPeriod";
 
 export type Guide = {
   id: number;
@@ -8,4 +9,5 @@ export type Guide = {
   phone: string[];
   user: User;
   languages: Language[];
+  blockedPeriods: BlockedPeriod[]
 }

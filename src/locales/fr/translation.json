@@ -129,6 +129,10 @@
       "INACTIVE": "Inactif",
       "RETIRED": "Retiré",
       "SUSPENDED": "Suspendu"
+    },
+    "dashboard": {
+      "fetchError": "Impossible de récupérer les informations du guide",
+      "welcome": "Bonjour"
     }
   },
   "place": {

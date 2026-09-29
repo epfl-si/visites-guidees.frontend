@@ -12,3 +12,7 @@ export async function getGuides(): Promise<BackendResponse<Guide[]>> {
 export async function addGuide(sciper: number) {
   return await callBackend(`${VERSION}/${ENDPOINT}`, { "method": 'POST', "body": { "sciper": sciper } });
 }
+
+export async function getGuide(id: number): Promise<BackendResponse<Guide>> {
+  return await callBackend(`${VERSION}/${ENDPOINT}/${id}`);
+}
