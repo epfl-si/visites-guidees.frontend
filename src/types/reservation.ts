@@ -24,8 +24,19 @@ export type Reservation = {
   status: ReservationStatus;
   language: Language;
   place: Place
-  reservationGuides: { guide: Guide }[];
+  reservationGuides: ReservationGuide[];
 }
+
+export type ReservationGuideStatus =
+  | "WAITING"
+  | "ACCEPTED"
+  | "DECLINED"
+  | "CHOSEN";
+
+export type ReservationGuide = {
+  status: ReservationGuideStatus;
+  guide: Guide;
+};
 
 export type Reservations = {
   id: number;

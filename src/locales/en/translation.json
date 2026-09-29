@@ -110,6 +110,18 @@
       "waitingvalidation": "Pending validation",
       "waitingpayment": "Awaiting payment",
       "ready": "Ready"
+    },
+    "validate": {
+      "title": "Validate the visit",
+      "description_one": "Pick the guide who will run this guided tour.",
+      "description_other": "Pick the {{count}} guides who will run this guided tour.",
+      "legend": "Guides who accepted",
+      "selectedCount": "{{selected}} of {{required}} selected",
+      "noneAccepted": "No guide has accepted this visit yet.",
+      "confirm": "Validate",
+      "submitting": "Validating…",
+      "success": "The visit has been validated.",
+      "error": "The visit could not be validated. Please try again."
     }
   },
   "guide": {
