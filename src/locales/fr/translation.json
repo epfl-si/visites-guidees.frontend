@@ -185,7 +185,11 @@
         "submit": "Ajouter le guide"
       }
     },
-    "tableCaption": "Guides, filtrés par le champ de recherche et le filtre de statut"
+    "tableCaption": "Guides, filtrés par le champ de recherche et le filtre de statut",
+    "dashboard": {
+      "fetchError": "Impossible de récupérer les informations du guide",
+      "welcome": "Bonjour"
+    }
   },
   "place": {
     "title": "Lieux",

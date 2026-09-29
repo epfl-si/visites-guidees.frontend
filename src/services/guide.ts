@@ -19,3 +19,7 @@ export async function addGuide(guide: CreateGuide) {
     body: guide,
   })
 }
+
+export async function getGuide(id: number): Promise<BackendResponse<Guide>> {
+  return await callBackend(`${VERSION}/${ENDPOINT}/${id}`);
+}
