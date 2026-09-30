@@ -67,4 +67,5 @@ export const STATUS_ORDER: ReservationStatus[] = [
   "WAITINGVALIDATION",
   "WAITINGPAYMENT",
   "READY",
+  "CANCELLED",
 ]
