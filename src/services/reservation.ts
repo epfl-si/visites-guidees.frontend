@@ -1,18 +1,18 @@
 import { callBackend } from "@/lib/api";
-import type { RegistrationFormType } from "@/types/register";
+import type { RegistrationPayloadType } from "@/types/register";
 import type { Reservation } from "@/types/reservation";
 
 const VERSION = "v1";
 const ENDPOINT = "reservations";
 
 export async function postRegistration(
-  data: RegistrationFormType
+  data: RegistrationPayloadType
 ) {
   const url = `${VERSION}/${ENDPOINT}/`;
   if (!data) {
     throw new Error('Data is required to post registration');
   }
-  return await callBackend<RegistrationFormType>(url, {
+  return await callBackend<RegistrationPayloadType>(url, {
     method: 'POST',
     body: data
   });

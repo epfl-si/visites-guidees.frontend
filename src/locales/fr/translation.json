@@ -35,7 +35,8 @@
       "label": "Email"
     },
     "phone": {
-      "label": "Téléphone"
+      "label": "Téléphone",
+      "invalid": "Numéro invalide (format attendu : +41216931234)."
     },
     "address": {
       "label": "Adresse",
@@ -43,7 +44,8 @@
       "complementPlaceholder": "Complément d'adresse",
       "cityPlaceholder": "Ville",
       "regionPlaceholder": "Canton / Province / Région",
-      "postalCodePlaceholder": "Code postal"
+      "postalCodePlaceholder": "Code postal",
+      "countryInvalid": "Pays invalide."
     },
     "date": {
       "label": "Date souhaitée de la visite guidée",
@@ -52,12 +54,14 @@
       "invalid": "La date ou l'heure sélectionnée est invalide."
     },
     "participants": {
-      "label": "Nombre de participantes et de participants"
+      "label": "Nombre de participantes et de participants",
+      "min": "Au moins 1 participant·e."
     },
     "language": {
       "label": "Langue",
       "french": "Français",
-      "english": "Anglais"
+      "english": "Anglais",
+      "required": "Veuillez choisir une langue."
     },
     "comments": {
       "label": "Commentaires"
@@ -201,6 +205,12 @@
     "places": {
       "notFound": "Aucune place trouvée.",
       "loadError": "Les places n'ont pas pu être chargés. Veuillez réessayer plus tard."
+    }
+  },
+  "common": {
+    "validation": {
+      "required": "Ce champ est obligatoire.",
+      "invalidEmail": "Adresse email invalide."
     }
   }
 }
