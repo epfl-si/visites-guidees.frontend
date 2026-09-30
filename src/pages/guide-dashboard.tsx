@@ -1,5 +1,5 @@
 import { fetchConnectedUser } from "@/services/auth"
-import { getGuide } from "@/services/guide";
+import { getGuide, getVisitsByGuide } from "@/services/guide";
 import type { Guide } from "@/types/guide";
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next";
@@ -13,36 +13,55 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import type { Reservation } from "@/types/reservation";
 
 export default function GuideDashboard() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loadingGuide, setLoadingGuide] = useState<boolean>(true);
+  const [loadingVisits, setLoadingVisits] = useState<boolean>(true);
   const [guide, setGuide] = useState<Guide | null>(null);
-
+  const [visits, setVisits] = useState<Reservation[]>([]);
+  //const [reservations, setReservations] = useState<Reservation[]>([]);
 
   useEffect(() => {
     const fetchGuide = async () => {
       try {
         const user = await fetchConnectedUser();
         if (user.success) {
-          const guide = await getGuide(Number(user.data.sciper));
-          if (guide.success) {
-            setGuide(guide.data);
+          const guideRes = await getGuide(Number(user.data.sciper));
+          if (guideRes.success) {
+            setGuide(guideRes.data);
             return;
           }
         }
         navigate("/");
       } catch {
-        toast.error(t("guide.dashboard.fetchError"))
+        toast.error(t("guide.dashboard.fetchError"));
         navigate("/");
       } finally {
-        setLoading(false);
+        setLoadingGuide(false);
       }
-    }
+    };
+
     fetchGuide();
-  }, [t, guide, navigate])
+  }, [t, navigate]);
+
+  useEffect(() => {
+    const fetchVisits = async () => {
+      if (guide) {
+        getVisitsByGuide(guide.id)
+          .then((res) => {
+            if (res.success) {
+              setVisits(res.data);
+            }
+          })
+      }
+      setLoadingVisits(false);
+    };
+    fetchVisits();
+  }, [guide]);
 
 
 
@@ -58,7 +77,7 @@ export default function GuideDashboard() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -68,28 +87,9 @@ export default function GuideDashboard() {
               <Calendar className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">3</div>
-              <p className="text-xs text-muted-foreground">
-                Cette semaine
-              </p>
+              <div className="text-2xl font-bold">{visits.length}</div>
             </CardContent>
           </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Heures guidées
-              </CardTitle>
-              <Clock className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">12.5h</div>
-              <p className="text-xs text-muted-foreground">
-                Ce mois-ci
-              </p>
-            </CardContent>
-          </Card>
-
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
