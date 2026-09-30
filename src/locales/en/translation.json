@@ -34,7 +34,8 @@
       "label": "Email"
     },
     "phone": {
-      "label": "Phone"
+      "label": "Phone",
+      "invalid": "Invalid phone number (expected format: +41216931234)."
     },
     "address": {
       "label": "Address",
@@ -42,7 +43,8 @@
       "complementPlaceholder": "Address complement",
       "cityPlaceholder": "City",
       "regionPlaceholder": "Canton / Province / Region",
-      "postalCodePlaceholder": "Postal code"
+      "postalCodePlaceholder": "Postal code",
+      "countryInvalid": "Invalid country."
     },
     "date": {
       "label": "Desired date of the guided tour",
@@ -51,12 +53,14 @@
       "invalid": "The selected date or time is invalid."
     },
     "participants": {
-      "label": "Number of participants"
+      "label": "Number of participants",
+      "min": "At least 1 participant."
     },
     "language": {
       "label": "Language",
       "french": "French",
-      "english": "English"
+      "english": "English",
+      "required": "Please choose a language."
     },
     "comments": {
       "label": "Comments"
@@ -312,6 +316,12 @@
       "declineDescription": "You will not be considered for this visit.",
       "confirm": "Confirm",
       "cancel": "Cancel"
+    }
+  },
+  "common": {
+    "validation": {
+      "required": "This field is required.",
+      "invalidEmail": "Invalid email address."
     }
   }
 }
