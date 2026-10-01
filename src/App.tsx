@@ -110,10 +110,10 @@ export default function App() {
               >
                 <Route element={<AdminLayout />}>
                   <Route index element={<Admin />} />
-                  <Route path="reservation" element={<Reservations />} >
+                  <Route path="reservations" element={<Reservations />} >
                     <Route path=":id" element={<Reservation />} />
                   </Route>
-                  <Route path="guide" element={<Guides />} />
+                  <Route path="guides" element={<Guides />} />
                 </Route>
               </Route>
               <Route
