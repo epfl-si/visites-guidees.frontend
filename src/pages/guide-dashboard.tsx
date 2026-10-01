@@ -3,19 +3,13 @@ import { getGuide, getVisitsByGuide } from "@/services/guide";
 import type { Guide } from "@/types/guide";
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next";
-import { useNavigate, Link } from "react-router";
+import { useNavigate } from "react-router";
 import { NextVisitCard } from "@/components/guide/visitCard";
 import { toast } from "sonner"
 import {
   Calendar,
-  Clock,
   MapPin,
   Activity,
-  Users,
-  Globe,
-  User,
-  Building,
-  ArrowRight
 } from "lucide-react";
 import {
   Card,
@@ -24,15 +18,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import type { Reservation } from "@/types/reservation";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { Languages } from "@/types/language";
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 
 export default function GuideDashboard() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
-  const currentLang = i18n.resolvedLanguage as Languages;
 
   const [loadingGuide, setLoadingGuide] = useState<boolean>(true);
   const [loadingVisits, setLoadingVisits] = useState<boolean>(true);
@@ -81,8 +73,6 @@ export default function GuideDashboard() {
     };
     fetchVisits();
   }, [guide]);
-
-  const nextVisit = visits.length > 0 ? visits[0] : null;
 
   return (
     <div className="flex-1 flex-col overflow-y-auto bg-muted/10 p-8">
@@ -155,12 +145,26 @@ export default function GuideDashboard() {
         </Card>
       </div>
 
-      <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <NextVisitCard
-          visit={nextVisit}
-          loading={loadingVisits}
-          className="lg:col-span-4"
-        />
+      <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-6">
+        <Card className="lg:col-span-3 flex flex-col">
+            <CardHeader>
+              <CardTitle>Vos prochaines visites</CardTitle>
+              <CardDescription>Faites défiler pour voir vos visites à venir.</CardDescription>
+            </CardHeader>
+            <CardContent className="flex-1 px-14 pb-6">
+              <Carousel className="w-full">
+                <CarouselContent>
+                  {visits.map((visit) => (
+                    <CarouselItem key={visit.id}>
+                      <NextVisitCard visit={visit} loading={loadingVisits} />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
+            </CardContent>
+          </Card>
         <Card className="lg:col-span-3">
           <CardHeader>
             <CardTitle>Périodes bloquées</CardTitle>
