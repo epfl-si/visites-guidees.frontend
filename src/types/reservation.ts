@@ -41,6 +41,8 @@ export type ReservationStep = {
   reservationStatus: ReservationStatus;
 };
 
+export type ReservationGuideAction = "accept" | "refuse";
+
 export type ReservationGuideStatus =
   | "WAITING"
   | "ACCEPTED"
