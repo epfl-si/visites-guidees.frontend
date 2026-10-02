@@ -1,4 +1,5 @@
 import { callBackend } from "@/lib/api";
+import type { BackendResponse } from "@/types/api";
 import type { RegistrationFormType } from "@/types/register";
 import type { Reservation } from "@/types/reservation";
 
@@ -32,4 +33,14 @@ export async function getReservation(reservationId: number) {
   return await callBackend<Reservation>(`${VERSION}/${ENDPOINT}/${reservationId}`, {
     method: "GET",
   })
+}
+
+export async function validateReservation(
+  reservationId: number,
+  guideIds: number[],
+): Promise<BackendResponse<Reservation>> {
+  return await callBackend<Reservation>(
+    `${VERSION}/${ENDPOINT}/${reservationId}/validate`,
+    { method: 'POST', body: { guideIds } },
+  );
 }
