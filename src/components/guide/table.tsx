@@ -23,7 +23,7 @@ export const GuidesTable = ({ guides, setGuides, loading, error }: { guides: Gui
     <Card className="">
       <CardHeader className="flex items-center justify-between">
         <CardTitle>
-          {t("guide.label")}
+          <h2>{t("guide.label")}</h2>
         </CardTitle>
         <AddGuideDialog guides={guides} setGuides={setGuides} />
       </CardHeader>
@@ -42,7 +42,7 @@ export const GuidesTable = ({ guides, setGuides, loading, error }: { guides: Gui
             <TableBody>
               {loading ? (
                 Array.from({ length: 5 }).map((_, index) => (
-                  <TableRow key={index}>
+                  <TableRow key={index} aria-hidden="true">
                     <TableCell><Skeleton className="h-4 w-30" /></TableCell>
                     <TableCell><Skeleton className="h-4 w-45" /></TableCell>
                     <TableCell><Skeleton className="h-4 w-25" /></TableCell>
@@ -53,6 +53,7 @@ export const GuidesTable = ({ guides, setGuides, loading, error }: { guides: Gui
               ) : error ? (
                 <TableRow>
                   <TableCell
+                    role="alert"
                     colSpan={4}
                     className="h-66.25 text-center text-muted-foreground"
                   >

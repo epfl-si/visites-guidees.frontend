@@ -110,7 +110,9 @@
       "waitingvalidation": "Pending validation",
       "waitingpayment": "Awaiting payment",
       "ready": "Ready"
-    }
+    },
+    "tableCaption": "Reservations, filtered by the search field and the status filter",
+    "openDetails": "Open the reservation of {{name}}"
   },
   "guide": {
     "title": "The guides",
@@ -181,7 +183,8 @@
         "edit": "Edit",
         "submit": "Add the guide"
       }
-    }
+    },
+    "tableCaption": "Guides, filtered by the search field and the status filter"
   },
   "place": {
     "title": "Places",
@@ -197,7 +200,9 @@
     "status": "Status",
     "name": "Name",
     "phoneNumber": "Phone number",
-    "language": "Language(s)"
+    "language": "Language(s)",
+    "search": "Search",
+    "filterStatus": "Filter by status"
   },
   "errors": {
     "generic": {
@@ -255,10 +260,12 @@
     "select": "Select"
   },
   "admin": {
+    "title": "Admin dashboard",
     "nav": {
       "dashboard": "Dashboard",
       "reservations": "Reservations",
-      "guides": "Guides"
+      "guides": "Guides",
+      "label": "Back office sections"
     },
     "reservations": {
       "notFound": "No reservation found.",

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Empty, EmptyHeader, EmptyDescription, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { User, Search } from "lucide-react";
 import { getGuides } from "@/services/guide";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useTranslation } from "react-i18next";
 import { GUIDE_STATUS } from "@/constants/status";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
@@ -91,8 +91,12 @@ export default function Guides() {
         <div className="flex flex-col gap-6">
           <div className="flex gap-4">
             <div className="relative flex-1 gap-3 flex items-center">
-              <Search className="absolute left-3 h-4 w-4 text-muted-foreground pointer-events-none shrink-0" />
+              <label htmlFor="guide-search" className="sr-only">
+                {t("table.search", "Search a guide")}
+              </label>
+              <Search aria-hidden="true" className="absolute left-3 h-4 w-4 text-muted-foreground pointer-events-none shrink-0" />
               <input
+              id="guide-search"
               type="search"
               value={inputSearch}
               onChange={(e) => setInputSearch(e.target.value)}
@@ -103,7 +107,7 @@ export default function Guides() {
                 value={statusFilter}
                 onValueChange={(val) => setStatusFilter(val ?? "ALL")}
               >
-                <SelectTrigger className="w-30 h-full shrink-0 bg-background">
+                <SelectTrigger aria-label={t("table.filterStatus", "Filtrer par statut")} className="w-30 h-full shrink-0 bg-background">
                   <SelectValue placeholder={t("table.filterStatus", "Filtrer par statut")}>
                     {getSelectedLabel()}
                   </SelectValue>
@@ -123,6 +127,7 @@ export default function Guides() {
             </div>
           </div>
           <Table className="border border-border bg-background">
+            <TableCaption className="sr-only">{t("guide.tableCaption")}</TableCaption>
             <TableHeader>
               <TableRow className="bg-muted/50">
                 <TableHead>{t("table.name")}</TableHead>
@@ -135,9 +140,10 @@ export default function Guides() {
             <TableBody>
               {loading ? (
                 Array.from({ length: 5 }).map((_, index) => (
-                  <TableRow key={index}>
+                  <TableRow key={index} aria-hidden="true">
                     <TableCell><Skeleton className="h-4 w-30" /></TableCell>
                     <TableCell><Skeleton className="h-4 w-45" /></TableCell>
+                    <TableCell><Skeleton className="h-4 w-25" /></TableCell>
                     <TableCell><Skeleton className="h-4 w-25" /></TableCell>
                     <TableCell><Skeleton className="h-6 w-27" /></TableCell>
                   </TableRow>
@@ -145,7 +151,8 @@ export default function Guides() {
               ) : error ? (
                 <TableRow>
                   <TableCell
-                    colSpan={4}
+                    role="alert"
+                    colSpan={5}
                     className="h-66.25 text-center text-muted-foreground"
                   >
                     {t("admin.guides.loadError")}
@@ -154,13 +161,13 @@ export default function Guides() {
               ) : guides.length === 0 ? (
                 <TableRow>
                   <TableCell
-                    colSpan={4}
+                    colSpan={5}
                     className="h-66.25 text-center text-muted-foreground"
                   >
                     <Empty>
                       <EmptyHeader>
                         <EmptyMedia variant="icon">
-                          <User />
+                          <User aria-hidden="true" />
                         </EmptyMedia>
                         <EmptyTitle>{t("guide.notFound")}</EmptyTitle>
                         <EmptyDescription>
@@ -208,17 +215,19 @@ export default function Guides() {
                           )}
                         </div>
                       </TableCell>
-                      <TableCell className="flex gap-1">{guide.languages.map((lang) => (
+                      <TableCell>
+                        <div className="flex gap-1">{guide.languages.map((lang) => (
                         <HoverCard key={lang.id}>
                           <HoverCardTrigger delay={10} closeDelay={100} render={<Badge variant="outline" className="hover:bg-red-300 hover:text-red-500 ">{lang.code}</Badge>} />
                           <HoverCardContent className="w-auto">
                             <div className="flex justify-center">{lang.name}</div>
                           </HoverCardContent>
                         </HoverCard>
-                      ))}</TableCell>
+                      ))}</div>
+                      </TableCell>
                       <TableCell>
                         <div className={`flex items-center gap-2 ${statusConfig.colorClass}`}>
-                          <StatusIcon className="w-4 h-4" />
+                          <StatusIcon aria-hidden="true" className="w-4 h-4" />
                           <span className="text-sm font-medium">
                             {t(statusConfig.labelKey)}
                           </span>
