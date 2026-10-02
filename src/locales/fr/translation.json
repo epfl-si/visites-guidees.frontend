@@ -236,7 +236,8 @@
     "nav": {
       "dashboard": "Tableau de bord",
       "reservations": "Reservations",
-      "guides": "Guides"
+      "guides": "Guides",
+      "places": "Lieux"
     },
     "reservations": {
       "notFound": "Aucune reservation trouvée.",

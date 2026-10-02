@@ -6,11 +6,13 @@ import type { BackendResponse } from "@/types/api";
 const VERSION = "v1";
 const ENDPOINT = "places";
 
-export async function getPlaces(): Promise<BackendResponse<Place[]>> {
-  const response = await callBackend<Place[]>(`${VERSION}/${ENDPOINT}`, {
-    method: 'GET',
-  });
-  return response;
+export async function getPlaces(includeLanguages: true): Promise<BackendResponse<PlaceInformationType[]>>;
+export async function getPlaces(includeLanguages?: false): Promise<BackendResponse<Place[]>>;
+export async function getPlaces(includeLanguages = false): Promise<BackendResponse<Place[] | PlaceInformationType[]>> {
+  return callBackend<Place[] | PlaceInformationType[]>(
+    `${VERSION}/${ENDPOINT}${includeLanguages ? '?includeLanguage=true' : ''}`,
+    {method: 'GET'},
+  );
 }
 
 export async function getPlaceById(placeId: number) {

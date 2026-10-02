@@ -190,7 +190,8 @@
     "status": "Status",
     "name": "Name",
     "phoneNumber": "Phone number",
-    "language": "Language(s)"
+    "language": "Language(s)",
+    "picture": "Picture"
   },
   "errors": {
     "generic": {
@@ -235,7 +236,8 @@
     "nav": {
       "dashboard": "Dashboard",
       "reservations": "Reservations",
-      "guides": "Guides"
+      "guides": "Guides",
+      "places": "Places"
     },
     "reservations": {
       "notFound": "No reservation found.",
