@@ -83,13 +83,12 @@ export default function App() {
               path="*"
               element={
                 <ErrorPage
-                  errorCode={400}
+                  errorCode={404}
                   message="errors.notFound.generic.title"
                 />
               }
             />
             {"errors.generic"}
-            // Set the message
             <Route path="/" element={<Page />} />
             {registrationSegments.map((segment) => (
               <Route
@@ -98,7 +97,7 @@ export default function App() {
                 element={<Registration />}
               />
             ))}
-            <Route element={<RequireAuth oidc={oidc} />}>
+            <Route path="/admin" element={<RequireAuth oidc={oidc} />}>
               <Route
                 element={
                   <RequireRole
@@ -109,14 +108,11 @@ export default function App() {
                 }
               >
                 <Route element={<AdminLayout />}>
-                  {/* All routes that here require admin permission */}
-                  <Route path="/admin" element={<Admin />} />
-                  <Route path="/admin/reservation" element={<Reservations />} />
-                  <Route
-                    path="/admin/reservation/:id"
-                    element={<Reservation />}
-                  />
-                  <Route path="/admin/guide" element={<Guides />} />
+                  <Route index element={<Admin />} />
+                  <Route path="reservations" element={<Reservations />} >
+                    <Route path=":id" element={<Reservation />} />
+                  </Route>
+                  <Route path="guides" element={<Guides />} />
                 </Route>
               </Route>
             </Route>

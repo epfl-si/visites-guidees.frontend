@@ -10,8 +10,8 @@ export function AdminNav() {
 
   const NAV_ITEMS = [
     { href: "/admin", label: t("admin.nav.dashboard"), Icon: LayoutPanelLeft },
-    { href: "/admin/reservation", label: t("admin.nav.reservations"), Icon: Calendar },
-    { href: "/admin/guide", label: t("admin.nav.guides"), Icon: User },
+    { href: "/admin/reservations", label: t("admin.nav.reservations"), Icon: Calendar },
+    { href: "/admin/guides", label: t("admin.nav.guides"), Icon: User },
   ];
 
   return (
