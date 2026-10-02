@@ -5,8 +5,9 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
+import { ApiError } from '@/lib/api';
 import { getGuideInvitation, respondToInvitation } from '@/services/reservation';
-import type { GuideInvitation } from '@/types/reservation';
+import type { GuideInvitation, ReservationGuideAction } from '@/types/reservation';
 
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (
@@ -36,24 +37,24 @@ export default function GuideConfirmation() {
       .then(setInvitation)
       .catch((error) => {
         console.error('getGuideInvitation Error', error);
-        toast.error(t('guideConfirmation.loadError'));
+        toast.error(messageFor(error, t, 'guideConfirmation.loadError'));
         setFailed(true);
       });
   }, [hasValidId, reservationId, t]);
 
-  const respond = async (status: 'ACCEPTED' | 'DECLINED') => {
+  const respond = async (action: ReservationGuideAction) => {
     setIsSubmitting(true);
     try {
-      const updated = await respondToInvitation(reservationId, status);
-      setInvitation(updated);
+      await respondToInvitation(reservationId, action);
+      setInvitation(await getGuideInvitation(reservationId));
       toast.success(
-        status === 'ACCEPTED'
+        action === 'accept'
           ? t('guideConfirmation.acceptSuccess')
           : t('guideConfirmation.declineSuccess'),
       );
     } catch (error) {
       console.error('respondToInvitation Error', error);
-      toast.error(t('guideConfirmation.submitError'));
+      toast.error(messageFor(error, t, 'guideConfirmation.submitError'));
     } finally {
       setIsSubmitting(false);
     }
@@ -89,7 +90,6 @@ export default function GuideConfirmation() {
   const { reservation, status } = invitation;
   const visitDate = new Date(reservation.date);
   const placeTitle = reservation.place.title[language] ?? reservation.place.title.en;
-  const hasAnswered = status === 'ACCEPTED' || status === 'DECLINED';
 
   return (
     <article className="mx-auto w-full max-w-2xl px-4 py-10">
@@ -143,39 +143,41 @@ export default function GuideConfirmation() {
       </Card>
 
       <section className="mt-8">
-        {status === 'CHOSEN' && (
-          <p role="status" className="text-epfl-canard">
-            {t('guideConfirmation.status.chosen')}
-          </p>
-        )}
-
-        {status === 'WAITING' && (
+        {status === 'WAITING' ? (
           <div className="flex flex-wrap gap-3">
-            <Button onClick={() => respond('ACCEPTED')} disabled={isSubmitting}>
+            <Button onClick={() => respond('accept')} disabled={isSubmitting}>
               {isSubmitting
                 ? t('guideConfirmation.actions.submitting')
                 : t('guideConfirmation.actions.accept')}
             </Button>
             <Button
               variant="outline"
-              onClick={() => respond('DECLINED')}
+              onClick={() => respond('refuse')}
               disabled={isSubmitting}
             >
               {t('guideConfirmation.actions.decline')}
             </Button>
           </div>
-        )}
-
-        {hasAnswered && (
-          <div className="flex flex-col gap-3">
-            <p role="status">
-              {status === 'ACCEPTED'
-                ? t('guideConfirmation.status.accepted')
-                : t('guideConfirmation.status.declined')}
-            </p>
-          </div>
+        ) : (
+          <p role="status" className={status === 'CHOSEN' ? 'text-epfl-canard' : undefined}>
+            {t(`guideConfirmation.status.${status.toLowerCase()}`)}
+          </p>
         )}
       </section>
     </article>
   );
+}
+
+function messageFor(
+  error: unknown,
+  t: (key: string) => string,
+  fallbackKey: string,
+): string {
+  if (error instanceof ApiError && error.status === 403) {
+    return t('guideConfirmation.forbidden');
+  }
+  if (error instanceof ApiError && error.status === 404) {
+    return t('guideConfirmation.notInvited');
+  }
+  return t(fallbackKey);
 }
