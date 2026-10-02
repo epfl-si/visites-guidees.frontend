@@ -7,7 +7,6 @@ export function setGlobalAccessToken(token: string | null) {
   globalAccessToken = token;
 };
 
-
 let onUnauthorized: (() => void) | null = null;
 
 export function setUnauthorizedHandler(handler: (() => void) | null) {
@@ -44,17 +43,6 @@ export async function call<T>(url: string, options: ApiCallOptions = {}): Promis
 
   const body = await response.json().catch(() => null);
 
-  if (body === null) {
-    return {
-      success: false,
-      code: response.status,
-      message: [`No readable body from ${url}`],
-      error: 'InvalidResponse',
-      timestamp: new Date().toISOString(),
-      requestId: 'unknown',
-    } as T;
-  }
-
   return body as T;
 }
 
@@ -64,7 +52,9 @@ export async function callBackend<T>(
   endpoint: string,
   options: ApiCallOptions = {},
 ): Promise<BackendResponse<T>> {
-  const data = await call<BackendResponse<T>>(`${BACKEND_URL}${endpoint}`, options);
+  const data = await call<BackendResponse<T>>(`${BACKEND_URL}${endpoint}`, options)
+
+  if (!data) throw new Error(`No response from backend`);
 
   if (!data.success && data.code === 401) {
     onUnauthorized?.();
