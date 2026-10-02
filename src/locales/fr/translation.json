@@ -111,7 +111,9 @@
       "waitingvalidation": "En attente de validation",
       "waitingpayment": "En attente de payment",
       "ready": "Prêt"
-    }
+    },
+    "tableCaption": "Réservations, filtrées par le champ de recherche et le filtre de statut",
+    "openDetails": "Ouvrir la réservation de {{name}}"
   },
   "guide": {
     "title": "Les guides",
@@ -182,7 +184,8 @@
         "edit": "Modifier",
         "submit": "Ajouter le guide"
       }
-    }
+    },
+    "tableCaption": "Guides, filtrés par le champ de recherche et le filtre de statut"
   },
   "place": {
     "title": "Lieux",
@@ -198,7 +201,9 @@
     "status": "Statut",
     "name": "Nom",
     "phoneNumber": "Numéro de téléphone",
-    "language": "Langue(s)"
+    "language": "Langue(s)",
+    "search": "Rechercher",
+    "filterStatus": "Filtrer par statut"
   },
   "errors": {
     "generic": {
@@ -256,10 +261,12 @@
     "select": "Choisir"
   },
   "admin": {
+    "title": "Tableau de bord",
     "nav": {
       "dashboard": "Tableau de bord",
       "reservations": "Reservations",
-      "guides": "Guides"
+      "guides": "Guides",
+      "label": "Sections du back-office"
     },
     "reservations": {
       "notFound": "Aucune reservation trouvée.",

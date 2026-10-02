@@ -18,7 +18,9 @@ export const Reservations = ({ reservations, loading, error }: { reservations: R
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t("reservation.title")}</CardTitle>
+        <CardTitle>
+          <h2>{t("reservation.title")}</h2>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="border">
@@ -34,7 +36,7 @@ export const Reservations = ({ reservations, loading, error }: { reservations: R
             <TableBody>
               {loading ? (
                 Array.from({ length: 5 }).map((_, index) => (
-                  <TableRow key={index}>
+                  <TableRow key={index} aria-hidden="true">
                     <TableCell><Skeleton className="h-4 w-30" /></TableCell>
                     <TableCell><Skeleton className="h-4 w-45" /></TableCell>
                     <TableCell><Skeleton className="h-4 w-25" /></TableCell>
@@ -44,6 +46,7 @@ export const Reservations = ({ reservations, loading, error }: { reservations: R
               ) : error ? (
                 <TableRow>
                   <TableCell
+                    role="alert"
                     colSpan={4}
                     className="h-66.25 text-center text-muted-foreground"
                   >
