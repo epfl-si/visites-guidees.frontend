@@ -112,10 +112,6 @@ export default function App() {
                   <Route path="/admin" element={<Admin />} />
                   <Route path="/admin/reservation" element={<Reservations />} />
                   <Route path="/admin/reservation/:id" element={<Reservation />} />
-                  <Route
-                    path="/admin/reservation/:id"
-                    element={<Reservation />}
-                  />
                   <Route path="/admin/guide" element={<Guides />} />
                 </Route>
               </Route>
