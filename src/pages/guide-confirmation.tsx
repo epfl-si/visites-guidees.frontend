@@ -44,11 +44,7 @@ export default function GuideConfirmation() {
   const hasValidId = Number.isInteger(reservationId) && reservationId > 0;
 
   useEffect(() => {
-    if (!hasValidId) {
-      setFailed(true);
-      setError({ code: 400, message: 'errors.invalidReservationId.title' });
-      return;
-    }
+    if (!hasValidId) return;
 
     getGuideInvitation(reservationId)
       .then((res) => {
@@ -67,6 +63,10 @@ export default function GuideConfirmation() {
         setError({ code: 503, message: 'errors.invitationLoad.title' });
       });
   }, [hasValidId, reservationId, t]);
+
+  if (!hasValidId) {
+    return <ErrorPage errorCode={400} message="errors.invalidReservationId.title" />;
+  }
 
   const respond = async (action: ReservationGuideAction) => {
     setIsSubmitting(true);
