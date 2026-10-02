@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { SVG, TOTAL_SVG_LENGTH, TARGET_DISTANCES, COORDINATES } from "@/constants/workflow";
 import { Empty, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { Card } from "../ui/card";
+import { HandlePayment } from "@/components/reservations/handle-payment";
 
 export function SnakeStatus({ status }: { status: ReservationStatus }) {
   const { t } = useTranslation();
@@ -110,6 +111,7 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
                 </p>
               </div>
             ))}
+              <HandlePayment reservationId={23}/>
           </div>
         </div>
       )}
