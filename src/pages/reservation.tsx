@@ -268,11 +268,18 @@ export default function Reservation() {
             </section>
             )}
         </div>
-        <div className="flex flex-col gap-6 lg:flex-row-reverse lg:items-start">
-          <SnakeStatus status={reservation.status} />
-          <ValidateReservation
-            reservation={reservation}
-            onValidated={setReservation}
+        <div>
+          <SnakeStatus
+            status={reservation.status}
+            panels={{
+              WAITINGVALIDATION: (
+                <ValidateReservation
+                  reservation={reservation}
+                  onValidated={setReservation}
+                />
+              ),
+              //ex: WAITINGPAYMENT: (<ValidationPayment />)
+            }}
           />
         </div>
       </div>
