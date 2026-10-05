@@ -28,6 +28,17 @@ export type Reservation = {
   reservationGuides: { guide: Guide }[];
 }
 
+export type ReservationGuideStatus =
+  | "WAITING"
+  | "ACCEPTED"
+  | "DECLINED"
+  | "CHOSEN";
+
+export type ReservationGuide = {
+  status: ReservationGuideStatus;
+  guide: Guide;
+};
+
 export type Reservations = {
   id: number;
   company: string;
@@ -43,12 +54,6 @@ export type ReservationStep = {
 };
 
 export type ReservationGuideAction = "accept" | "refuse";
-
-export type ReservationGuideStatus =
-  | "WAITING"
-  | "ACCEPTED"
-  | "DECLINED"
-  | "CHOSEN";
 
 export type GuideInvitation = {
   reservationId: number;
