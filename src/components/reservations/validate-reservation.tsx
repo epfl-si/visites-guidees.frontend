@@ -20,8 +20,6 @@ export function ValidateReservation({
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  if (reservation.status !== "WAITINGVALIDATION") return null;
-
   const accepted = reservation.reservationGuides.filter(
     (assignment) => assignment.status === "ACCEPTED",
   );
