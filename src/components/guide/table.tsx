@@ -54,7 +54,7 @@ export const GuidesTable = ({ guides, setGuides, loading, error }: { guides: Gui
                 <TableRow>
                   <TableCell
                     role="alert"
-                    colSpan={4}
+                    colSpan={5}
                     className="h-66.25 text-center text-muted-foreground"
                   >
                     {t("admin.guides.loadError")}

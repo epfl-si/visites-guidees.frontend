@@ -47,7 +47,7 @@ export const PlacesTable = ({ places, loading, error }: { places: Place[], loadi
                 <TableRow>
                   <TableCell
                     role="alert"
-                    colSpan={4}
+                    colSpan={3}
                     className="h-66.25 text-center text-muted-foreground"
                   >
                     {t("admin.places.loadError")}
