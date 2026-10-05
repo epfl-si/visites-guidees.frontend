@@ -1,11 +1,12 @@
 import { Calendar, LayoutPanelLeft, User } from "lucide-react";
-import { NavLink } from "react-router";
+import { NavLink, useLocation } from "react-router";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import { Sidebar, SidebarContent } from "@/components/ui/sidebar";
 
 export function AdminNav() {
   const { t } = useTranslation();
+  const { pathname } = useLocation();
 
   const NAV_ITEMS = [
     { href: "/admin", label: t("admin.nav.dashboard"), Icon: LayoutPanelLeft },
@@ -26,7 +27,7 @@ export function AdminNav() {
                   className={({ isActive }) => cn(
                     "flex items-center gap-2 px-3 py-2 text-sm rounded-sm transition-colors",
                     "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-                    isActive
+                    isActive || pathname === `${href}/`
                       ? "bg-secondary text-foreground font-medium"
                       : "text-muted-foreground hover:bg-secondary hover:text-foreground",
                   )}
