@@ -28,6 +28,11 @@ export type Reservation = {
   reservationGuides: { guide: Guide }[];
 }
 
+export type ReservationGuide = {
+  status: ReservationGuideStatus;
+  guide: Guide;
+};
+
 export type Reservations = {
   id: number;
   company: string;
