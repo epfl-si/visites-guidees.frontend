@@ -20,6 +20,7 @@ import {
   UserKeyIcon
 } from "lucide-react";
 import { SnakeStatus } from "@/components/reservations/snake-status";
+import { ValidateReservation } from "@/components/reservations/validate-reservation";
 import { getReservation } from "@/services/reservation";
 import { LoadingPage } from "./Loading";
 import { Empty, EmptyHeader, EmptyDescription, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
@@ -267,8 +268,12 @@ export default function Reservation() {
             </section>
             )}
         </div>
-        <div className="lg:col-span-2 space-y-6">
+        <div className="flex flex-col gap-6 lg:flex-row-reverse lg:items-start">
           <SnakeStatus status={reservation.status} />
+          <ValidateReservation
+            reservation={reservation}
+            onValidated={setReservation}
+          />
         </div>
       </div>
     </div>
