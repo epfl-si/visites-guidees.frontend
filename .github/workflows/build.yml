@@ -53,7 +53,7 @@ jobs:
 
       - name: Push image
         run: |
-          IMAGE_ID=$(echo "quay-its.epfl.ch/svc0176/visites-guidees-frontend")
+          IMAGE_ID="quay-its.epfl.ch/svc0176/visites-guidees-frontend"
           TAG=${{ inputs.tag }}
           echo "Push image $IMAGE_ID:$TAG"
 
