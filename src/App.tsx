@@ -110,7 +110,8 @@ export default function App() {
               >
                 <Route element={<AdminLayout />}>
                   <Route index element={<Admin />} />
-                  <Route path="reservations" element={<Reservations />} >
+                  <Route path="reservations" >
+                    <Route index element={<Reservations />}/>
                     <Route path=":id" element={<Reservation />} />
                   </Route>
                   <Route path="guides" element={<Guides />} />
@@ -126,7 +127,7 @@ export default function App() {
                 }
               >
                 <Route
-                  path="/guide/reservations/:reservationId"
+                  path="guide/reservations/:reservationId"
                   element={<GuideConfirmation />}
                 />
               </Route>
