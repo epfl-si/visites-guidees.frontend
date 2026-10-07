@@ -268,7 +268,10 @@ export default function Reservation() {
             )}
         </div>
         <div className="lg:col-span-2 space-y-6">
-          <SnakeStatus status={reservation.status} />
+          <SnakeStatus
+            reservation={reservation}
+            updateReservation={setReservation}
+          />
         </div>
       </div>
     </div>

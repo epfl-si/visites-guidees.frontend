@@ -1,18 +1,24 @@
 import { useMemo, useState, useEffect } from "react";
 import { Check, CircleX } from "lucide-react";
-import type { ReservationStatus } from "@/types/status";
 import { useTranslation } from "react-i18next";
 import { STATUS_ORDER } from "@/constants/status";
-import type { ReservationStep } from "@/types/reservation";
+import type { Reservation, ReservationStep } from "@/types/reservation";
 import type { StepStatus } from "@/types/status";
 import { cn } from "@/lib/utils";
 import { SVG, TOTAL_SVG_LENGTH, TARGET_DISTANCES, COORDINATES } from "@/constants/workflow";
 import { Empty, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
-import { Card } from "../ui/card";
+import { Card } from "@/components/ui/card";
+import { ValidatePayment } from "@/components/reservations/validate-payment";
 
-export function SnakeStatus({ status }: { status: ReservationStatus }) {
+export function SnakeStatus({
+  reservation,
+  updateReservation,
+}: {
+  reservation: Reservation,
+  updateReservation: (reservation: Reservation) => void;
+}) {
   const { t } = useTranslation();
-  const currentIndex = STATUS_ORDER.indexOf(status);
+  const currentIndex = STATUS_ORDER.indexOf(reservation.status);
 
   const steps: ReservationStep[] = useMemo(() => {
     const positiveStatuses = STATUS_ORDER.filter(s => s !== "CANCELLED");
@@ -48,7 +54,7 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
 
   return (
     <div className="relative mx-auto my-10 w-full max-w-sm aspect-4/6">
-      {status === "CANCELLED" ? (
+      {reservation.status === "CANCELLED" ? (
         <Card>
           <Empty>
             <EmptyHeader>
@@ -97,17 +103,25 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
                   {step.status === "in-progress" && <div className="h-3 w-3 animate-pulse rounded-full bg-epfl-red" />}
                 </div>
 
-                <p className={cn(
+                <div className={cn(
                   "absolute text-sm font-medium leading-tight",
                   i === steps.length - 1
                   ? "top-full mt-3 left-1/2 -translate-x-1/2 whitespace-nowrap text-center text-foreground"
                   : cn(
-                      "top-1/2 -translate-y-1/2 w-28",
+                      "top-1/2 -translate-y-1/2 w-32",
                       i % 2 === 0 ? "left-full ml-4 text-left" : "right-full mr-4 text-right"
                     )
                 )}>
-                  {step.label}
-                </p>
+                  <span className="block">{step.label}</span>
+                  {step.reservationStatus === "WAITINGPAYMENT" && reservation.status === "WAITINGPAYMENT" && (
+                    <div className="absolute top-1/2 -translate-y-1/2 w-68 right-full mr-20">
+                      <ValidatePayment
+                        reservation={reservation}
+                        updateReservation={updateReservation}
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
           </div>
