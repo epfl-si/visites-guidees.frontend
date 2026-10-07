@@ -112,7 +112,17 @@
       "ready": "Ready"
     },
     "tableCaption": "Reservations, filtered by the search field and the status filter",
-    "openDetails": "Open the reservation of {{name}}"
+    "openDetails": "Open the reservation of {{name}}",
+    "handlePayment": {
+      "title": "Validate payment",
+      "description": "Would you confirm the payment ?",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "errorValidate": "Failed to validate payment",
+      "successValidate": "The payment of reservation has been validate successfully",
+      "errorCancel": "Failed to cancel reservation",
+      "successCancel": "The reservation has been cancel successfully"
+    }
   },
   "guide": {
     "title": "The guides",

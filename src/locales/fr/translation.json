@@ -113,7 +113,17 @@
       "ready": "Prêt"
     },
     "tableCaption": "Réservations, filtrées par le champ de recherche et le filtre de statut",
-    "openDetails": "Ouvrir la réservation de {{name}}"
+    "openDetails": "Ouvrir la réservation de {{name}}",
+    "handlePayment": {
+      "title": "Confirmer le payment",
+      "description": "Voulez vous confirmer le payment ?",
+      "cancel": "Annuler",
+      "confirm": "Confirmer",
+      "errorValidate": "Impossible de valider le payment",
+      "successValidate": "Le payment a bien été confirmé",
+      "errorCancel": "Impossible d'annuler la réservation",
+      "successCancel": "La réservation a bien été annulée"
+    }
   },
   "guide": {
     "title": "Les guides",
