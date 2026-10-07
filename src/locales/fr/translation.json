@@ -111,6 +111,16 @@
       "waitingvalidation": "En attente de validation",
       "waitingpayment": "En attente de payment",
       "ready": "Prêt"
+    },
+    "handlePayment": {
+      "title": "Confirmer le payment",
+      "description": "Voulez vous confirmer le payment ?",
+      "cancel": "Annuler",
+      "confirm": "Confirmer",
+      "errorValidate": "Impossible de valider le payment",
+      "successValidate": "Le payment a bien été confirmé",
+      "errorCancel": "Impossible d'annuler la réservation",
+      "successCancel": "La réservation a bien été annulée"
     }
   },
   "guide": {

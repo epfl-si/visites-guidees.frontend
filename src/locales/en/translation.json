@@ -110,6 +110,16 @@
       "waitingvalidation": "Pending validation",
       "waitingpayment": "Awaiting payment",
       "ready": "Ready"
+    },
+    "handlePayment": {
+      "title": "Validate payment",
+      "description": "Would you confirm the payment ?",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "errorValidate": "Failed to validate payment",
+      "successValidate": "The payment of reservation has been validate successfully",
+      "errorCancel": "Failed to cancel reservation",
+      "successCancel": "The reservation has been cancel successfully"
     }
   },
   "guide": {

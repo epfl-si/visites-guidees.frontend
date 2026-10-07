@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 
 export function ValidatePayment({
   reservation,
@@ -15,6 +16,8 @@ export function ValidatePayment({
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const { t } = useTranslation();
+
   const validate = async () => {
     if (isSubmitting) return;
 
@@ -22,14 +25,14 @@ export function ValidatePayment({
     validatePayment(reservation.id)
       .then((res) => {
         if (!res.success) {
-          toast.error("Failed to validate payment");
+          toast.error(t("reservation.handlePayment.errorValidate"));
           return;
         }
         updateReservation(res.data);
-        toast.success("The payment of reservation has been validate successfully")
+        toast.success(t("reservation.handlePayment.successValidate"))
       })
       .catch(() => {
-        toast.error("Failed to validate payment")
+        toast.error(t("reservation.handlePayment.errorValidate"))
       })
       .finally(() => setIsSubmitting(false))
   };
@@ -41,36 +44,36 @@ export function ValidatePayment({
     cancelReservation(reservation.id)
       .then((res) => {
         if (!res.success) {
-          toast.error("Failed to cancel reservation")
+          toast.error(t("reservation.handlePayment.errorCancel"))
           return;
         }
         updateReservation(res.data);
-        toast.success("This reservation has been canceled successfully");
+        toast.success(t("reservation.handlePayment.successCancel"));
       })
-      .catch(() => toast.error("Failed to cancel reservation"))
+      .catch(() => toast.error(t("reservation.handlePayment.errorCancel")))
       .finally(() => setIsSubmitting(false))
   }
 
   return (
-    <Card className="h-42 w-60">
+    <Card className="h-42 w-66">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <CreditCard aria-hidden="true" className="h-5 w-5 text-purple-600"/>
           <p className="text-lg font-medium">
-            Validate payment
+            {t("reservation.handlePayment.title")}
           </p>
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col gap-3 mr-2">
+      <CardContent className="flex flex-col gap-4 mr-2">
         <p>
-          Would you confirm the payment ?
+          {t("reservation.handlePayment.description")}
         </p>
         <div className="flex justify-between">
           <Button onClick={cancel} variant="destructive" className="w-19" disabled={isSubmitting}>
-            Cancel
+            {t("reservation.handlePayment.cancel")}
           </Button>
-          <Button onClick={validate} className="w-19" disabled={isSubmitting}>
-            Confirm
+          <Button onClick={validate} className="w-20" disabled={isSubmitting}>
+            {t("reservation.handlePayment.confirm")}
           </Button>
         </div>
       </CardContent>
