@@ -97,7 +97,7 @@ export default function Reservation() {
           <div className="min-w-0 space-y-1.5">
             <div className="flex items-center gap-3">
               <Link
-                to="/admin/reservation"
+                to="/admin/reservations"
                 className="text-muted-foreground hover:text-foreground transition-colors shrink-0"
               >
                 <ArrowLeft className="h-5 w-5" />
