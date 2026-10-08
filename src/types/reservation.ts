@@ -25,7 +25,12 @@ export type Reservation = {
   language: Language;
   place: Place
   comment: string | null;
-  reservationGuides: { guide: Guide }[];
+  reservationGuides: ReservationGuides[];
+}
+
+export type ReservationGuides = {
+  status: ReservationGuideStatus;
+  guide: Guide;
 }
 
 export type Reservations = {

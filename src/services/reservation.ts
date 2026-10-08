@@ -70,3 +70,13 @@ export async function cancelReservation(reservationId: number): Promise<BackendR
     { method: 'POST' },
   );
 }
+
+export async function validateReservation(
+  reservationId: number,
+  guideIds: number[],
+): Promise<BackendResponse<Reservation>> {
+  return await callBackend<Reservation>(
+    `${VERSION}/${ENDPOINT}/${reservationId}/validate`,
+    { method: 'POST', body: { guideIds } },
+  );
+}

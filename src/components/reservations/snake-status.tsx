@@ -9,6 +9,7 @@ import { SVG, TOTAL_SVG_LENGTH, TARGET_DISTANCES, COORDINATES } from "@/constant
 import { Empty, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { Card } from "@/components/ui/card";
 import { ValidatePayment } from "@/components/reservations/validate-payment";
+import { ValidateReservation } from "./validate-guide";
 
 export function SnakeStatus({
   reservation,
@@ -118,6 +119,14 @@ export function SnakeStatus({
                       <ValidatePayment
                         reservation={reservation}
                         updateReservation={updateReservation}
+                      />
+                    </div>
+                  )}
+                  {step.reservationStatus === "WAITINGVALIDATION" && reservation.status === "WAITINGVALIDATION" && (
+                    <div className="absolute top-1/2 -translate-y-1/2 w-68 left-full ml-30">
+                      <ValidateReservation
+                        reservation={reservation}
+                        onValidated={updateReservation}
                       />
                     </div>
                   )}

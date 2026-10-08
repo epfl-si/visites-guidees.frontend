@@ -97,6 +97,8 @@
     "paymentMethod": "Payment method",
     "place": "Place",
     "guideInfo": "Guide",
+    "tableCaption": "Reservations, filtered by the search field and the status filter",
+    "openDetails": "Open the reservation of {{name}}",
     "status": {
       "WAITINGGUIDE": "Waiting for Guide",
       "WAITINGVALIDATION": "Waiting for Validation",
@@ -111,8 +113,18 @@
       "waitingpayment": "Awaiting payment",
       "ready": "Ready"
     },
-    "tableCaption": "Reservations, filtered by the search field and the status filter",
-    "openDetails": "Open the reservation of {{name}}",
+    "validate": {
+      "title": "Validate the visit",
+      "description_one": "Pick the guide who will run this guided tour.",
+      "description_other": "Pick the {{count}} guides who will run this guided tour.",
+      "legend": "Guides who accepted",
+      "selectedCount": "{{selected}} of {{required}} selected",
+      "noneAccepted": "No guide has accepted this visit yet.",
+      "confirm": "Validate",
+      "submitting": "Validating…",
+      "success": "The visit has been validated.",
+      "error": "The visit could not be validated. Please try again."
+    },
     "handlePayment": {
       "title": "Validate payment",
       "description": "Would you confirm the payment ?",
