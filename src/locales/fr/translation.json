@@ -98,6 +98,8 @@
     "paymentMethod": "Moyen de payment",
     "place": "Lieu",
     "guideInfo": "Guide",
+    "tableCaption": "Réservations, filtrées par le champ de recherche et le filtre de statut",
+    "openDetails": "Ouvrir la réservation de {{name}}",
     "status": {
       "WAITINGGUIDE": "Attente Guide",
       "WAITINGVALIDATION": "Attente Validation",
@@ -112,8 +114,18 @@
       "waitingpayment": "En attente de payment",
       "ready": "Prêt"
     },
-    "tableCaption": "Réservations, filtrées par le champ de recherche et le filtre de statut",
-    "openDetails": "Ouvrir la réservation de {{name}}"
+    "validate": {
+      "title": "Valider la visite",
+      "description_one": "Choisissez le guide qui animera cette visite guidée.",
+      "description_other": "Choisissez les {{count}} guides qui animeront cette visite guidée.",
+      "legend": "Guides ayant accepté",
+      "selectedCount": "{{selected}} sur {{required}} sélectionné·e·s",
+      "noneAccepted": "Aucun guide n'a encore accepté cette visite.",
+      "confirm": "Valider",
+      "submitting": "Validation en cours…",
+      "success": "La visite a bien été validée.",
+      "error": "La visite n'a pas pu être validée. Veuillez réessayer."
+    }
   },
   "guide": {
     "title": "Les guides",

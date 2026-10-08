@@ -10,7 +10,13 @@ import { SVG, TOTAL_SVG_LENGTH, TARGET_DISTANCES, COORDINATES } from "@/constant
 import { Empty, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { Card } from "../ui/card";
 
-export function SnakeStatus({ status }: { status: ReservationStatus }) {
+export function SnakeStatus({
+  status,
+  panels,
+}: {
+  status: ReservationStatus;
+  panels?: Partial<Record<ReservationStatus, React.ReactNode>>;
+}) {
   const { t } = useTranslation();
   const currentIndex = STATUS_ORDER.indexOf(status);
 
@@ -37,6 +43,13 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
   }, [t, currentIndex]);
 
   const targetDistance = currentIndex === -1 ? 0 : TARGET_DISTANCES[currentIndex] ?? 0;
+  const activeCoordinate =
+    status === "CANCELLED" ? undefined : COORDINATES[currentIndex];
+  const panel = panels?.[status];
+
+  const nodeOnLeft =
+    activeCoordinate !== undefined &&
+    Number.parseFloat(activeCoordinate.left) < 50;
   const [dashOffset, setDashOffset] = useState(TOTAL_SVG_LENGTH);
 
   useEffect(() => {
@@ -47,7 +60,8 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
   }, [targetDistance]);
 
   return (
-    <div className="relative mx-auto my-10 w-full max-w-sm aspect-4/6">
+    <div className="relative mx-auto my-10 w-full max-w-sm">
+      <div className="relative w-full aspect-4/6">
       {status === "CANCELLED" ? (
         <Card>
           <Empty>
@@ -111,6 +125,46 @@ export function SnakeStatus({ status }: { status: ReservationStatus }) {
               </div>
             ))}
           </div>
+        </div>
+      )}
+      </div>
+      {panel && activeCoordinate && (
+        <div
+          style={
+            {
+              "--node-x": activeCoordinate.left,
+              "--node-y": activeCoordinate.top,
+            } as React.CSSProperties
+          }
+          className={cn(
+            "relative mt-6 lg:absolute lg:z-20 lg:mt-0 lg:w-80",
+            "lg:top-[var(--node-y)] lg:-translate-y-1/2",
+            nodeOnLeft
+              ? "lg:right-[calc(100%-var(--node-x))] lg:mr-20"
+              : "lg:left-[var(--node-x)] lg:ml-20",
+          )}
+        >
+          <div
+            aria-hidden="true"
+            className={cn(
+              "hidden lg:block lg:absolute lg:top-1/2 lg:-translate-y-1/2",
+              "lg:border-y-[17px] lg:border-y-transparent",
+              nodeOnLeft
+                ? "lg:left-full lg:border-l-[17px] lg:border-l-foreground/10"
+                : "lg:right-full lg:border-r-[17px] lg:border-r-foreground/10",
+            )}
+          />
+          <div
+            aria-hidden="true"
+            className={cn(
+              "hidden lg:block lg:absolute lg:top-1/2 lg:-translate-y-1/2",
+              "lg:border-y-16 lg:border-y-transparent",
+              nodeOnLeft
+                ? "lg:left-full lg:ml-[-1px] lg:border-l-16 lg:border-l-card"
+                : "lg:right-full lg:mr-[-1px] lg:border-r-16 lg:border-r-card",
+            )}
+          />
+          {panel}
         </div>
       )}
     </div>
