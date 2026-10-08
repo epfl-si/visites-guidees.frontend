@@ -99,6 +99,7 @@
     "guideInfo": "Guide",
     "tableCaption": "Reservations, filtered by the search field and the status filter",
     "openDetails": "Open the reservation of {{name}}",
+    "cancel": "Cancel",
     "status": {
       "WAITINGGUIDE": "Waiting for Guide",
       "WAITINGVALIDATION": "Waiting for Validation",

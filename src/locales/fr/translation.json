@@ -100,6 +100,7 @@
     "guideInfo": "Guide",
     "tableCaption": "Réservations, filtrées par le champ de recherche et le filtre de statut",
     "openDetails": "Ouvrir la réservation de {{name}}",
+    "cancel": "Annuler",
     "status": {
       "WAITINGGUIDE": "Attente Guide",
       "WAITINGVALIDATION": "Attente Validation",

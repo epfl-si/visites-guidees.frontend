@@ -1,4 +1,4 @@
-import { cancelReservation, validatePayment } from "@/services/reservation";
+import { validatePayment } from "@/services/reservation";
 import type { Reservation } from "@/types/reservation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -37,23 +37,6 @@ export function ValidatePayment({
       .finally(() => setIsSubmitting(false))
   };
 
-  const cancel = async () => {
-    if (isSubmitting) return;
-
-    setIsSubmitting(true);
-    cancelReservation(reservation.id)
-      .then((res) => {
-        if (!res.success) {
-          toast.error(t("reservation.handlePayment.errorCancel"))
-          return;
-        }
-        updateReservation(res.data);
-        toast.success(t("reservation.handlePayment.successCancel"));
-      })
-      .catch(() => toast.error(t("reservation.handlePayment.errorCancel")))
-      .finally(() => setIsSubmitting(false))
-  }
-
   return (
     <Card className="h-42 w-66">
       <CardHeader>
@@ -69,9 +52,6 @@ export function ValidatePayment({
           {t("reservation.handlePayment.description")}
         </p>
         <div className="flex justify-between">
-          <Button onClick={cancel} variant="destructive" className="w-19" disabled={isSubmitting}>
-            {t("reservation.handlePayment.cancel")}
-          </Button>
           <Button onClick={validate} className="w-20" disabled={isSubmitting}>
             {t("reservation.handlePayment.confirm")}
           </Button>
