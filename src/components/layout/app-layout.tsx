@@ -1,5 +1,5 @@
-import { Header } from "@/components/Header.tsx";
-import { Footer } from "@/components/Footer.tsx";
+import { Header } from "@/components/header.tsx";
+import { Footer } from "@/components/footer.tsx";
 import { Outlet } from "react-router";
 import type { UserType } from "@/types/user";
 import type { State } from "@epfl-si/react-appauth";

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ContentCard } from '@/components/cards/ContentCard';
+import { ContentCard } from '@/components/cards/content-card';
 import { Spinner } from '@/components/ui/spinner';
 import { getPlaces } from '@/services/place';
 import type { Place } from '@/types/place';

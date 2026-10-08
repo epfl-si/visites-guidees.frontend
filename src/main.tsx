@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client'
 import '@/index.css'
-import App from '@/App'
+import App from '@/app'
 import { LocalStorageBackend, OIDCContext } from "@epfl-si/react-appauth";
 import { env } from './lib/env';
 import '@/lib/i18n';

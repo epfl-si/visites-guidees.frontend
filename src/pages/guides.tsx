@@ -17,7 +17,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { useNavigate } from "react-router";
 import { Badge } from "@/components/ui/badge";
-import { AddGuideDialog } from "@/components/guide/addGuideDialog/index";
+import { AddGuideDialog } from "@/components/guide/add-guide-dialog/index";
 
 export default function Guides() {
   const [guides, setGuides] = useState<Guide[]>([]);

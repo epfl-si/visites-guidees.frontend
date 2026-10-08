@@ -19,11 +19,11 @@ import type { Language } from "@/types/language"
 import type { Place } from "@/types/place"
 import type { ResponseUserAPI } from "@/types/user"
 import { ADD_GUIDE_STEPS, EMPTY_CREATE_GUIDE } from "@/constants/guide"
-import { ConfirmGuide } from "./confirmGuide"
-import { SelectGuide } from "./selectGuide"
-import { SelectLanguage } from "./selectLanguage"
-import { SelectPlace } from "./selectPlace"
-import { SelectStartDate } from "./selectStartDate"
+import { ConfirmGuide } from "./confirm-guide"
+import { SelectGuide } from "./select-guide"
+import { SelectLanguage } from "./select-language"
+import { SelectPlace } from "./select-place"
+import { SelectStartDate } from "./select-start-date"
 
 export const AddGuideDialog = ({ guides, setGuides }: { guides: Guide[], setGuides: Dispatch<SetStateAction<Guide[]>> }) => {
   const { t } = useTranslation()

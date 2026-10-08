@@ -22,7 +22,7 @@ import { SnakeStatus } from "@/components/reservations/snake-status";
 import { ValidateReservation } from "@/components/reservations/validate-guide";
 import { ValidatePayment } from "@/components/reservations/validate-payment";
 import { getReservation } from "@/services/reservation";
-import { LoadingPage } from "./Loading";
+import { LoadingPage } from "./loading";
 import { Empty, EmptyHeader, EmptyDescription, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { Button } from "@/components/ui/button";
 import {
