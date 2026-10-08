@@ -8,6 +8,7 @@ import {
   MapPin,
   Mail,
   Phone,
+  TriangleAlert,
   User,
 } from "lucide-react";
 import type { GuideDetails } from "@/types/guide";
@@ -30,6 +31,7 @@ function formatDate(d: Date | string) {
 
 export default function GuideDetail() {
   const [guide, setGuide] = useState<GuideDetails>();
+  const [error, setError] = useState<boolean>(false);
   const { id } = useParams();
   const { t, i18n } = useTranslation();
   const currentLang = i18n.resolvedLanguage as Languages;
@@ -44,9 +46,13 @@ export default function GuideDetail() {
     let ignore = false;
     getGuide(guideId)
       .then((res) => {
-        if (!ignore && res.success) setGuide(res.data);
+        if (ignore) return;
+        if (res.success) setGuide(res.data);
+        else if (res.code !== 404) setError(true);
       })
-      .catch(() => {})
+      .catch(() => {
+        if (!ignore) setError(true);
+      })
       .finally(() => {
         if (!ignore) setLoading(false);
       });
@@ -60,16 +66,19 @@ export default function GuideDetail() {
     return <LoadingPage />;
   }
 
-  if (!guide) {
+  if (error || !guide) {
+    const Icon = error ? TriangleAlert : User;
     return (
       <div className="flex-1 p-8 w-full">
         <Empty>
           <EmptyHeader>
             <EmptyMedia variant="icon">
-              <User aria-hidden="true" />
+              <Icon aria-hidden="true" />
             </EmptyMedia>
-            <EmptyTitle>{t("guide.detail.notFound")}</EmptyTitle>
-            <EmptyDescription>{t("guide.detail.notFoundDescription")}</EmptyDescription>
+            <EmptyTitle>{error ? t("errors.generic.title") : t("guide.detail.notFound")}</EmptyTitle>
+            <EmptyDescription role={error ? "alert" : undefined}>
+              {error ? t("admin.guides.loadError") : t("guide.detail.notFoundDescription")}
+            </EmptyDescription>
           </EmptyHeader>
         </Empty>
       </div>
