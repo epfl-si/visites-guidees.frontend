@@ -184,7 +184,24 @@
         "submit": "Add the guide"
       }
     },
-    "tableCaption": "Guides, filtered by the search field and the status filter"
+    "tableCaption": "Guides, filtered by the search field and the status filter",
+    "detail": {
+      "back": "Back to guides",
+      "sciper": "Sciper",
+      "contact": "Contact",
+      "languages": "Languages",
+      "places": "Places",
+      "noPlaces": "No place assigned.",
+      "blockedPeriods": "Unavailability",
+      "noBlockedPeriods": "No blocked period.",
+      "notFound": "Guide not found.",
+      "notFoundDescription": "This guide does not exist.",
+      "place": "Place",
+      "capacity": "Capacity",
+      "reason": "Reason",
+      "from": "From",
+      "to": "To"
+    }
   },
   "place": {
     "title": "Places",

@@ -185,7 +185,24 @@
         "submit": "Ajouter le guide"
       }
     },
-    "tableCaption": "Guides, filtrés par le champ de recherche et le filtre de statut"
+    "tableCaption": "Guides, filtrés par le champ de recherche et le filtre de statut",
+    "detail": {
+      "back": "Retour aux guides",
+      "sciper": "Sciper",
+      "contact": "Contact",
+      "languages": "Langues",
+      "places": "Lieux",
+      "noPlaces": "Aucun lieu assigné.",
+      "blockedPeriods": "Indisponibilités",
+      "noBlockedPeriods": "Aucune période bloquée.",
+      "notFound": "Guide introuvable.",
+      "notFoundDescription": "Ce guide n'existe pas.",
+      "place": "Lieu",
+      "capacity": "Capacité",
+      "reason": "Motif",
+      "from": "Du",
+      "to": "Au"
+    }
   },
   "place": {
     "title": "Lieux",

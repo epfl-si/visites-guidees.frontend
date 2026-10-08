@@ -1,4 +1,5 @@
 import Guides from "@/pages/guides"
+import GuideDetail from "@/pages/guide"
 import { RequireAuth } from "./auth/RequireAuth"
 import ErrorPage from "./pages/Error"
 import { useEffect, useState } from 'react'
@@ -114,7 +115,10 @@ export default function App() {
                     <Route index element={<Reservations />}/>
                     <Route path=":id" element={<Reservation />} />
                   </Route>
-                  <Route path="guides" element={<Guides />} />
+                  <Route path="guides">
+                    <Route index element={<Guides />} />
+                    <Route path=":id" element={<GuideDetail />} />
+                  </Route>
                 </Route>
               </Route>
               <Route
