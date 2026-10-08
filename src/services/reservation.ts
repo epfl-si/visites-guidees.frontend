@@ -56,3 +56,27 @@ export async function respondToInvitation(
     { method: 'POST' },
   );
 }
+
+export async function validatePayment(reservationId: number): Promise<BackendResponse<Reservation>> {
+  return await callBackend<Reservation>(
+    `${VERSION}/${ENDPOINT}/${reservationId}/confirm-payment`,
+    { method: 'POST' },
+  );
+}
+
+export async function cancelReservation(reservationId: number): Promise<BackendResponse<Reservation>> {
+  return await callBackend<Reservation>(
+    `${VERSION}/${ENDPOINT}/${reservationId}/cancel`,
+    { method: 'POST' },
+  );
+}
+
+export async function validateReservation(
+  reservationId: number,
+  guideIds: number[],
+): Promise<BackendResponse<Reservation>> {
+  return await callBackend<Reservation>(
+    `${VERSION}/${ENDPOINT}/${reservationId}/validate`,
+    { method: 'POST', body: { guideIds } },
+  );
+}

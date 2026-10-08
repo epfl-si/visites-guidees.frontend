@@ -1,5 +1,4 @@
 import type { Reservation } from "@/types/reservation";
-import type { ReservationStatus } from "@/types/status";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
 import { useTranslation } from "react-i18next";
@@ -32,6 +31,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { RESERVATION_STATUS } from "@/constants/status";
 import type { Languages } from "@/types/language";
+import { toast } from "sonner";
+import { cancelReservation } from "@/services/reservation";
 
 function formatDateOnly(d: Date | string) {
   return new Date(d).toLocaleDateString("fr-CH", {
@@ -62,6 +63,21 @@ export default function Reservation() {
     };
     fetchReservation();
   }, [id]);
+
+  const cancel = async () => {
+    if (!reservation) return;
+
+    cancelReservation(reservation.id)
+      .then((res) => {
+        if (!res.success) {
+          toast.error(t("reservation.handlePayment.errorCancel"))
+          return;
+        }
+        setReservation(res.data);
+        toast.success(t("reservation.handlePayment.successCancel"));
+      })
+      .catch(() => toast.error(t("reservation.handlePayment.errorCancel")))
+  }
 
   const currentLang = i18n.resolvedLanguage as Languages;
 
@@ -97,7 +113,7 @@ export default function Reservation() {
           <div className="min-w-0 space-y-1.5">
             <div className="flex items-center gap-3">
               <Link
-                to="/admin/reservation"
+                to="/admin/reservations"
                 className="text-muted-foreground hover:text-foreground transition-colors shrink-0"
               >
                 <ArrowLeft className="h-5 w-5" />
@@ -118,29 +134,25 @@ export default function Reservation() {
               <StatusIcon className="h-4 w-4" />
               {t(statusConfig?.labelKey)}
             </div>
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Button variant="outline" size="icon">
-                  <EllipsisVertical className="w-4 h-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                {Object.entries(RESERVATION_STATUS).map(([key, config]) => {
-                  const statusKey = key as ReservationStatus;
-                  const Icon = config.icon;
-                  return (
-                    <DropdownMenuItem
-                      key={statusKey}
-                      disabled={statusKey === reservation.status}
-                      className="gap-2 cursor-pointer"
-                    >
-                      <Icon className={cn("h-4 w-4", config.colorClass)} />
-                      <span className={config.colorClass}>{t(config.labelKey)}</span>
-                    </DropdownMenuItem>
-                  );
-                })}
-              </DropdownMenuContent>
-            </DropdownMenu>
+            {reservation.status !== "CANCELLED" && (
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Button variant="outline" size="icon">
+                    <EllipsisVertical className="w-4 h-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem
+                    key={RESERVATION_STATUS.CANCELLED.colorClass}
+                    className="gap-2 cursor-pointer"
+                    onClick={cancel}
+                  >
+                    <RESERVATION_STATUS.CANCELLED.icon className={cn("h-4 w-4", RESERVATION_STATUS.CANCELLED.colorClass)} />
+                    <span className={RESERVATION_STATUS.CANCELLED.colorClass}>{t("reservation.cancel")}</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
         </div>
         <div className="flex space-y-6 gap-8">
@@ -268,7 +280,10 @@ export default function Reservation() {
             )}
         </div>
         <div className="lg:col-span-2 space-y-6">
-          <SnakeStatus status={reservation.status} />
+          <SnakeStatus
+            reservation={reservation}
+            updateReservation={setReservation}
+          />
         </div>
       </div>
     </div>
