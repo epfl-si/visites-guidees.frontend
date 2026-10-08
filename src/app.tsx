@@ -1,20 +1,20 @@
 import Guides from "@/pages/guides"
-import { RequireAuth } from "./auth/RequireAuth"
-import ErrorPage from "./pages/Error"
+import { RequireAuth } from "./auth/require-auth"
+import ErrorPage from "./pages/error"
 import { useEffect, useState } from 'react'
 import { StateEnum, useOpenIDConnectContext } from "@epfl-si/react-appauth";
-import { AppLayout } from "@/components/layout/AppLayout";
-import AdminLayout from './components/layout/AdminLayout';
+import { AppLayout } from "@/components/layout/app-layout";
+import AdminLayout from './components/layout/admin-layout';
 import { BrowserRouter, Route, Routes } from "react-router";
 import type { UserType } from "@/types/user";
-import Page from "@/pages/Page.tsx";
+import Page from "@/pages/page.tsx";
 import { fetchConnectedUser } from '@/services/auth';
 import Registration from '@/pages/registration';
 import Admin from '@/pages/admin';
 import { setGlobalAccessToken, setUnauthorizedHandler } from '@/lib/api';
 import Reservations from './pages/reservations';
 import Reservation from './pages/reservation';
-import { RequireRole } from './auth/RequireRole';
+import { RequireRole } from './auth/require-role';
 import { registrationSegments } from '@/lib/routes';
 import GuideConfirmation from '@/pages/guide-confirmation';
 import { useTranslation } from 'react-i18next';

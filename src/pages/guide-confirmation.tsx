@@ -17,7 +17,7 @@ import { Spinner } from '@/components/ui/spinner';
 import { getGuideInvitation, respondToInvitation } from '@/services/reservation';
 import type { BackendResponseError } from '@/types/api';
 import type { GuideInvitation, ReservationGuideAction } from '@/types/reservation';
-import ErrorPage from "@/pages/Error"
+import ErrorPage from "@/pages/error"
 
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (

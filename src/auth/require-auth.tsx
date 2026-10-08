@@ -1,5 +1,5 @@
-import ErrorPage from "@/pages/Error"
-import { LoadingPage } from "@/pages/Loading"
+import ErrorPage from "@/pages/error"
+import { LoadingPage } from "@/pages/loading"
 import { type State, StateEnum } from "@epfl-si/react-appauth"
 import { Outlet } from "react-router"
 
