@@ -28,6 +28,29 @@ function countBusinessDaysBetween(from: Date, to: Date): number {
   return count
 }
 
+function toDateInputValue(date: Date): string {
+  const month = String(date.getMonth() + 1).padStart(2, "0")
+  const day = String(date.getDate()).padStart(2, "0")
+  return `${date.getFullYear()}-${month}-${day}`
+}
+
+// Earliest selectable visit date ("YYYY-MM-DD"), used as the date input's min.
+export function earliestVisitDate(from: Date, minBusinessDays: number): string {
+  const cursor = new Date(from)
+  cursor.setHours(0, 0, 0, 0)
+
+  let businessDays = 0
+  while (businessDays < minBusinessDays) {
+    cursor.setDate(cursor.getDate() + 1)
+    const day = cursor.getDay()
+    if (day !== 0 && day !== 6) {
+      businessDays++
+    }
+  }
+
+  return toDateInputValue(cursor)
+}
+
 const countryCodes = countryList().getValues()
 
 export type RegistrationSchemaMessages = CommonSchemaMessages & {

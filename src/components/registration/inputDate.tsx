@@ -1,8 +1,13 @@
+import { useMemo } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { Input } from "@/components/ui/input"
 import { FieldError, FieldLabel } from "@/components/registration/field"
-import type { RegistrationValues } from "@/validations/registration"
+import {
+  earliestVisitDate,
+  MIN_BUSINESS_DAYS,
+  type RegistrationValues,
+} from "@/validations/registration"
 
 export const InputDate = () => {
   const { t } = useTranslation()
@@ -10,6 +15,10 @@ export const InputDate = () => {
     register,
     formState: { errors },
   } = useFormContext<RegistrationValues>()
+  const minVisitDate = useMemo(
+    () => earliestVisitDate(new Date(), MIN_BUSINESS_DAYS),
+    []
+  )
 
   return (
     <div className="flex flex-col gap-1.5">
@@ -18,6 +27,7 @@ export const InputDate = () => {
         <div className="flex flex-col gap-1">
           <Input
             type="date"
+            min={minVisitDate}
             aria-invalid={!!errors.date}
             {...register("date")}
           />
