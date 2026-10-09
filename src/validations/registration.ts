@@ -36,6 +36,7 @@ export type RegistrationSchemaMessages = CommonSchemaMessages & {
   invalidDate: string
   dateTooSoon: string
   participantsMin: string
+  participantsInteger: string
   languageRequired: string
   gdprRequired: string
 }
@@ -47,6 +48,7 @@ export const defaultRegistrationSchemaMessages: RegistrationSchemaMessages = {
   invalidDate: "Invalid date or time",
   dateTooSoon: `The date must be at least ${MIN_BUSINESS_DAYS} business days from now`,
   participantsMin: "At least 1 participant",
+  participantsInteger: "The number of participants must be a whole number",
   languageRequired: "Please choose a language",
   gdprRequired: "You must accept the GDPR consent",
 }
@@ -64,16 +66,14 @@ export function buildRegistrationSchema(msgs: RegistrationSchemaMessages) {
       city: requiredString(msgs),
       region: requiredString(msgs),
       zip: requiredString(msgs),
-      country: z
-        .string()
-        .refine((val) => countryCodes.includes(val), {
-          error: msgs.invalidCountry,
-        }),
+      country: z.string().refine((val) => countryCodes.includes(val), {
+        error: msgs.invalidCountry,
+      }),
       date: z.iso.date({ error: msgs.required }),
       time: z.iso.time({ precision: -1, error: msgs.required }), // HH:MM
       participantNumber: z
         .number()
-        .int()
+        .int({ error: msgs.participantsInteger })
         .min(1, { error: msgs.participantsMin }),
       languageId: z.number().int().positive({ error: msgs.languageRequired }),
       comment: z.string(),

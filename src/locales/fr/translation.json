@@ -56,7 +56,8 @@
     },
     "participants": {
       "label": "Nombre de participantes et de participants",
-      "min": "Au moins 1 participant·e."
+      "min": "Au moins 1 participant·e.",
+      "integer": "Le nombre de participantes et de participants doit être un nombre entier."
     },
     "language": {
       "label": "Langue",

@@ -30,6 +30,7 @@ export function useRegistrationValidationMessages(): RegistrationSchemaMessages 
         maxTime: MIN_BUSINESS_DAYS,
       }),
       participantsMin: t("registration.participants.min"),
+      participantsInteger: t("registration.participants.integer"),
       languageRequired: t("registration.language.required"),
       gdprRequired: t("registration.gdpr.consentRequired"),
     }),

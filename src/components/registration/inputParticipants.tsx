@@ -28,6 +28,7 @@ export const InputParticipants = () => {
           <NumberField
             min={1}
             max={100}
+            format={{ maximumFractionDigits: 0 }}
             value={field.value}
             onValueChange={(value) => {
               if (value !== null) field.onChange(value)
