@@ -1,4 +1,4 @@
-export type RegistrationFormType = {
+export type RegistrationPayloadType = {
   firstName: string,
   lastName: string,
   company: string,
@@ -10,10 +10,10 @@ export type RegistrationFormType = {
   region: string,
   zip: string,
   country: string,
-  visitDate: string,
-  visitTime: string,
+  date: string,
   participantNumber: number,
   languageId: number,
+  placeId: number,
   comment: string,
   gdprConsent: boolean,
 }
