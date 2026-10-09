@@ -35,6 +35,7 @@
     },
     "phone": {
       "label": "Phone",
+      "placeholder": "Enter your phone number",
       "invalid": "Invalid phone number (expected format: +41216931234)."
     },
     "address": {
