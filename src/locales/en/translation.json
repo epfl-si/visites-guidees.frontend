@@ -49,7 +49,7 @@
     "date": {
       "label": "Desired date of the guided tour",
       "hint": "Booking required at least 7 business days before the visit",
-      "tooSoon": "The selected date need to be at least {{maxTime}} business days from now.",
+      "tooSoon": "The selected date needs to be at least {{maxTime}} business days from now.",
       "invalid": "The selected date or time is invalid."
     },
     "participants": {
