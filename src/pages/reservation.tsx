@@ -20,7 +20,7 @@ import {
   UserKeyIcon
 } from "lucide-react";
 import { SnakeStatus } from "@/components/reservations/snake-status";
-import { ValidateReservation } from "@/components/reservations/validate-reservation";
+import { ValidateReservation } from "@/components/reservations/validate-guide";
 import { getReservation } from "@/services/reservation";
 import { LoadingPage } from "./Loading";
 import { Empty, EmptyHeader, EmptyDescription, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
