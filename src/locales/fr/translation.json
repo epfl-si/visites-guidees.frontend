@@ -98,6 +98,7 @@
     "paymentMethod": "Moyen de payment",
     "place": "Lieu",
     "guideInfo": "Guide",
+    "cancel": "Annuler",
     "tableCaption": "Réservations, filtrées par le champ de recherche et le filtre de statut",
     "openDetails": "Ouvrir la réservation de {{name}}",
     "status": {
@@ -132,7 +133,9 @@
       "cancel": "Annuler",
       "confirm": "Confirmer",
       "errorValidate": "Impossible de valider le payment",
-      "successValidate": "Le payment a bien été confirmé"
+      "successValidate": "Le payment a bien été confirmé",
+      "errorCancel": "Impossible d'annuler la réservation",
+      "successCancel": "La réservation a bien été annulée"
     }
   },
   "guide": {
