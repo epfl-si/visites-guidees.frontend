@@ -97,6 +97,7 @@
     "paymentMethod": "Payment method",
     "place": "Place",
     "guideInfo": "Guide",
+    "cancel": "Cancel",
     "tableCaption": "Reservations, filtered by the search field and the status filter",
     "openDetails": "Open the reservation of {{name}}",
     "status": {
@@ -131,7 +132,9 @@
       "cancel": "Cancel",
       "confirm": "Confirm",
       "errorValidate": "Failed to validate payment",
-      "successValidate": "The payment of reservation has been validate successfully"
+      "successValidate": "The payment of reservation has been validate successfully",
+      "errorCancel": "Failed to cancel reservation",
+      "successCancel": "The reservation has been cancel successfully"
     }
   },
   "guide": {

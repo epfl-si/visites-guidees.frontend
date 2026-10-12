@@ -74,3 +74,9 @@ export async function validatePayment(reservationId: number): Promise<BackendRes
   );
 }
 
+export async function cancelReservation(reservationId: number): Promise<BackendResponse<Reservation>> {
+  return await callBackend<Reservation>(
+    `${VERSION}/${ENDPOINT}/${reservationId}/cancel`,
+    { method: 'POST' },
+  );
+}
