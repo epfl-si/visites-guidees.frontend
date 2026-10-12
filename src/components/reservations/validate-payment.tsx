@@ -38,7 +38,7 @@ export function ValidatePayment({
   };
 
   return (
-    <Card className="h-42 w-66">
+    <Card className="h-42">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <CreditCard aria-hidden="true" className="h-5 w-5 text-purple-600"/>
