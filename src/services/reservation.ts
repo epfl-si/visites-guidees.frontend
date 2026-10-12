@@ -66,3 +66,11 @@ export async function validateReservation(
     { method: 'POST', body: { guideIds } },
   );
 }
+
+export async function validatePayment(reservationId: number): Promise<BackendResponse<Reservation>> {
+  return await callBackend<Reservation>(
+    `${VERSION}/${ENDPOINT}/${reservationId}/confirm-payment`,
+    { method: 'POST' },
+  );
+}
+

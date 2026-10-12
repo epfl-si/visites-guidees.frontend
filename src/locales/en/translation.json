@@ -124,6 +124,14 @@
       "submitting": "Validating…",
       "success": "The visit has been validated.",
       "error": "The visit could not be validated. Please try again."
+    },
+    "handlePayment": {
+      "title": "Validate payment",
+      "description": "Would you confirm the payment ?",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "errorValidate": "Failed to validate payment",
+      "successValidate": "The payment of reservation has been validate successfully"
     }
   },
   "guide": {

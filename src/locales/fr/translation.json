@@ -125,6 +125,14 @@
       "submitting": "Validation en cours…",
       "success": "La visite a bien été validée.",
       "error": "La visite n'a pas pu être validée. Veuillez réessayer."
+    },
+    "handlePayment": {
+      "title": "Confirmer le payment",
+      "description": "Voulez vous confirmer le payment ?",
+      "cancel": "Annuler",
+      "confirm": "Confirmer",
+      "errorValidate": "Impossible de valider le payment",
+      "successValidate": "Le payment a bien été confirmé"
     }
   },
   "guide": {
