@@ -101,8 +101,9 @@ export default function App() {
                 element={<Registration />}
               />
             ))}
-            <Route path="/admin" element={<RequireAuth oidc={oidc} />}>
+            <Route element={<RequireAuth oidc={oidc} />}>
               <Route
+                path="/admin"
                 element={
                   <RequireRole
                     role="admin"
@@ -124,6 +125,7 @@ export default function App() {
                 </Route>
               </Route>
               <Route
+                path="/guide"
                 element={
                   <RequireRole
                     role="guide"
@@ -132,11 +134,11 @@ export default function App() {
                   />
                 }
               >
+                <Route index element={<GuideDashboard />}/>
                 <Route
-                  path="guide/reservations/:reservationId"
+                  path="reservations/:reservationId"
                   element={<GuideConfirmation />}
                 />
-                <Route path="/guide" element={<GuideDashboard />}/>
               </Route>
             </Route>
           </Route>
