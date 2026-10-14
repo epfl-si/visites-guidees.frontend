@@ -156,6 +156,8 @@
     "addError": "The guide could not be added. Please try again.",
     "allStatus": "All",
     "noResults": "No result for this search.",
+    "errorVisits": "Failed to load upcoming visits. Please try again.",
+    "noVisits": "Chill, there is no upcoming visist.",
     "status": {
       "ACTIVE": "Active",
       "INACTIVE": "Inactive",
