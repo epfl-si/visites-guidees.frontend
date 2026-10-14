@@ -19,13 +19,13 @@ import { registrationSegments } from '@/lib/routes';
 import GuideConfirmation from '@/pages/guide-confirmation';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
-import Guides from "@/pages/guides"
 import GuideDashboard from "./pages/guide-dashboard"
 
 export default function App() {
   const oidc = useOpenIDConnectContext()
   const { t } = useTranslation()
   const [connectedUser, setConnectedUser] = useState<UserType>({
+    sciper: "",
     firstName: "",
     lastName: "",
     roles: [],
