@@ -133,6 +133,8 @@
     "addError": "Le guide n'a pas pu être ajouté. Veuillez réessayer.",
     "allStatus": "Tous",
     "noResults": "Aucun résultat pour cette recherche.",
+    "errorVisits": "Impossible de récuprérer les visites à venir. Veuillez réessayer.",
+    "noVisits": "Relax, aucune visite n'est prévue ces prochains temps.",
     "status": {
       "ACTIVE": "Actif",
       "INACTIVE": "Inactif",

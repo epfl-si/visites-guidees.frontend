@@ -28,6 +28,7 @@ export default function GuideDashboard() {
 
   const [loadingGuide, setLoadingGuide] = useState<boolean>(true);
   const [loadingVisits, setLoadingVisits] = useState<boolean>(true);
+  const [errorVisits, setErrorVisits] = useState<boolean>(false);
   const [guide, setGuide] = useState<Guide | null>(null);
   const [visits, setVisits] = useState<Reservation[]>([]);
 
@@ -65,6 +66,9 @@ export default function GuideDashboard() {
               );
               setVisits(sortedVisits);
             }
+          })
+          .catch(() => {
+            setErrorVisits(true)
           })
           .finally(() => {
             setLoadingVisits(false);
@@ -153,15 +157,27 @@ export default function GuideDashboard() {
             </CardHeader>
             <CardContent className="flex-1 px-14 pb-6">
               <Carousel className="w-full">
-                <CarouselContent>
-                  {visits.map((visit) => (
-                    <CarouselItem key={visit.id}>
-                      <NextVisitCard visit={visit} loading={loadingVisits} />
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
+                {loadingVisits ? (
+                <div className="flex justify-center items-center h-30 text-center text-muted-foreground">
+                  <Skeleton className="w-full h-full"/>
+                </div>
+                ) : errorVisits ? (
+                  <div className="flex justify-center items-center h-30 text-center text-muted-foreground">{t("guide.errorVisits")}</div>
+                ) : visits.length === 0 ? (
+                  <div className="flex justify-center items-center h-30 text-center text-muted-foreground">{t("guide.noVisits")}</div>
+                ) : (
+                  <>
+                    <CarouselContent>
+                      {visits.map((visit) => (
+                        <CarouselItem key={visit.id}>
+                          <NextVisitCard visit={visit} />
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </>
+                )}
               </Carousel>
             </CardContent>
           </Card>
