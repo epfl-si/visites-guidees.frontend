@@ -21,10 +21,6 @@ export async function addGuide(guide: CreateGuide) {
   })
 }
 
-export async function getGuide(id: number): Promise<BackendResponse<Guide>> {
-  return await callBackend(`${VERSION}/${ENDPOINT}/${id}`);
-}
-
 export async function getVisitsByGuide(guideId: number): Promise<BackendResponse<Reservation[]>> {
   return await callBackend<Reservation[]>(`${VERSION}/${ENDPOINT}/${guideId}/visits`);
 }
