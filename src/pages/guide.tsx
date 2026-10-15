@@ -8,7 +8,6 @@ import {
   MapPin,
   Mail,
   Phone,
-  TriangleAlert,
   User,
 } from "lucide-react";
 import type { GuideDetails } from "@/types/guide";
@@ -20,6 +19,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Empty, EmptyHeader, EmptyDescription, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { LoadingPage } from "./Loading";
+import ErrorPage from "@/pages/Error";
 
 function formatDate(d: Date | string) {
   return new Date(d).toLocaleDateString("fr-CH", {
@@ -32,6 +32,7 @@ function formatDate(d: Date | string) {
 export default function GuideDetail() {
   const [guide, setGuide] = useState<GuideDetails>();
   const [error, setError] = useState<boolean>(false);
+  const [errorCode, setErrorCode] = useState<number>(500);
   const { id } = useParams();
   const { t, i18n } = useTranslation();
   const currentLang = i18n.resolvedLanguage as Languages;
@@ -48,10 +49,16 @@ export default function GuideDetail() {
       .then((res) => {
         if (ignore) return;
         if (res.success) setGuide(res.data);
-        else if (res.code !== 404) setError(true);
+        else if (res.code !== 404) {
+          setErrorCode(res.code);
+          setError(true);
+        }
       })
       .catch(() => {
-        if (!ignore) setError(true);
+        if (!ignore) {
+          setErrorCode(503);
+          setError(true);
+        }
       })
       .finally(() => {
         if (!ignore) setLoading(false);
@@ -66,19 +73,20 @@ export default function GuideDetail() {
     return <LoadingPage />;
   }
 
-  if (error || !guide) {
-    const Icon = error ? TriangleAlert : User;
+  if (error) {
+    return <ErrorPage errorCode={errorCode} message="errors.generic.title" />;
+  }
+
+  if (!guide) {
     return (
       <div className="flex-1 p-8 w-full">
         <Empty>
           <EmptyHeader>
             <EmptyMedia variant="icon">
-              <Icon aria-hidden="true" />
+              <User aria-hidden="true" />
             </EmptyMedia>
-            <EmptyTitle>{error ? t("errors.generic.title") : t("guide.detail.notFound")}</EmptyTitle>
-            <EmptyDescription role={error ? "alert" : undefined}>
-              {error ? t("admin.guides.loadError") : t("guide.detail.notFoundDescription")}
-            </EmptyDescription>
+            <EmptyTitle>{t("guide.detail.notFound")}</EmptyTitle>
+            <EmptyDescription>{t("guide.detail.notFoundDescription")}</EmptyDescription>
           </EmptyHeader>
         </Empty>
       </div>
