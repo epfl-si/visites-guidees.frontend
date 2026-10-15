@@ -38,7 +38,7 @@ export const Footer: React.FC = () => {
                 </ul>
               </div>
               <div className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-1 text-xs text-gray-500">
-                <p>{config.appName}</p>
+                <p>{t('footer.appName')}</p>
                 <a
                   className="hover:underline"
                   href={config.githubUrl}

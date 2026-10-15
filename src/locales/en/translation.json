@@ -6,7 +6,8 @@
   "footer": {
     "sourceCode": "Code Source",
     "rights": "All rights reserved",
-    "contact": "Contact"
+    "contact": "Contact",
+    "appName": "Guided Tours EPFL"
   },
   "app": {
     "title": "Guided Tours",

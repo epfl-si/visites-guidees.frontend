@@ -6,7 +6,8 @@
   "footer": {
     "sourceCode": "Source Code",
     "rights": "Tous droits réservés",
-    "contact": "Contact"
+    "contact": "Contact",
+    "appName": "Visites guidées EPFL"
   },
   "app": {
     "title": "Visites guidées",
