@@ -50,6 +50,9 @@
     },
     "date": {
       "label": "Date souhaitée de la visite guidée",
+      "placeholder": "Choisir une date et une heure",
+      "time": "Heure",
+      "confirm": "OK",
       "hint": "Réservation obligatoire minimum 7 jours ouvrables avant la visite",
       "tooSoon": "La date choisie doit être au moins {{maxTime}} jours ouvrables à partir de maintenant.",
       "invalid": "La date ou l'heure sélectionnée est invalide."
@@ -308,6 +311,7 @@
     "details": {
       "date": "Date",
       "time": "Heure",
+      "confirm": "OK",
       "participants": "Participantes et participants",
       "language": "Langue",
       "comment": "Commentaire"
