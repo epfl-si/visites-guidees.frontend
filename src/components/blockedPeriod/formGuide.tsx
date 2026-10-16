@@ -15,6 +15,7 @@ import {
 import { createBlockedPeriodForGuide } from "@/services/guide"
 import type { BlockedPeriod } from "@/types/blockedPeriod"
 import { toast } from "sonner"
+import { useTranslation } from "react-i18next"
 
 export function BlockedPeriodFormGuide({
   onCreateBlockedPeriodes,
@@ -22,6 +23,8 @@ export function BlockedPeriodFormGuide({
   onCreateBlockedPeriodes: (blockedPeriod: BlockedPeriod) => void
 }
 ) {
+
+  const { t } = useTranslation();
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: new Date(),
     to: new Date(new Date().setDate(new Date().getDate() + 5)),
@@ -29,7 +32,7 @@ export function BlockedPeriodFormGuide({
 
   const validate = async () => {
     if (!date || !date.from || !date.to) {
-      toast.warning("Veuillez remplir les dates de l'absence.")
+      toast.warning(t("blockedPeriod.create.noDate", "Veuillez remplir les dates de l'absence."))
       return;
     }
     createBlockedPeriodForGuide(date.from, date.to)
@@ -37,19 +40,19 @@ export function BlockedPeriodFormGuide({
         if (res.success) {
           onCreateBlockedPeriodes(res.data);
           setDate(undefined);
-          toast.success("Absence créer avec succès.");
+          toast.success(t("blockedPeriod.create.success"));
           return;
         }
-        toast.error("Impossible de créer une absence.")
+        toast.error(t("blockedPeriod.create.error"))
       })
-      .catch(() => toast.error("Impossible de créer une absence."))
+      .catch(() => toast.error(t("blockedPeriod.create.error")))
   }
 
   return (
     <div className="grid gap-4">
       <div className="flex flex-col gap-2">
         <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-          Ajouter une nouvelle période bloquée
+          {t("blockedPeriod.create.title")}
         </label>
 
         <Popover>
@@ -73,7 +76,7 @@ export function BlockedPeriodFormGuide({
                   format(date.from, "dd LLL y", { locale: fr })
                 )
               ) : (
-                <span>Sélectionnez les dates</span>
+                <span>{t("blockedPeriod.create.select")}</span>
               )}
             </Button>
           </PopoverTrigger>
@@ -91,7 +94,7 @@ export function BlockedPeriodFormGuide({
       </div>
 
       <Button onClick={validate} className="w-75">
-        Valider
+        {t("blockedPeriod.create.validate")}
       </Button>
     </div>
   )

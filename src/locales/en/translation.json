@@ -186,7 +186,25 @@
         "submit": "Add the guide"
       }
     },
-    "tableCaption": "Guides, filtered by the search field and the status filter"
+    "tableCaption": "Guides, filtered by the search field and the status filter",
+    "dashboard": {
+      "fetchError": "Failed to get informations of guide",
+      "welcome": "Hello",
+      "description": "Welcome to your dashboard.",
+      "visit": "Upcoming visits",
+      "lang": "Languages",
+      "noLang": "No language",
+      "status": "Status",
+      "visits": {
+        "title": "Your next visits",
+        "description": "You have {{nbrVisits}} visits coming soon."
+      },
+      "blockedPeriod": {
+        "title": "Blocked periods",
+        "description": "You have <0>{{nbr}}</0> registered absence(s).",
+        "empty": "No planned absences."
+      }
+    }
   },
   "place": {
     "title": "Places",
@@ -314,6 +332,16 @@
       "declineDescription": "You will not be considered for this visit.",
       "confirm": "Confirm",
       "cancel": "Cancel"
+    }
+  },
+  "blockedPeriod": {
+    "create": {
+      "title": "Add a new absence",
+      "select": "Select dates",
+      "validate": "Validate",
+      "noDate": "Please fill in the dates of the absence.",
+      "error": "Failed to create absence, please try again.",
+      "success": "Absence create successfully."
     }
   }
 }

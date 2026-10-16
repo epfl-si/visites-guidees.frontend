@@ -2,15 +2,15 @@ import { fetchConnectedUser } from "@/services/auth"
 import { getGuide, getVisitsByGuide } from "@/services/guide";
 import type { Guide } from "@/types/guide";
 import { useEffect, useState } from "react"
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import { useNavigate } from "react-router";
 import { NextVisitCard } from "@/components/guide/visitCard";
 import { toast } from "sonner";
 import { format } from "date-fns";
 import {
   Calendar as IconCalendar,
-  MapPin,
   Activity,
+  LanguagesIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -111,14 +111,14 @@ export default function GuideDashboard() {
           )}
         </h1>
         <p className="text-muted-foreground">
-          Voici un résumé de votre activité et de vos prochaines visites.
+          {t("guide.dashboard.description")}
         </p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Visites à venir</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("guide.dashboard.visit")}</CardTitle>
             <IconCalendar className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -132,8 +132,8 @@ export default function GuideDashboard() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Langues actives</CardTitle>
-            <MapPin className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">{t("guide.dashboard.lang")}</CardTitle>
+            <LanguagesIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             {loadingGuide ? (
@@ -142,7 +142,7 @@ export default function GuideDashboard() {
               <>
                 <div className="text-2xl font-bold">{guide?.languages?.length || 0}</div>
                 <p className="text-xs text-muted-foreground">
-                  {guide?.languages?.map(l => l.code).join(", ") || "Aucune"}
+                  {guide?.languages?.map(l => l.code).join(", ") || t("guide.dashboard.noLang")}
                 </p>
               </>
             )}
@@ -151,7 +151,7 @@ export default function GuideDashboard() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Statut</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("guide.dashboard.status")}</CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -160,7 +160,6 @@ export default function GuideDashboard() {
             ) : (
               <>
                 <div className="text-2xl font-bold text-emerald-600">{guide?.status}</div>
-                <p className="text-xs text-muted-foreground">Prêt pour les visites</p>
               </>
             )}
           </CardContent>
@@ -170,8 +169,8 @@ export default function GuideDashboard() {
       <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-6">
         <Card className="lg:col-span-3 flex flex-col">
           <CardHeader>
-            <CardTitle>Vos prochaines visites</CardTitle>
-            <CardDescription>Faites défiler pour voir vos visites à venir.</CardDescription>
+            <CardTitle>{t("guide.dashboard.visits.title")}</CardTitle>
+            <CardDescription>{t("guide.dashboard.visits.description", { nbrVisits: visits.length })}</CardDescription>
           </CardHeader>
           <CardContent className="flex-1 px-14 pb-6">
             <Carousel className="w-full">
@@ -201,10 +200,14 @@ export default function GuideDashboard() {
         </Card>
         <Card className="lg:col-span-3">
           <CardHeader>
-            <CardTitle>Périodes bloquées</CardTitle>
+            <CardTitle>{t("guide.dashboard.blockedPeriod.title")}</CardTitle>
             <CardDescription>
               <p className="text-sm text-muted-foreground">
-                Vous avez <span className="font-semibold text-foreground">{guide?.blockedPeriods?.length}</span> absence(s) enregistrée(s).
+                <Trans
+                  i18nKey="guide.dashboard.blockedPeriod.description"
+                  values={{ nbr: guide?.blockedPeriods?.length || 0 }}
+                  components={[<span key="0" className="font-semibold text-foreground" />]}
+                />
               </p>
             </CardDescription>
           </CardHeader>
@@ -216,29 +219,32 @@ export default function GuideDashboard() {
             ) : guide?.blockedPeriods?.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-62.5 rounded-lg border border-dashed bg-muted/20">
                 <IconCalendar className="h-10 w-10 text-muted-foreground mb-4 opacity-50" />
-                <p className="text-sm text-muted-foreground">Aucune absence prévue.</p>
+                <p className="text-sm text-muted-foreground">{t("guide.dashboard.blockedPeriod.empty")}</p>
               </div>
             ) : (
               <div className="flex flex-col md:flex-row gap-2">
                 <div className="flex-1 flex flex-col min-w-0">
                   <ScrollArea className="h-62.5 pr-4">
                     <div className="flex flex-col gap-3">
-                      {guide?.blockedPeriods.map((event) => (
-                        <div
-                          key={event.id}
-                          className={cn(
-                            "relative rounded-lg border bg-card p-3 pl-6 transition-colors hover:bg-muted/50",
-                            "after:absolute after:inset-y-3 after:left-2 after:w-1 after:rounded-full after:bg-primary"
-                          )}
-                        >
-                          <div className="font-medium truncate">
-                            {event.label[currentLanguage]}
+                      {guide?.blockedPeriods
+                        .filter((event) => new Date(event.end).getTime() >= new Date().getTime())
+                        .sort((a, b) => new Date(b.end).getTime() - new Date(a.end).getTime())
+                        .map((event) => (
+                          <div
+                            key={event.id}
+                            className={cn(
+                              "relative rounded-lg border bg-card p-3 pl-6 transition-colors hover:bg-muted/50",
+                              "after:absolute after:inset-y-3 after:left-2 after:w-1 after:rounded-full after:bg-primary"
+                            )}
+                          >
+                            <div className="font-medium truncate">
+                              {event.label[currentLanguage]}
+                            </div>
+                            <div className="text-muted-foreground text-xs mt-1">
+                              {`${format(new Date(event.start), "dd MMM", { locale: fr })} - ${format(new Date(event.end), "dd MMM yyyy", { locale: fr })}`}
+                            </div>
                           </div>
-                          <div className="text-muted-foreground text-xs mt-1">
-                            {`${format(new Date(event.start), "dd MMM", { locale: fr })} - ${format(new Date(event.end), "dd MMM yyyy", { locale: fr })}`}
-                          </div>
-                        </div>
-                      ))}
+                        ))}
                     </div>
                   </ScrollArea>
                 </div>
