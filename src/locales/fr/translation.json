@@ -30,13 +30,15 @@
       "lastNamePlaceholder": "Nom"
     },
     "company": {
-      "label": "company"
+      "label": "Company"
     },
     "email": {
       "label": "Email"
     },
     "phone": {
-      "label": "Téléphone"
+      "label": "Téléphone",
+      "placeholder": "Entrez votre numéro de téléphone",
+      "invalid": "Numéro invalide (format attendu : +41216931234)."
     },
     "address": {
       "label": "Adresse",
@@ -44,21 +46,28 @@
       "complementPlaceholder": "Complément d'adresse",
       "cityPlaceholder": "Ville",
       "regionPlaceholder": "Canton / Province / Région",
-      "postalCodePlaceholder": "Code postal"
+      "postalCodePlaceholder": "Code postal",
+      "countryInvalid": "Pays invalide."
     },
     "date": {
       "label": "Date souhaitée de la visite guidée",
+      "placeholder": "Choisir une date et une heure",
+      "time": "Heure",
+      "confirm": "OK",
       "hint": "Réservation obligatoire minimum 7 jours ouvrables avant la visite",
       "tooSoon": "La date choisie doit être au moins {{maxTime}} jours ouvrables à partir de maintenant.",
       "invalid": "La date ou l'heure sélectionnée est invalide."
     },
     "participants": {
-      "label": "Nombre de participantes et de participants"
+      "label": "Nombre de participantes et de participants",
+      "min": "Au moins 1 participant·e.",
+      "integer": "Le nombre de participantes et de participants doit être un nombre entier."
     },
     "language": {
       "label": "Langue",
       "french": "Français",
-      "english": "Anglais"
+      "english": "Anglais",
+      "required": "Veuillez choisir une langue."
     },
     "comments": {
       "label": "Commentaires"
@@ -326,6 +335,7 @@
     "details": {
       "date": "Date",
       "time": "Heure",
+      "confirm": "OK",
       "participants": "Participantes et participants",
       "language": "Langue",
       "comment": "Commentaire"
@@ -337,6 +347,12 @@
       "declineDescription": "Vous ne serez pas retenu pour cette visite.",
       "confirm": "Confirmer",
       "cancel": "Annuler"
+    }
+  },
+  "common": {
+    "validation": {
+      "required": "Ce champ est obligatoire.",
+      "invalidEmail": "Adresse email invalide."
     }
   }
 }
