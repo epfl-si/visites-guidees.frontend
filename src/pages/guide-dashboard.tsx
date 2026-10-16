@@ -27,6 +27,7 @@ import type { Languages } from "@/types/language";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { BlockedPeriodFormGuide } from "@/components/blockedPeriod/formGuide";
 import { fr } from "date-fns/locale"
+import type { BlockedPeriod } from "@/types/blockedPeriod";
 
 export default function GuideDashboard() {
   const { t, i18n } = useTranslation();
@@ -36,7 +37,7 @@ export default function GuideDashboard() {
   const [loadingGuide, setLoadingGuide] = useState<boolean>(true);
   const [loadingVisits, setLoadingVisits] = useState<boolean>(true);
   const [errorVisits, setErrorVisits] = useState<boolean>(false);
-  const [guide, setGuide] = useState<Guide | null>(null);
+  const [guide, setGuide] = useState<Guide>();
   const [visits, setVisits] = useState<Reservation[]>([]);
 
   useEffect(() => {
@@ -84,6 +85,16 @@ export default function GuideDashboard() {
     };
     fetchVisits();
   }, [guide]);
+
+  const addBlockedPeriod = (blockedPeriod: BlockedPeriod) => {
+    setGuide((prevGuide) => {
+      if (!prevGuide) return undefined;
+      return {
+        ...prevGuide,
+        blockedPeriods: [...prevGuide.blockedPeriods, blockedPeriod]
+      };
+    });
+  }
 
   return (
     <div className="flex-1 flex-col overflow-y-auto bg-muted/10 p-8">
@@ -233,7 +244,7 @@ export default function GuideDashboard() {
                 </div>
                 <div className="hidden sm:flex shrink-0 items-start justify-center">
                   <div className="border bg-card p-4">
-                    <BlockedPeriodFormGuide />
+                    <BlockedPeriodFormGuide onCreateBlockedPeriodes={addBlockedPeriod}/>
                   </div>
                 </div>
               </div>
