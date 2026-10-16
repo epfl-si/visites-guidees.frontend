@@ -1,4 +1,5 @@
 export type UserType = {
+  sciper: string,
   firstName: string,
   lastName: string,
   username: string,

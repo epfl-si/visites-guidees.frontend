@@ -157,6 +157,8 @@
     "addError": "Le guide n'a pas pu être ajouté. Veuillez réessayer.",
     "allStatus": "Tous",
     "noResults": "Aucun résultat pour cette recherche.",
+    "errorVisits": "Impossible de récuprérer les visites à venir. Veuillez réessayer.",
+    "noVisits": "Relax, aucune visite n'est prévue ces prochains temps.",
     "status": {
       "ACTIVE": "Actif",
       "INACTIVE": "Inactif",
@@ -209,7 +211,25 @@
         "submit": "Ajouter le guide"
       }
     },
-    "tableCaption": "Guides, filtrés par le champ de recherche et le filtre de statut"
+    "tableCaption": "Guides, filtrés par le champ de recherche et le filtre de statut",
+    "dashboard": {
+      "fetchError": "Impossible de récupérer les informations du guide",
+      "welcome": "Bonjour",
+      "description": "Bienvenue dans votre tableau de bord.",
+      "visit": "Prochaines visites",
+      "lang": "Langues",
+      "noLang": "Aucune Langue",
+      "status": "Statut",
+      "visits": {
+        "title": "Vos prochaines visites",
+        "description": "Vous avez {{nbrVisits}} visites prochainement."
+      },
+      "blockedPeriod": {
+        "title": "Périodes bloquées",
+        "description": "Vous avez <0>{{nbr}}</0> absence(s) enregistrée(s).",
+        "empty": "Aucune absence prévue."
+      }
+    }
   },
   "place": {
     "title": "Lieux",
@@ -337,6 +357,16 @@
       "declineDescription": "Vous ne serez pas retenu pour cette visite.",
       "confirm": "Confirmer",
       "cancel": "Annuler"
+    }
+  },
+  "blockedPeriod": {
+    "create": {
+      "title": "Ajouter une nouvelle absence",
+      "select": "Sélectionnez les dates",
+      "validate": "Valider",
+      "noDate": "Veuillez remplir les dates de l'absence.",
+      "error": "Impossible de créer l'absence, veuillez réessayer.",
+      "success": "L'absence a été créé avec succès."
     }
   }
 }
