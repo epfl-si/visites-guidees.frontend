@@ -12,12 +12,38 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { createBlockedPeriodForGuide } from "@/services/guide"
+import type { BlockedPeriod } from "@/types/blockedPeriod"
+import { toast } from "sonner"
 
-export function BlockedPeriodFormGuide() {
+export function BlockedPeriodFormGuide({
+  onCreateBlockedPeriodes,
+}: {
+  onCreateBlockedPeriodes: (blockedPeriod: BlockedPeriod) => void
+}
+) {
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: new Date(),
     to: new Date(new Date().setDate(new Date().getDate() + 5)),
   })
+
+  const validate = async () => {
+    if (!date || !date.from || !date.to) {
+      toast.warning("Veuillez remplir les dates de l'absence.")
+      return;
+    }
+    createBlockedPeriodForGuide(date.from, date.to)
+      .then((res) => {
+        if (res.success) {
+          onCreateBlockedPeriodes(res.data);
+          setDate(undefined);
+          toast.success("Absence créer avec succès.");
+          return;
+        }
+        toast.error("Impossible de créer une absence.")
+      })
+      .catch(() => toast.error("Impossible de créer une absence."))
+  }
 
   return (
     <div className="grid gap-4">
@@ -64,7 +90,7 @@ export function BlockedPeriodFormGuide() {
         </Popover>
       </div>
 
-      <Button className="w-75">
+      <Button onClick={validate} className="w-75">
         Valider
       </Button>
     </div>
