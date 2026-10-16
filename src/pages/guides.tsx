@@ -185,7 +185,7 @@ export default function Guides() {
                   return (
                     <TableRow
                       key={guide.id}
-                      onClick={() => navigate("#")}
+                      onClick={() => navigate(`/admin/guides/${guide.id}`)}
                       className="hover:cursor-pointer"
                     >
                       <TableCell className="font-medium">{guide.user.firstName ?? "-"} {guide.user.lastName ?? "-"}</TableCell>
