@@ -60,7 +60,17 @@ export const GuidesTable = ({ guides, setGuides, loading, error }: { guides: Gui
                     {t("admin.guides.loadError")}
                   </TableCell>
                 </TableRow>
-              ) : guides.map((guide) => {
+                ) : guides.length === 0 ? (
+                  <TableRow>
+                    <TableCell
+                      role="alert"
+                      colSpan={5}
+                      className="h-66.25 text-center text-muted-foreground"
+                    >
+                      {t("admin.guides.notFound")}
+                    </TableCell>
+                  </TableRow>
+                ) : guides.map((guide) => {
                 const statusConfig = GUIDE_STATUS[guide.status];
                 if (!statusConfig) return null;
                 const StatusIcon = statusConfig.icon;
