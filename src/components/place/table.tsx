@@ -53,7 +53,17 @@ export const PlacesTable = ({ places, loading, error }: { places: Place[], loadi
                     {t("admin.places.loadError")}
                   </TableCell>
                 </TableRow>
-              ) : places.map((place) => (
+                ) : places.length === 0 ? (
+                  <TableRow>
+                    <TableCell
+                      role="alert"
+                      colSpan={3}
+                      className="h-66.25 text-center text-muted-foreground"
+                    >
+                      {t("admin.places.notFound")}
+                    </TableCell>
+                  </TableRow>
+                ) : places.map((place) => (
                 <TableRow key={place.id}>
                   <TableCell>{place.title?.[currentLang] ?? "-"}</TableCell>
                   <TableCell>{place.capacity}</TableCell>

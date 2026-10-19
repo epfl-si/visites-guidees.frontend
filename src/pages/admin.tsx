@@ -27,30 +27,32 @@ export default function Admin() {
 
   useEffect(() => {
     const fetchData = async () => {
-      getReservations(10, "desc").then((res) => {
-        if (res.success) {
-          setReservations(res.data);
-        } else {
-          setErrorRes(true);
-        }
-        setLoadingRes(false);
-      })
-      getPlaces().then((res) => {
-        if (res.success) {
-          setPlaces(res.data);
-        } else {
-          setErrorPlaces(true);
-        }
-        setLoadingPlaces(false);
-      })
-      getGuides().then((res) => {
-        if (res.success) {
-          setGuides(res.data);
-        } else {
-          setErrorGuides(true);
-        }
-        setLoadingGuides(false);
-      })
+      getReservations(10, "desc")
+        .then((res) => {
+          if (res.success) {
+            setReservations(res.data);
+          }
+        })
+        .catch(() => setErrorRes(true))
+        .finally(() => setLoadingRes(false));
+
+      getPlaces()
+        .then((res) => {
+          if (res.success) {
+            setPlaces(res.data);
+          }
+        })
+        .catch(() => setErrorPlaces(true))
+        .finally(() => setLoadingPlaces(false));
+
+      getGuides()
+        .then((res) => {
+          if (res.success) {
+            setGuides(res.data);
+          }
+        })
+        .catch(() => setErrorGuides(true))
+        .finally(() => setLoadingGuides(false));
     }
     fetchData();
   }, []);
