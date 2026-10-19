@@ -1,6 +1,6 @@
 import type { Guide } from "@/types/guide"
 import { useEffect, useState } from "react";
-import { Empty, EmptyHeader, EmptyDescription, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
+import { Empty, EmptyHeader, EmptyDescription, EmptyMedia, EmptyTitle, EmptyContent } from "@/components/ui/empty";
 import { User, Search } from "lucide-react";
 import { getGuides } from "@/services/guide";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -35,8 +35,6 @@ export default function Guides() {
       getGuides().then((res) => {
         if (res.success) {
           setGuides(res.data);
-        } else {
-          setError(true);
         }
       }).catch(() => {
         setError(true);
@@ -174,6 +172,9 @@ export default function Guides() {
                           {t("guide.notFoundDescription")}
                         </EmptyDescription>
                       </EmptyHeader>
+                      <EmptyContent>
+                        <AddGuideDialog guides={guides} setGuides={setGuides} />
+                      </EmptyContent>
                     </Empty >
                   </TableCell>
                 </TableRow>
