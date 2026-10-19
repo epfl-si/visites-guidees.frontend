@@ -11,6 +11,7 @@ export default function Page() {
   const { t, i18n } = useTranslation();
   const lang = i18n.resolvedLanguage as Languages;
   const [places, setPlaces] = useState<Place[] | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
@@ -21,7 +22,8 @@ export default function Page() {
       .catch(() => {
         toast.error(t('app.tours.error'));
         setFailed(true);
-      });
+      })
+      .finally(() => setLoading(false));
   }, [t]);
 
   return (
@@ -41,14 +43,14 @@ export default function Page() {
         </p>
       )}
 
-      {!failed && places === null && (
+      {loading && (
         <p className="flex items-center gap-2 text-muted-foreground">
           <Spinner aria-label={t('app.tours.loading')} />
           {t('app.tours.loading')}
         </p>
       )}
 
-      {places?.length === 0 && (
+      {places === null && (
         <p className="text-muted-foreground">{t('app.tours.empty')}</p>
       )}
 
