@@ -307,7 +307,8 @@
       "dashboard": "Tableau de bord",
       "reservations": "Reservations",
       "guides": "Guides",
-      "label": "Sections du back-office"
+      "label": "Sections du back-office",
+      "languages": "Langues"
     },
     "reservations": {
       "notFound": "Aucune reservation trouvée.",
