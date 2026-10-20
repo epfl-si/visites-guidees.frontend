@@ -76,6 +76,11 @@
     "submitting": "Envoi en cours…",
     "loadError": "Cette visite guidée n'a pas pu être chargée. Veuillez réessayer plus tard."
   },
+  "language": {
+    "title": "Langues",
+    "fetchError": "Impossible de récupérer les langues, Veuillez réessayer.",
+    "empty": "Actuelement, il n'y a aucune langue."
+  },
   "reservation": {
     "title": "Réservations",
     "lastReservations": "10 dernières reservations",
@@ -227,7 +232,13 @@
     "phoneNumber": "Numéro de téléphone",
     "language": "Langue(s)",
     "search": "Rechercher",
-    "filterStatus": "Filtrer par statut"
+    "filterStatus": "Filtrer par statut",
+    "lang": "Langue",
+    "code": "Code",
+    "reservationsNbr": "Nombre de réservations",
+    "placesNbr": "Nombre de places",
+    "guidesNbr": "Nombre de guides",
+    "action": "Action"
   },
   "errors": {
     "generic": {
