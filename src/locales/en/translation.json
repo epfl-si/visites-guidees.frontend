@@ -75,6 +75,9 @@
     "submitting": "Sending…",
     "loadError": "This guided tour could not be loaded. Please try again later."
   },
+  "language": {
+    "title": "Tour languages"
+  },
   "reservation": {
     "title": "Reservations",
     "lastReservations": "Last 10 reservations",
