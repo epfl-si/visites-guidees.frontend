@@ -35,6 +35,7 @@ import { RESERVATION_STATUS } from "@/constants/status";
 import type { Languages } from "@/types/language";
 import { toast } from "sonner";
 import { cancelReservation } from "@/services/reservation";
+import PhoneNumber from "@/components/phone/phone-number";
 
 function formatDateOnly(d: Date | string) {
   return new Date(d).toLocaleDateString("fr-CH", {
@@ -230,7 +231,7 @@ export default function Reservation() {
                 <div>
                   <p className="text-xs text-muted-foreground">{t("reservation.phone")}</p>
                   <a href={`tel:${reservation.phone}`} className="text-sm font-medium hover:underline">
-                    {reservation.phone}
+                    <PhoneNumber phone={reservation.phone}/>
                   </a>
                 </div>
               </div>

@@ -15,6 +15,7 @@ import { GUIDE_STATUS } from "@/constants/status";
 import { AddGuideDialog } from "@/components/guide/addGuideDialog/index";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Dispatch, SetStateAction } from "react";
+import PhoneNumber from "../phone/phone-number";
 
 export const GuidesTable = ({ guides, setGuides, loading, error }: { guides: Guide[], setGuides: Dispatch<SetStateAction<Guide[]>>, loading: boolean, error: boolean }) => {
   const { t } = useTranslation();
@@ -80,7 +81,7 @@ export const GuidesTable = ({ guides, setGuides, loading, error }: { guides: Gui
                     <TableCell>{guide.user.email}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <span className="whitespace-nowrap">{guide.phone[0]}</span>
+                        <span className="whitespace-nowrap"><PhoneNumber phone={guide.phone[0]}/></span>
 
                         {guide.phone.length > 1 && (
                           <HoverCard>
@@ -95,7 +96,7 @@ export const GuidesTable = ({ guides, setGuides, loading, error }: { guides: Gui
                                   {t("admin.guides.allPhones")}
                                 </span>
                                 {guide.phone.map((p, i) => (
-                                  <span key={i} className="text-sm font-medium">{p}</span>
+                                  <span key={i} className="text-sm font-medium"><PhoneNumber phone={p}/></span>
                                 ))}
                               </div>
                             </HoverCardContent>

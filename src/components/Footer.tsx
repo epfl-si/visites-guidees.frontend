@@ -1,6 +1,7 @@
 import type React from "react";
 import { config, version } from '../../package.json';
 import { useTranslation } from 'react-i18next';
+import PhoneNumber from "./phone/phone-number";
 
 export const Footer: React.FC = () => {
   const { t } = useTranslation();
@@ -34,7 +35,7 @@ export const Footer: React.FC = () => {
                     </a>
                   </li>
                   <li className="text-gray-500">{config.address}</li>
-                  <li className="text-gray-500">{config.telephone}</li>
+                  <li className="text-gray-500"><PhoneNumber phone={config.telephone}/></li>
                 </ul>
               </div>
               <div className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-1 text-xs text-gray-500">

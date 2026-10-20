@@ -18,6 +18,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useNavigate } from "react-router";
 import { Badge } from "@/components/ui/badge";
 import { AddGuideDialog } from "@/components/guide/addGuideDialog/index";
+import PhoneNumber from "@/components/phone/phone-number";
 
 export default function Guides() {
   const [guides, setGuides] = useState<Guide[]>([]);
@@ -193,7 +194,7 @@ export default function Guides() {
                       <TableCell>{guide.user.email}</TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                          <span className="whitespace-nowrap">{guide.phone[0]}</span>
+                          <span className="whitespace-nowrap"><PhoneNumber phone={guide.phone[0]} /></span>
 
                           {guide.phone.length > 1 && (
                             <HoverCard>
@@ -208,7 +209,7 @@ export default function Guides() {
                                     {t("admin.guides.allPhones")}
                                   </span>
                                   {guide.phone.map((p, i) => (
-                                    <span key={i} className="text-sm font-medium">{p}</span>
+                                    <span key={i} className="text-sm font-medium"><PhoneNumber phone={p} /></span>
                                   ))}
                                 </div>
                               </HoverCardContent>
