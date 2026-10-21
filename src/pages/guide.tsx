@@ -18,8 +18,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Empty, EmptyHeader, EmptyDescription, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
-import { LoadingPage } from "./Loading";
-import ErrorPage from "@/pages/Error";
+import { LoadingPage } from "./loading";
+import ErrorPage from "@/pages/error";
 
 function formatDate(d: Date | string) {
   return new Date(d).toLocaleDateString("fr-CH", {
