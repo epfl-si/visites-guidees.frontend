@@ -1,13 +1,10 @@
+import type { LanguagesJson } from "./language";
+
 export type BlockedPeriod = {
   id: number;
   createdAt: Date;
   updatedAt: Date;
-  label: Label;
+  label: LanguagesJson;
   start: Date;
   end: Date;
-}
-
-type Label = {
-  en: string;
-  fr: string;
 }

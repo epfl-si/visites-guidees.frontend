@@ -1,18 +1,13 @@
-import type { Language } from "@/types/language";
+import type { Language, LanguagesJson } from "@/types/language";
 
 export type Place = {
   id: number;
-  title: placeJson;
-  description: placeJson;
+  title: LanguagesJson;
+  description: LanguagesJson;
   picture: string;
   capacity: number;
   price: number;
-  conditions: placeJson;
-}
-
-type placeJson = {
-  en: string;
-  fr: string;
+  conditions: LanguagesJson;
 }
 
 export type PlaceInformationType = Place & {

@@ -5,3 +5,8 @@ export type Language = {
 }
 
 export type Languages = "en" | "fr";
+
+export type LanguagesJson = {
+  en: string;
+  fr: string;
+}
