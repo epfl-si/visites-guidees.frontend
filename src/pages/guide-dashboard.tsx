@@ -212,41 +212,44 @@ export default function GuideDashboard() {
               <div className="space-y-4">
                 <Skeleton className="h-62.5 w-full rounded-xl" />
               </div>
-            ) : guide?.blockedPeriods?.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-62.5 rounded-lg border border-dashed bg-muted/20">
-                <IconCalendar className="h-10 w-10 text-muted-foreground mb-4 opacity-50" />
-                <p className="text-sm text-muted-foreground">{t("guide.dashboard.blockedPeriod.empty")}</p>
-              </div>
             ) : (
               <div className="flex flex-col md:flex-row gap-2">
-                <div className="flex-1 flex flex-col min-w-0">
-                  <ScrollArea className="h-62.5 pr-4">
-                    <div className="flex flex-col gap-3">
-                      {guide?.blockedPeriods
-                        .filter((event) => new Date(event.end).getTime() >= new Date().getTime())
-                        .sort((a, b) => new Date(b.end).getTime() - new Date(a.end).getTime())
-                        .map((event) => (
-                          <div
-                            key={event.id}
-                            className={cn(
-                              "relative rounded-lg border bg-card p-3 pl-6 transition-colors hover:bg-muted/50",
-                              "after:absolute after:inset-y-3 after:left-2 after:w-1 after:rounded-full after:bg-primary"
-                            )}
-                          >
-                            <div className="font-medium truncate">
-                              {event.label[currentLanguage]}
+                {guide?.blockedPeriods?.length === 0 ? (
+                  <div className="flex-1 flex flex-col items-center justify-center h-62.5 rounded-lg border border-dashed bg-muted/20">
+                    <IconCalendar className="h-10 w-10 text-muted-foreground mb-4 opacity-50" />
+                    <p className="text-sm text-muted-foreground">{t("guide.dashboard.blockedPeriod.empty")}</p>
+                  </div>
+                ) : (
+                  <div className="flex-1 flex flex-col min-w-0">
+                    <ScrollArea className="h-62.5 pr-4">
+                      <div className="flex flex-col gap-3">
+                        {guide?.blockedPeriods
+                          .filter((event) => new Date(event.end).getTime() >= new Date().getTime())
+                          .sort((a, b) => new Date(b.end).getTime() - new Date(a.end).getTime())
+                          .map((event) => (
+                            <div
+                              key={event.id}
+                              className={cn(
+                                "relative rounded-lg border bg-card p-3 pl-6 transition-colors hover:bg-muted/50",
+                                "after:absolute after:inset-y-3 after:left-2 after:w-1 after:rounded-full after:bg-primary"
+                              )}
+                            >
+                              <div className="font-medium truncate">
+                                {event.label[currentLanguage]}
+                              </div>
+                              <div className="text-muted-foreground text-xs mt-1">
+                                {`${format(new Date(event.start), "dd MMM", { locale: fr })} - ${format(new Date(event.end), "dd MMM yyyy", { locale: fr })}`}
+                              </div>
                             </div>
-                            <div className="text-muted-foreground text-xs mt-1">
-                              {`${format(new Date(event.start), "dd MMM", { locale: fr })} - ${format(new Date(event.end), "dd MMM yyyy", { locale: fr })}`}
-                            </div>
-                          </div>
-                        ))}
-                    </div>
-                  </ScrollArea>
-                </div>
+                          ))
+                        }
+                      </div>
+                    </ScrollArea>
+                  </div>
+                )}
                 <div className="hidden sm:flex shrink-0 items-start justify-center">
                   <div className="border bg-card p-4">
-                    <BlockedPeriodFormGuide onCreateBlockedPeriodes={addBlockedPeriod}/>
+                    <BlockedPeriodFormGuide onCreateBlockedPeriodes={addBlockedPeriod} />
                   </div>
                 </div>
               </div>
