@@ -32,7 +32,7 @@ export function NextVisitCard({ visit }: { visit: Reservation }) {
 
           <div className="border-b pb-4">
             <h3 className="font-semibold text-lg text-foreground">
-              {visit.place.title[currentLang] || "Visite guidée"}
+              {visit.place.title[currentLang]}
             </h3>
             <div className="flex items-center text-sm text-muted-foreground mt-2 gap-4">
               <div className="flex items-center gap-1.5">
