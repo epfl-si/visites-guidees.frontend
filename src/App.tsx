@@ -20,11 +20,13 @@ import { registrationSegments } from '@/lib/routes';
 import GuideConfirmation from '@/pages/guide-confirmation';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
+import GuideDashboard from "./pages/guide-dashboard"
 
 export default function App() {
   const oidc = useOpenIDConnectContext()
   const { t } = useTranslation()
   const [connectedUser, setConnectedUser] = useState<UserType>({
+    sciper: "",
     firstName: "",
     lastName: "",
     roles: [],
@@ -99,8 +101,9 @@ export default function App() {
                 element={<Registration />}
               />
             ))}
-            <Route path="/admin" element={<RequireAuth oidc={oidc} />}>
+            <Route element={<RequireAuth oidc={oidc} />}>
               <Route
+                path="/admin"
                 element={
                   <RequireRole
                     role="admin"
@@ -122,6 +125,7 @@ export default function App() {
                 </Route>
               </Route>
               <Route
+                path="/guide"
                 element={
                   <RequireRole
                     role="guide"
@@ -130,8 +134,9 @@ export default function App() {
                   />
                 }
               >
+                <Route index element={<GuideDashboard />}/>
                 <Route
-                  path="guide/reservations/:reservationId"
+                  path="reservations/:reservationId"
                   element={<GuideConfirmation />}
                 />
               </Route>

@@ -1,8 +1,13 @@
 export type BlockedPeriod = {
   id: number;
-  label: Record<string, string>;
-  start: string;
-  end: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
+  label: Label;
+  start: Date;
+  end: Date;
+}
+
+type Label = {
+  en: string;
+  fr: string;
 }

@@ -10,6 +10,7 @@ export type Guide = {
   phone: string[];
   user: User;
   languages: Language[];
+  blockedPeriods: BlockedPeriod[]
 }
 
 export type GuideDetails = Guide & {
