@@ -1,5 +1,4 @@
-import { fetchConnectedUser } from "@/services/auth"
-import { getGuide, getVisitsByGuide } from "@/services/guide";
+import { getGuideAsGuide, getVisitsByGuide } from "@/services/guide";
 import type { Guide } from "@/types/guide";
 import { useEffect, useState } from "react"
 import { useTranslation, Trans } from "react-i18next";
@@ -43,13 +42,10 @@ export default function GuideDashboard() {
   useEffect(() => {
     const fetchGuide = async () => {
       try {
-        const user = await fetchConnectedUser();
-        if (user.success) {
-          const guideRes = await getGuide(Number(user.data.sciper));
-          if (guideRes.success) {
-            setGuide(guideRes.data);
-            return;
-          }
+        const guideRes = await getGuideAsGuide();
+        if (guideRes.success) {
+          setGuide(guideRes.data);
+          return;
         }
         navigate("/");
       } catch {
