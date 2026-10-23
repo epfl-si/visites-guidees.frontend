@@ -35,7 +35,7 @@ export const InputAddress = () => {
         placeholder={t("registration.address.complementPlaceholder")}
         {...register("additionalAddress")}
       />
-      <div className="grid grid-cols-2 gap-3">
+      <div className="flex flex-col sm:grid grid-cols-2 gap-1">
         <div className="flex flex-col gap-1">
           <Input
             placeholder={t("registration.address.cityPlaceholder")}
@@ -46,21 +46,21 @@ export const InputAddress = () => {
         </div>
         <div className="flex flex-col gap-1">
           <Input
-            placeholder={t("registration.address.regionPlaceholder")}
-            aria-invalid={!!errors.region}
-            {...register("region")}
-          />
-          <FieldError message={errors.region?.message} />
-        </div>
-      </div>
-      <div className="grid grid-cols-2 gap-3">
-        <div className="flex flex-col gap-1">
-          <Input
             placeholder={t("registration.address.postalCodePlaceholder")}
             aria-invalid={!!errors.zip}
             {...register("zip")}
           />
           <FieldError message={errors.zip?.message} />
+        </div>
+      </div>
+      <div className="flex flex-col sm:grid  grid-cols-2 gap-1">
+        <div className="flex flex-col gap-1">
+          <Input
+            placeholder={t("registration.address.regionPlaceholder")}
+            aria-invalid={!!errors.region}
+            {...register("region")}
+          />
+          <FieldError message={errors.region?.message} />
         </div>
         <div className="flex flex-col gap-1">
           <Controller

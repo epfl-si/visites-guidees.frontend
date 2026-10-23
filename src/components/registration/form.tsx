@@ -94,7 +94,7 @@ export default function RegistrationForm({
   return (
     <FormProvider {...form}>
       <form
-        className="m-3 flex w-full max-w-3xl flex-col gap-5"
+        className="m-3 flex w-full max-w-3xl flex-col gap-5 p-5 lg:p-0"
         onSubmit={handleSubmit(onSubmit)}
         noValidate
       >

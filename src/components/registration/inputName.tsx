@@ -14,7 +14,7 @@ export const InputName = () => {
   return (
     <div className="flex flex-col gap-1.5">
       <FieldLabel required>{t("registration.organizerName.label")}</FieldLabel>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="sm:grid sm:grid-cols-2 gap-3 flex flex-col">
         <div className="flex flex-col gap-1">
           <Input
             placeholder={t("registration.organizerName.firstNamePlaceholder")}
