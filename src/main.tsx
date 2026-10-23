@@ -8,15 +8,15 @@ import '@/lib/i18n';
 const store = new LocalStorageBackend();
 createRoot(document.getElementById('root')!).render(
   <OIDCContext
-    authServerUrl={env().GUIDED_TOURS_ENTRA_SERVER_URL ?? ''}
+    authServerUrl={env().VG_ENTRA_URL}
     client={{
-      clientId: env().GUIDED_TOURS_ENTRA_CLIENT_ID ?? '',
-      scope: env().GUIDED_TOURS_ENTRA_SCOPE,
-      redirectUri: env().GUIDED_TOURS_URL
+      clientId: env().VG_ENTRA_CLIENT_ID,
+      scope: env().VG_ENTRA_SCOPE,
+      redirectUri: env()[window.location.hostname.includes('guided-tours') ? "VG_HOMEPAGE_EN" : "VG_HOMEPAGE_FR"]
     }}
     storage={store}
     refreshStorage={window.localStorage}
-    onLogout={() => window.location.href=env().GUIDED_TOURS_URL ?? ''}
+    onLogout={() => window.location.href=env().VG_HOMEPAGE ?? ''}
   >
     <App />
   </OIDCContext>
