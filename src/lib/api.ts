@@ -46,13 +46,13 @@ export async function call<T>(url: string, options: ApiCallOptions = {}): Promis
   return body as T;
 }
 
-const BACKEND_URL = env().GUIDED_TOURS_BACKEND_URL || 'http://localhost:3000/';
+const VG_BACKEND_URL = env().VG_BACKEND_URL || 'http://localhost:3000/';
 
 export async function callBackend<T>(
   endpoint: string,
   options: ApiCallOptions = {},
 ): Promise<BackendResponse<T>> {
-  const data = await call<BackendResponse<T>>(`${BACKEND_URL}${endpoint}`, options)
+  const data = await call<BackendResponse<T>>(`${VG_BACKEND_URL}${endpoint}`, options)
 
   if (!data) throw new Error(`No response from backend`);
 
