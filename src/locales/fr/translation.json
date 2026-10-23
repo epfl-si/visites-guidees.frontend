@@ -255,7 +255,7 @@
     "reservationsNbr": "Nombre de réservations",
     "placesNbr": "Nombre de places",
     "guidesNbr": "Nombre de guides",
-    "action": "Action"
+    "action": "Actions"
   },
   "errors": {
     "generic": {
@@ -310,7 +310,14 @@
     "getHelp": "Obtenir de l'aide",
     "next": "Suivant",
     "previous": "Retour",
-    "select": "Choisir"
+    "select": "Choisir",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "restore": "Restaurer",
+    "language": {
+      "errorDelete": "Impossible de supprimer la langue.",
+      "successDelete": "La suppression"
+    }
   },
   "admin": {
     "title": "Tableau de bord",

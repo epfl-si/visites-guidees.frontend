@@ -1,9 +1,25 @@
 import { callBackend } from "@/lib/api"
 import type { BackendResponse } from "@/types/api"
-import type { Language } from "@/types/language"
+import type { ListLanguage } from "@/types/language"
 
-const VERSION = 1
+const VERSION = "v1"
+const ENDPOINT = "languages"
 
-export async function getLanguages(): Promise<BackendResponse<Language[]>> {
-  return await callBackend<Language[]>(`v${VERSION}/languages`)
+export async function getLanguages(): Promise<BackendResponse<ListLanguage[]>> {
+  return await callBackend<ListLanguage[]>(`${VERSION}/${ENDPOINT}`)
+}
+
+export async function removeLanguage(id: number): Promise<BackendResponse<ListLanguage>> {
+  return await callBackend<ListLanguage>(`${VERSION}/${ENDPOINT}/${id}`, {
+    method: "DELETE",
+  });
+}
+
+export async function restoreLanguage(id: number): Promise<BackendResponse<ListLanguage>> {
+  return await callBackend<ListLanguage>(`${VERSION}/${ENDPOINT}/${id}`, {
+    method: 'PUT',
+    body: {
+
+    }
+  })
 }

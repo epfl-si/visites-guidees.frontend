@@ -246,7 +246,13 @@
     "phoneNumber": "Phone number",
     "language": "Language(s)",
     "search": "Search",
-    "filterStatus": "Filter by status"
+    "filterStatus": "Filter by status",
+    "lang": "Language",
+    "code": "Code",
+    "reservationsNbr": "Number of reservations",
+    "placesNbr": "Number of places",
+    "guidesNbr": "Number of guides",
+    "action": "Actions"
   },
   "errors": {
     "generic": {
@@ -301,7 +307,13 @@
     "getHelp": "Get help",
     "next": "Next",
     "previous": "Back",
-    "select": "Select"
+    "select": "Select",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "restore": "Restore",
+    "language": {
+      "errorDelete": "Failed to delete language."
+    }
   },
   "admin": {
     "title": "Admin dashboard",
