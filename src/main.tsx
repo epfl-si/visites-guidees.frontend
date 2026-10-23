@@ -12,7 +12,7 @@ createRoot(document.getElementById('root')!).render(
     client={{
       clientId: env().VG_ENTRA_CLIENT_ID,
       scope: env().VG_ENTRA_SCOPE,
-      redirectUri: env().VG_HOMEPAGE
+      redirectUri: env()[window.location.hostname.includes('guided-tours') ? "VG_HOMEPAGE_EN" : "VG_HOMEPAGE_FR"]
     }}
     storage={store}
     refreshStorage={window.localStorage}
