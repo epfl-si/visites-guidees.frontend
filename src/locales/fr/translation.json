@@ -76,6 +76,12 @@
     "submitting": "Envoi en cours…",
     "loadError": "Cette visite guidée n'a pas pu être chargée. Veuillez réessayer plus tard."
   },
+  "language": {
+    "title": "Langues",
+    "deletedTitle": "Langues supprimées",
+    "fetchError": "Impossible de récupérer les langues, Veuillez réessayer.",
+    "empty": "Actuelement, il n'y a aucune langue."
+  },
   "reservation": {
     "title": "Réservations",
     "lastReservations": "10 dernières reservations",
@@ -244,7 +250,13 @@
     "phoneNumber": "Numéro de téléphone",
     "language": "Langue(s)",
     "search": "Rechercher",
-    "filterStatus": "Filtrer par statut"
+    "filterStatus": "Filtrer par statut",
+    "lang": "Langue",
+    "code": "Code",
+    "reservationsNbr": "Nombre de réservations",
+    "placesNbr": "Nombre de places",
+    "guidesNbr": "Nombre de guides",
+    "action": "Actions"
   },
   "errors": {
     "generic": {
@@ -293,13 +305,28 @@
     }
   },
   "actions": {
-    "backToHome": "Back to home",
-    "previousPage": "Previous page",
-    "add": "ajouter",
+    "backToHome": "Retour à l'accueil",
+    "previousPage": "Page précédente",
+    "add": "Ajouter",
     "getHelp": "Obtenir de l'aide",
     "next": "Suivant",
     "previous": "Retour",
-    "select": "Choisir"
+    "select": "Choisir",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "restore": "Restaurer",
+    "cancel": "Annuler",
+    "save": "Sauvegarder",
+    "language": {
+      "deleteConfirm": "Voulez-vous vraiment supprimer cette langue ?",
+      "editConfirm": "Modifier les informations de la langue",
+      "errorDelete": "Impossible de supprimer la langue.",
+      "successDelete": "La langue a été supprimée avec succès.",
+      "errorEdit": "Impossible de modifier la langue.",
+      "successEdit": "La langue a été modifiée avec succès.",
+      "errorRestore": "Impossible de restaurer la langue.",
+      "successRestore": "La langue a été restaurée avec succès."
+    }
   },
   "admin": {
     "title": "Tableau de bord",
@@ -307,7 +334,8 @@
       "dashboard": "Tableau de bord",
       "reservations": "Reservations",
       "guides": "Guides",
-      "label": "Sections du back-office"
+      "label": "Sections du back-office",
+      "languages": "Langues"
     },
     "reservations": {
       "notFound": "Aucune reservation trouvée.",

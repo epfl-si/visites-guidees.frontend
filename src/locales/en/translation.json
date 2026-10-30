@@ -75,6 +75,12 @@
     "submitting": "Sending…",
     "loadError": "This guided tour could not be loaded. Please try again later."
   },
+  "language": {
+    "title": "Languages",
+    "deletedTitle": "Deleted Languages",
+    "fetchError": "Error while loading languages.",
+    "empty": "No languages found."
+  },
   "reservation": {
     "title": "Reservations",
     "lastReservations": "Last 10 reservations",
@@ -243,7 +249,13 @@
     "phoneNumber": "Phone number",
     "language": "Language(s)",
     "search": "Search",
-    "filterStatus": "Filter by status"
+    "filterStatus": "Filter by status",
+    "lang": "Language",
+    "code": "Code",
+    "reservationsNbr": "Number of reservations",
+    "placesNbr": "Number of places",
+    "guidesNbr": "Number of guides",
+    "action": "Actions"
   },
   "errors": {
     "generic": {
@@ -294,11 +306,26 @@
   "actions": {
     "backToHome": "Back to home",
     "previousPage": "Previous page",
-    "add": "ajouter",
+    "add": "Add",
     "getHelp": "Get help",
     "next": "Next",
-    "previous": "Back",
-    "select": "Select"
+    "previous": "Previous",
+    "select": "Select",
+    "edit": "Edit",
+    "delete": "Delete",
+    "restore": "Restore",
+    "cancel": "Cancel",
+    "save": "Save",
+    "language": {
+      "deleteConfirm": "Are you sure you want to delete this language?",
+      "editConfirm": "Edit language details",
+      "errorDelete": "Failed to delete the language.",
+      "successDelete": "Language deleted successfully.",
+      "errorEdit": "Failed to update the language.",
+      "successEdit": "Language updated successfully.",
+      "errorRestore": "Failed to restore the language.",
+      "successRestore": "Language restored successfully."
+    }
   },
   "admin": {
     "title": "Admin dashboard",
@@ -306,7 +333,8 @@
       "dashboard": "Dashboard",
       "reservations": "Reservations",
       "guides": "Guides",
-      "label": "Back office sections"
+      "label": "Back office sections",
+      "languages": "Languages"
     },
     "reservations": {
       "notFound": "No reservation found.",

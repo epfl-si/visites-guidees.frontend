@@ -1,4 +1,4 @@
-import { Calendar, LayoutPanelLeft, User } from "lucide-react";
+import { Calendar, Languages, LayoutPanelLeft, User } from "lucide-react";
 import { NavLink, useLocation } from "react-router";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
@@ -12,6 +12,7 @@ export function AdminNav() {
     { href: "/admin", label: t("admin.nav.dashboard"), Icon: LayoutPanelLeft },
     { href: "/admin/reservations", label: t("admin.nav.reservations"), Icon: Calendar },
     { href: "/admin/guides", label: t("admin.nav.guides"), Icon: User },
+    { href: "/admin/languages", label: t("admin.nav.languages"), Icon: Languages },
   ];
 
   return (
