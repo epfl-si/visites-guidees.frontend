@@ -123,12 +123,17 @@ export default function Languages() {
           edit={triggerEditLanguage}
         />
         {languages.some((lang) => lang.deletedAt) && (
-          <TableLanguages
-            error={error}
-            loading={loading}
-            languages={languages}
-            restore={restoreLang}
-          />
+          <>
+            <div className="flex items-center gap-3">
+              <h1 className="text-2xl font-semibold">{t("language.deletedTitle")}</h1>
+            </div>
+            <TableLanguages
+              error={error}
+              loading={loading}
+              languages={languages}
+              restore={restoreLang}
+            />
+          </>
         )}
         <Dialog open={action !== null} onOpenChange={(open) => {
           if (!open) {

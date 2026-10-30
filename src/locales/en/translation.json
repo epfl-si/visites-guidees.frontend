@@ -76,7 +76,10 @@
     "loadError": "This guided tour could not be loaded. Please try again later."
   },
   "language": {
-    "title": "Tour languages"
+    "title": "Languages",
+    "deletedTitle": "Deleted Languages",
+    "fetchError": "Error while loading languages.",
+    "empty": "No languages found."
   },
   "reservation": {
     "title": "Reservations",

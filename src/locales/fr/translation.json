@@ -78,6 +78,7 @@
   },
   "language": {
     "title": "Langues",
+    "deletedTitle": "Langues supprimées",
     "fetchError": "Impossible de récupérer les langues, Veuillez réessayer.",
     "empty": "Actuelement, il n'y a aucune langue."
   },
