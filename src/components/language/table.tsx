@@ -91,17 +91,17 @@ export default function TableLanguages({
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       {restore ? (
-                        <DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => restore(lang.id)}>
                           <Undo2 className="w-4 h-4 mr-2" />
-                          {t("actions.edit")}
+                          {t("actions.restore")}
                         </DropdownMenuItem>
                       ) : (
                         <>
-                          <DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => edit && edit(lang.id)}>
                             <Pen className="w-4 h-4 mr-2" />
                             {t("actions.edit")}
                           </DropdownMenuItem>
-                          <DropdownMenuItem className="text-red-600 focus:text-red-600 cursor-pointer">
+                          <DropdownMenuItem onClick={() => onDelete && onDelete(lang.id)} className="text-red-600 focus:text-red-600 cursor-pointer">
                             <Trash2 className="w-4 h-4 mr-2" />
                             {t("actions.delete")}
                           </DropdownMenuItem>

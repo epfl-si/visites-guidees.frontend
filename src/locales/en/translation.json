@@ -303,16 +303,25 @@
   "actions": {
     "backToHome": "Back to home",
     "previousPage": "Previous page",
-    "add": "ajouter",
+    "add": "Add",
     "getHelp": "Get help",
     "next": "Next",
-    "previous": "Back",
+    "previous": "Previous",
     "select": "Select",
-    "edit": "Modifier",
-    "delete": "Supprimer",
+    "edit": "Edit",
+    "delete": "Delete",
     "restore": "Restore",
+    "cancel": "Cancel",
+    "save": "Save",
     "language": {
-      "errorDelete": "Failed to delete language."
+      "deleteConfirm": "Are you sure you want to delete this language?",
+      "editConfirm": "Edit language details",
+      "errorDelete": "Failed to delete the language.",
+      "successDelete": "Language deleted successfully.",
+      "errorEdit": "Failed to update the language.",
+      "successEdit": "Language updated successfully.",
+      "errorRestore": "Failed to restore the language.",
+      "successRestore": "Language restored successfully."
     }
   },
   "admin": {

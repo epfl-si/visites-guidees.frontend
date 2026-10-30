@@ -16,10 +16,17 @@ export async function removeLanguage(id: number): Promise<BackendResponse<ListLa
 }
 
 export async function restoreLanguage(id: number): Promise<BackendResponse<ListLanguage>> {
+  return await callBackend<ListLanguage>(`${VERSION}/${ENDPOINT}/${id}/restore`, {
+    method: 'POST',
+  })
+}
+
+export async function editLanguage(id: number, language: ListLanguage): Promise<BackendResponse<ListLanguage>> {
   return await callBackend<ListLanguage>(`${VERSION}/${ENDPOINT}/${id}`, {
     method: 'PUT',
     body: {
-
+      code: language.code,
+      name: language.name,
     }
   })
 }
